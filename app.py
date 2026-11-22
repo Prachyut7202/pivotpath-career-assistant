@@ -39,6 +39,14 @@ async def basic_demo_limits(request:Request,call_next):
 def status():
     return {'ai':'live' if configured_providers() else 'demo', 'providers':configured_providers(), 'gemini_opt_in_required':True, 'resume_parser':'available','pdf_export':'available','authentication':'not provided'}
 
+@app.get('/pip-experience.js')
+def pip_experience_js():
+    return FileResponse(ROOT / 'pip-experience.js', media_type='application/javascript', headers={'Cache-Control':'public, max-age=300'})
+
+@app.get('/pip-experience.css')
+def pip_experience_css():
+    return FileResponse(ROOT / 'pip-experience.css', media_type='text/css', headers={'Cache-Control':'public, max-age=300'})
+
 @app.get('/roles.json')
 def role_file(): return FileResponse(ROOT/'roles.json',media_type='application/json')
 
