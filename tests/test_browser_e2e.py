@@ -66,7 +66,7 @@ def sample_case(page,sample,role,expected_name):
         page.locator('.pcCalibrationRow').nth(i).locator('[data-pc-confidence="some"]').click()
     expect(page.locator('.pcCompletion')).to_contain_text('6/6')
     page.locator('#coachFloat .coachBtn').click()
-    expect(page.locator('#coachMessages .pipFlowBubble').last).to_contain_text("mapped how confident")
+    expect(page.locator('#coachMessages .pipFlowBubble').last).to_contain_text("A short case")
     expect(page.locator('#coachQuick .pipNextPanel')).to_have_count(0)
     expect(page.locator('#main #pipJourneyGuide')).to_have_count(0)
     page.locator('#coachMessages [data-journey-action="start-case"]').last.click()
@@ -76,14 +76,14 @@ def sample_case(page,sample,role,expected_name):
         page.locator('#answerForm textarea[name="answer"]').fill(ANSWER)
         page.locator('#answerForm button[type="submit"]').click()
         if q==0:
-            expect(page.locator('#coachMessages .pipFlowBubble').last).to_contain_text('first answer')
+            expect(page.locator('#coachMessages .pipFlowBubble').last).to_contain_text('Would a quick example')
             first_feedback_turns=page.locator('#coachMessages .pipFlowBubble').count()
         else:
             assert page.locator('#coachMessages .pipFlowBubble').count()==first_feedback_turns,(
                 "Should not create scripted messages after every question",q)
         page.locator('#main [data-action="next-question"]').click()
     expect(page.locator('#main')).to_contain_text('Case completed')
-    expect(page.locator('#coachMessages .pipFlowBubble').last).to_contain_text('Case complete')
+    expect(page.locator('#coachMessages .pipFlowBubble').last).to_contain_text('case is done')
     # After the case, routine tabs still cannot add any chat messages.
     complete_chat_count=page.evaluate("S.chat.length")
     for destination in ('discovery','readiness','practice'):
