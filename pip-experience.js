@@ -196,7 +196,9 @@
      '<footer>'+secondary('Back to my answer','close-lesson')+primary('Revisit readiness ↺','guide','data-target="readiness"')+'</footer></section>';
     document.body.appendChild(root);lessonOpen=true;
   }
-  function action(target){
+  // The journey controller can open the same verified lesson UI.
+  window.PipStartLesson=()=>openLesson();
+    function action(target){
     if(target==='toggle-guide'||target==='talk'){S.coachOpen=!S.coachOpen;save();renderCoach();dock();if(!S.coachOpen&&target==='talk'){S.coachOpen=true;renderCoach();dock();}return;}
     if(target==='restart'){S.pipIntake={step:'hello',method:null,filename:'',owned:[],note:'',done:false};S.stage='welcome';S.coachOpen=false;save();render();return;}
     if(target==='lesson'){openLesson();return;}
