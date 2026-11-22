@@ -11,6 +11,7 @@ from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
+from providers import configured_providers, route_json
 
 ROOT=pathlib.Path(__file__).resolve().parent
 KEY=os.getenv('OPENAI_API_KEY','').strip()
@@ -36,7 +37,7 @@ async def basic_demo_limits(request:Request,call_next):
 
 @app.get('/api/status')
 def status():
-    return {'ai':'live' if KEY else 'demo','resume_parser':'available','pdf_export':'available','authentication':'not provided'}
+    return {'ai':'live' if configured_providers() else 'demo', 'providers':configured_providers(), 'gemini_opt_in_required':True, 'resume_parser':'available','pdf_export':'available','authentication':'not provided'}
 
 @app.get('/roles.json')
 def role_file(): return FileResponse(ROOT/'roles.json',media_type='application/json')
@@ -154,28 +155,8 @@ def valid_answer(s: str)->bool:
         if len(set(chars))<5: return False
     return True
 
-async def openai_json(system: str,payload: dict,max_output_tokens: int=800)->dict:
-    if not KEY: raise HTTPException(status_code=503,detail='Live AI is not connected. Configure OPENAI_API_KEY on the server.')
-    try:
-        async with httpx.AsyncClient(timeout=45) as client:
-            r=await client.post('https://api.openai.com/v1/responses',headers={'Authorization':'Bearer '+KEY,'Content-Type':'application/json'},json={
-                'model':MODEL,'instructions':system,'input':json.dumps(payload,ensure_ascii=False),
-                'max_output_tokens':max_output_tokens,'store':False
-            })
-        if r.status_code>=400: raise RuntimeError('AI provider returned HTTP '+str(r.status_code))
-        j=r.json()
-        pieces=[]
-        for x in j.get('output',[]):
-            if x.get('type')=='message':
-                for y in x.get('content',[]):
-                    if y.get('type')=='output_text': pieces.append(y.get('text',''))
-        t='\n'.join(pieces).strip()
-        t=re.sub(r'^```(?:json)?\s*|\s*```$','',t).strip()
-        parsed=json.loads(t)
-        if not isinstance(parsed,dict): raise ValueError('Not a JSON object')
-        return parsed
-    except (httpx.HTTPError,ValueError,RuntimeError) as e:
-        raise HTTPException(status_code=502,detail='Live AI could not produce a valid response. Your work is saved; please try again.')
+async def pip_json(system: str, payload: dict, max_output_tokens: int, task: str, allow_gemini: bool):
+    return await route_json(system, payload, max_output_tokens, task, allow_gemini)
 
 @app.post('/api/coach')
 async def coach(request:Request):
@@ -193,9 +174,9 @@ async def coach(request:Request):
     'Any website change requires user confirmation. Reply strictly in JSON: '
     '{"reply":"short helpful response", "follow_up_question":"optional question or empty string", "suggested_route":"discovery|readiness|practice|resume|profile|"}. '
     'Do not use markdown code fences.')
-    out=await openai_json(sys,{'message':message,'context':context,'recent_thread':thread},max_output_tokens=650)
+    out=await pip_json(sys,{'message':message,'context':context,'recent_thread':thread},650,'coach',data.get('allow_gemini') is True)
     route=out.get('suggested_route','')
-    return {'reply':str(out.get('reply',''))[:2300], 'follow_up_question':str(out.get('follow_up_question',''))[:450], 'suggested_route':route if route in ('discovery','readiness','practice','resume','profile') else ''}
+    return {'reply':str(out.get('reply',''))[:2300], 'follow_up_question':str(out.get('follow_up_question',''))[:450], 'suggested_route':route if route in ('discovery','readiness','practice','resume','profile') else '', 'provider':out.get('_provider','unknown')}
 
 @app.post('/api/assess')
 async def assess(request:Request):
@@ -211,14 +192,14 @@ async def assess(request:Request):
     'Do not invent quotations. If evidence is quoted, it must be exact substring. '
     'Be fair on alternative valid approaches; account for hints as context, not automatic deduction. '
     'This is formative case feedback, never an estimate of interview or hiring success. No code fences.')
-    out=await openai_json(sys,{k:data.get(k) for k in ('question','competency','ideal','scenario','answer','hints_used','previous_answers')},max_output_tokens=800)
+    out=await pip_json(sys,{k:data.get(k) for k in ('question','competency','ideal','scenario','answer','hints_used','previous_answers')},800,'assess',data.get('allow_gemini') is True)
     rating=out.get('rating')
     assessable=bool(out.get('assessable',False)) and isinstance(rating,int) and 1<=rating<=5
     evidence=[str(e) for e in out.get('evidence',[]) if isinstance(e,str) and e and e in answer][:3]
     return {'assessable':assessable, 'rating':rating if assessable else None,'evidence':evidence,
             'strengths':[str(x)[:250] for x in out.get('strengths',[])][:3],
             'missed':[str(x)[:250] for x in out.get('missed',[])][:3],
-            'next_action':str(out.get('next_action','Review the underlying principle and try a similar question.'))[:400], 'source':'live'}
+            'next_action':str(out.get('next_action','Review the underlying principle and try a similar question.'))[:400], 'source':'live', 'provider':out.get('_provider','unknown')}
 
 @app.post('/api/resume-suggest')
 async def resume_suggest(request:Request):
@@ -231,10 +212,10 @@ async def resume_suggest(request:Request):
     'Preserve all underlying facts; if the source is vague, prefer restrained wording. '
     'Do not treat an AI practice case as professional work experience. '
     'Make the bullet ATS-friendly, precise, action-led and 20-36 words if possible. No code fences.')
-    out=await openai_json(sys,{'source':source,'role':str(data.get('role',''))[:120],'instruction':str(data.get('instruction',''))[:1200]},max_output_tokens=400)
+    out=await pip_json(sys,{'source':source,'role':str(data.get('role',''))[:120],'instruction':str(data.get('instruction',''))[:1200]},400,'resume',data.get('allow_gemini') is True)
     draft=str(out.get('draft','')).strip()[:800]
     if not draft: raise HTTPException(502,detail='AI did not produce an edit')
-    return {'draft':draft,'reason':str(out.get('reason','')).strip()[:400],'source':'live'}
+    return {'draft':draft,'reason':str(out.get('reason','')).strip()[:400],'source':'live','provider':out.get('_provider','unknown')}
 
 @app.post('/api/export-pdf')
 async def export_pdf(request:Request):
