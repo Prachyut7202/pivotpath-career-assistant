@@ -11,7 +11,7 @@ import os
 import traceback
 from pathlib import Path
 import fitz
-from playwright.sync_api import sync_playwright, expect
+# Imported only by main(), so the fast unittest job does not require Playwright.
 
 BASE=os.environ.get("PIVOTPATH_TEST_URL","http://127.0.0.1:8000")
 SCREENSHOTS=Path("/tmp/pivotpath-browser-screenshots")
@@ -107,6 +107,8 @@ def pdf_upload(page):
     assert page.evaluate("Object.keys(S.pipSkillConfidence||{}).length")==0
 
 def main():
+    global expect
+    from playwright.sync_api import sync_playwright, expect
     with sync_playwright() as playwright:
         browser=playwright.chromium.launch(headless=True,args=["--no-sandbox"])
         total=0
