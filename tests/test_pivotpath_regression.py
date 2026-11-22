@@ -57,7 +57,7 @@ class FrontendStructureTests(unittest.TestCase):
     def test_bundled_scripts_order(self):
         html=(ROOT/'index.html').read_text('utf-8')
         self.assertRegex(html,r'/pip-journey[.]js[?]v=[0-9]+(?:[.][0-9]+)*')
-        self.assertIn('/pip-insights.js?v=5.10',html)
+        self.assertRegex(html,r'/pip-insights[.]js[?]v=[0-9]+(?:[.][0-9]+)*')
         self.assertLess(html.index('/pip-progress.js'),html.index('/pip-insights.js'))
         self.assertIn("developing:['Developing in practice'",html)
 
