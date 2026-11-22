@@ -229,6 +229,37 @@ def _clean_thread(raw):
         if msg: items.append({'speaker':'user' if who=='user' else 'pip','text':msg})
     return items
 
+# Guard against models inventing a separate learning hub or built-in media.
+_FAKE_PRODUCT_DESTINATION=re.compile(
+    r'\b(?:learning hub|learning centre|learning center|skills? hub|'
+    r'course library|training portal|video library|resource library)\b',re.I)
+_FAKE_BUILTIN_MATERIALS=re.compile(
+    r'\b(?:curated\s+(?:videos|templates)|built-in\s+(?:video|course)\s+library)\b',re.I)
+
+def _ground_coach_navigation(reply:str,message:str,context:dict)->str:
+    # If the model already correctly says the feature does not exist, don't
+    # rewrite it. This is a safety net for affirmative, unsupported claims.
+    if not (_FAKE_PRODUCT_DESTINATION.search(reply) or _FAKE_BUILTIN_MATERIALS.search(reply)):
+        return reply
+    role=str(context.get('active_goal_name') or 'your chosen role').strip()[:100]
+    wants_readiness=bool(re.search(r'\b(?:ready|readiness|prepared|interview|apply|application)\b',message,re.I))
+    checkpoint=context.get('practice_checkpoint')
+    if wants_readiness:
+        count=checkpoint.get('completed_cases',0) if isinstance(checkpoint,dict) else 0
+        rated=checkpoint.get('rated_answers',0) if isinstance(checkpoint,dict) else 0
+        return (
+          f'For {role}, you have {count} completed case(s) and {rated} assessable answer(s) recorded. '
+          'Our suggested checkpoint before trying a harder mock is two different cases with at least eight rated answers, '
+          'an average of 3.5/5 or higher, and no answer below 3/5 in the latest case. '
+          'That is only a learning suggestion, not proof of job readiness; you can apply at any stage. '
+          'In PivotPath, open Readiness Map to review skill evidence and Practice & Improve for cases and your improvement plan.'
+        )
+    return (
+      'In Readiness Map, expand a skill evidence card to see why it was flagged and use its external '
+      '"Learn this skill" link. In Practice & Improve, you can review case feedback and your improvement plan. '
+      'There is no separate in-app learning hub. Which skill would you like to focus on?'
+    )
+
 @app.post('/api/coach')
 async def coach(request:Request):
     data=await request.json()
@@ -265,6 +296,16 @@ async def coach(request:Request):
     'If the user has already chosen an option, do not repeat the same menu or ask them to choose again. '
     'Instead honor their selection or give a brief next action. '
     'The website has explicit action buttons for navigation; never promise you have navigated unless the UI confirms it. '
+    'Treat context.available_ui as the exact product navigation contract, not a guess. '
+    'Only name the real screens: Career Discovery, Readiness Map, Practice & Improve, Living Resume, and My profile & settings. '
+    'Readiness Map contains Competencies that matter, expandable skill-evidence cards and external Learn this skill links. '
+    'Practice & Improve includes cases, feedback, progress and an improvement plan. '
+    'There is NO separate learning hub, skills portal, video library, course catalog, or in-app set of curated templates. '
+    'Do not invent screens, buttons, videos, curated articles, resources or features; external links must be described as external. '
+    'When asked WHEN the user is ready, distinguish readiness to try harder practice from readiness to interview or apply. '
+    'Use context.practice_checkpoint if provided: two different cases, at least eight assessable answers, overall 3.5/5 or higher '
+    'and no result below 3/5 in the most recent case is ONLY an illustrative milestone for a harder mock, not a hiring benchmark. '
+    'The user may apply at any stage. Ground readiness advice in their actual evidence and uncertainty. '
     'Do not suggest working on the resume unless the user asks or it is directly relevant to the current task. '
     'Use career_skill_picture, recent_practice and open_learning_actions when relevant; do not recite them as a dashboard. '
     'Self-reported confidence, resume claims and case ratings are different evidence; one case never proves mastery. '
@@ -286,6 +327,7 @@ async def coach(request:Request):
     if followup and '?' not in reply and followup.lower() not in reply.lower():
         reply=(reply+'\n\n'+followup).strip()
     if not reply: reply='Could you tell me a little more about the experience you want to discuss?'
+    reply=_ground_coach_navigation(reply,message,context)
     route=out.get('suggested_route','')
     # No unsolicited 'Open practice' button in a career-interview conversation.
     explicit_navigation=bool(re.search(r"\b(?:open|go to|navigate to|take me to|show me|start)\s+(?:the |my )?(?:practice|readiness|resume|profile|discovery)\b", message,re.I))
