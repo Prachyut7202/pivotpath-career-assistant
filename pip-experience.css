@@ -1,6 +1,6 @@
 /* PivotPath V5 — Pip-led onboarding and continuous guidance */
 .welcome{min-height:100vh;padding:0!important;background:#f8f9ff}
-.pipWelcome{min-height:100vh;display:grid;grid-template-columns:minmax(350px,.92fr) minmax(500px,1.08fr);max-width:1500px;margin:auto}
+.pipWelcome{min-height:100vh;min-height:100dvh;display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);max-width:none;width:100%;margin:0;overflow-x:clip}
 .pipHero{position:relative;overflow:hidden;background:linear-gradient(152deg,#202c67 4%,#343e91 58%,#6753b6 100%);padding:46px clamp(26px,5vw,75px);color:#fff;display:flex;flex-direction:column;justify-content:center}
 .pipHero::before{content:"";position:absolute;width:430px;height:430px;border:1px solid rgba(255,255,255,.11);border-radius:50%;right:-200px;top:-160px;box-shadow:0 0 0 70px rgba(255,255,255,.025),0 0 0 140px rgba(255,255,255,.028);pointer-events:none}
 .pipHeroBrand{position:absolute;top:43px;left:clamp(26px,5vw,75px);font-weight:800;font-size:23px;letter-spacing:-1px}
@@ -135,3 +135,9 @@
 .pipSamples button small{font-size:10px;color:#7e8ba6;font-weight:550}
 .pipSampleNote{background:#f3f4ff;color:#626f93;border-left:3px solid #9da1ee;padding:10px 15px;font-size:11px;line-height:1.58}
 @media(max-width:680px){.pipSamples{gap:7px}.pipSamples button{flex:1;min-width:110px}}
+
+/* V5.9.1: full-bleed welcome canvas on desktop, with no stray white gutters. */
+#root,.welcome{width:100%;max-width:none;box-sizing:border-box}
+.pipHero,.pipConversation{min-width:0}
+@media(min-width:1051px){.pipHero{padding-left:clamp(38px,7vw,118px);padding-right:clamp(30px,6vw,100px)}.pipConversation{width:min(700px,calc(100% - 72px));margin-left:auto;margin-right:auto;box-sizing:border-box}}
+@media(max-width:1050px){.pipWelcome{width:100%;max-width:none}}
