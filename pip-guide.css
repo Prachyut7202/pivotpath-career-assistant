@@ -1,7 +1,7 @@
 /* Quiet, milestone-led Pip companion. One mascot, one speech bubble, no timers. */
 /* The base coached-workspace hides the idle floating button. Only show it when a real milestone tip is available. */
-.coachFloat.pipGuideMoment:not(.hidden){display:flex!important;align-items:flex-end}
-.pipGuideDocked .coachFloat.pipGuideMoment{display:none!important}
+.coachFloat:not(.hidden){display:flex!important;align-items:flex-end}
+.pipGuideDocked .coachFloat{display:none!important}
 
 .coachFloat .coachNudge{display:none!important}
 .pipGuideTip{position:relative;order:-1;box-sizing:border-box;width:min(334px,calc(100vw - 118px));max-height:min(420px,70dvh);overflow:auto;margin:0 2px 5px 0;padding:16px 17px 14px;background:#fff;border:1px solid #dde2f5;border-radius:18px 18px 5px 18px;box-shadow:0 18px 46px rgba(32,44,90,.18);color:#303f6a;animation:pipGuideEntrance .3s cubic-bezier(.2,.8,.2,1) both}
