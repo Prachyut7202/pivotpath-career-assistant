@@ -31,8 +31,27 @@
       '<label class="pipDrop" for="pipIntakeFile"><span class="pipDropIcon">↥</span><strong>Choose your resume</strong><span>PDF, DOCX, TXT, MD or TEX · up to 7 MB</span><input id="pipIntakeFile" type="file" accept=".pdf,.docx,.txt,.md,.tex" /></label>'+
       '<div class="pipInline">'+secondary('I’ll describe my experience','manual')+secondary('Back','back')+'</div>';
     if(o.step==='review'){
-      const hint=p.resumeText?'<div class="pipExtract"><strong>From your resume</strong><span>'+safe((p.achievements||p.resumeText).slice(0,270))+(p.achievements?.length>270?'…':'')+'</span></div>':'';
-      return bubble((p.resumeText?'I’ve read the resume text. ':'Let’s start with the basics. ')+'<strong>Did I get your career story right?</strong> Edit anything that looks off before we continue.')+hint+
+      const rep=p.importReport&&p.resumeText?p.importReport:null;
+      let extracted='';
+      if(rep){
+        const displayOrder=[['experience','Work experience'],['internships','Internships'],['projects','Projects'],['education','Education'],['skills','Skills'],['leadership','Leadership']];
+        const segments=displayOrder.filter(([key])=>Array.isArray(rep.sections?.[key])&&rep.sections[key].length);
+        extracted='<section class="pipImportFacts" aria-label="Information extracted from this resume">'+
+        '<div class="pipImportTitle"><span>✓ Resume text extracted</span><strong>'+safe(rep.filename)+'</strong></div>'+
+        '<p class="pipImportMeta">'+Number(rep.originalTextLength||0).toLocaleString()+' characters read · Review before using</p>'+
+        '<div class="pipImportFields">'+
+        '<div><small>NAME FOUND IN DOCUMENT</small><strong>'+safe(rep.candidateName||'Not confidently identified')+'</strong></div>'+
+        '<div><small>EMAIL FOUND IN DOCUMENT</small><strong>'+safe(rep.candidateEmail||'Not found')+'</strong></div></div>'+
+        (segments.length?segments.map(([key,title])=>
+          '<details class="pipImportSection" '+(key==='experience'?'open':'')+'>'+
+          '<summary>'+safe(title)+' <span>'+rep.sections[key].length+' extracted entries</span></summary>'+
+          '<div class="pipImportEntries">'+rep.sections[key].slice(0,5).map(item=>
+            '<p>'+safe([item.title,item.detail].filter(Boolean).join(item.title&&item.detail?' — ':''))+'</p>').join('')+
+          '</div></details>').join(''):'<p class="pipImportFallback">Section headings were not confidently recognized in this file. Inspect the actual extracted text below and fill in any missing fields.</p>')+
+        '<details class="pipImportSection"><summary>View original extracted text <span>From this upload</span></summary><pre class="pipImportRaw">'+safe(rep.rawPreview||p.resumeText.slice(0,2200))+'</pre></details>'+
+        '<p class="pipImportWarning">The text above comes from the uploaded file, not from a previous profile. A job title or employer is left blank when it cannot be confidently identified.</p></section>';
+      }else if(p.resumeText)extracted='<div class="pipExtract"><strong>Resume text available</strong><span>'+safe(p.resumeText.slice(0,430))+'</span></div>';
+      return bubble((p.resumeText?'I’ve extracted text from the resume you selected. ':'Let’s start with the basics. ')+'<strong>Are these facts about the right person?</strong> Review the actual text and correct any missing details before we continue.')+extracted+
       '<form id="pipReviewForm" class="pipMiniForm"><div class="pipFormGrid"><label>Your name <input name="name" required placeholder="How should I address you?" value="'+safe(p.name)+'"/></label>'+
       '<label>Current / latest role <input name="role" required placeholder="e.g. Research Associate" value="'+safe(p.role)+'"/></label>'+
       '<label>Organization <input name="employer" placeholder="Optional" value="'+safe(p.employer)+'"/></label>'+
@@ -169,7 +188,7 @@
   }
   function action(target){
     if(target==='toggle-guide'||target==='talk'){S.coachOpen=!S.coachOpen;save();renderCoach();dock();if(!S.coachOpen&&target==='talk'){S.coachOpen=true;renderCoach();dock();}return;}
-    if(target==='restart'){S.pipIntake={step:S.profile.resumeText?'review':'hello',method:S.profile.resumeText?'resume':null,filename:'',owned:[],note:'',done:false};S.stage='welcome';S.coachOpen=false;save();render();return;}
+    if(target==='restart'){S.pipIntake={step:'hello',method:null,filename:'',owned:[],note:'',done:false};S.stage='welcome';S.coachOpen=false;save();render();return;}
     if(target==='lesson'){openLesson();return;}
     if(target==='focus-answer'){document.getElementById('caseAnswer')?.focus();return;}
     if(target==='hint'){sendCoach('Please give me a hint for the current case question, without answering it.');S.coachOpen=true;renderCoach();dock();return;}
