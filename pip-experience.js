@@ -178,27 +178,17 @@
   function enhance(){
     dock();
     if(S.stage==='welcome')return;
-    const m=document.getElementById('main');
-    if(!m||document.getElementById('pipJourneyGuide'))return;
-    const g=guide();
-    const el=document.createElement('section');
-    el.id='pipJourneyGuide';el.className='pipJourneyGuide';
-    el.innerHTML='<div class="pipJourneyMark"><span>'+mascot+'</span><div><span>'+safe(g.stage)+'</span><h3>'+safe(g.title)+'</h3><p>'+safe(g.body)+'</p></div></div>'+
-      '<div class="pipJourneyActions">'+primary(safe(g.primary)+' →','guide', 'data-target="'+safe(g.action)+'"')+
-      secondary(safe(g.secondary),'guide','data-target="'+safe(g.other)+'"')+'</div>';
-    m.insertBefore(el,m.firstChild);
-    // Pip proactively narrates the loop once per meaningful screen or case state.
-    // These are transparent guided prompts, not fabricated model assessments.
-    const scene=proactiveScene();
-    if(S.coachOpen&&S.pipGuideScene!==scene){
-      S.chat.push({who:'pip',text:proactiveCopy(),pipGuide:true});
-      if(S.chat.length>80)S.chat=S.chat.slice(-80);
-      S.pipGuideScene=scene;save();renderCoach();
-    }
+    // One contextual guide already exists in the chat timeline and the small
+    // milestone bubble. Do not insert another banner above each page or
+    // append scripted "proactive" chatter on every visit.
+    const old=document.getElementById('pipJourneyGuide');
+    if(old)old.remove();
     const top=document.querySelector('.topbar .topright');
-    if(top&&!top.querySelector('[data-pip-action="toggle-guide"]'))top.insertAdjacentHTML('afterbegin','<button class="pipTopGuide" data-pip-action="toggle-guide" type="button">Talk with Pip</button>');
+    if(top&&!top.querySelector('[data-pip-action="toggle-guide"]'))
+      top.insertAdjacentHTML('afterbegin','<button class="pipTopGuide" data-pip-action="toggle-guide" type="button">Talk with Pip</button>');
     const nav=document.querySelector('.sidebarFoot');
-    if(nav&&!nav.querySelector('[data-pip-action="restart"]'))nav.insertAdjacentHTML('beforeend','<button class="pipRestart" data-pip-action="restart" type="button">↺ Start a new person’s journey</button>');
+    if(nav&&!nav.querySelector('[data-pip-action="restart"]'))
+      nav.insertAdjacentHTML('beforeend','<button class="pipRestart" data-pip-action="restart" type="button">↺ Start a new person’s journey</button>');
   }
   let lessonOpen=false;
   function openLesson(){
