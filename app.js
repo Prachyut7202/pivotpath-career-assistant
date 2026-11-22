@@ -245,16 +245,33 @@ async function sendCoach(text){
 }
 function modalFromAction(action,target){if(action==='coach-resume'){modal={type:'newBullet',section:'experience'};renderModal();return true}return false}
 function captureProfile(form){let f=new FormData(form);for(let k of ['name','email','phone','linkedin','portfolio','role','employer','years','education','skills','achievements'])S.profile[k]=String(f.get(k)||'').trim();if(!S.profile.name||!S.profile.role){const el=document.getElementById('profileError');el.textContent='Please enter your name and current or most recent role. The resume is optional.';el.classList.remove('hidden');return false}if(S.profile.years&&!Number.isFinite(Number(S.profile.years))){notify('Enter a valid experience value such as 1.7 years.','bad');return false}S.profile.verified=true;syncProfileToResume();S.stage='app';return true}
-async function handleResumeFile(file){if(!file)return;const ext=file.name.toLowerCase().split('.').pop();if(!['pdf','docx','txt','md','tex'].includes(ext)){notify('Choose PDF, DOCX, TXT, MD or TEX.','bad');return}if(file.size>7*1024*1024){notify('Files must be 7 MB or smaller.','bad');return}
+async function handleResumeFile(file,{newProfile=false}={}){if(!file)return false;const ext=file.name.toLowerCase().split('.').pop();if(!['pdf','docx','txt','md','tex'].includes(ext)){notify('Choose PDF, DOCX, TXT, MD or TEX.','bad');return}if(file.size>7*1024*1024){notify('Files must be 7 MB or smaller.','bad');return}
  if(['pdf','docx'].includes(ext)&&server.resume_parser==='unavailable'){notify('PDF/DOCX parsing needs the server-enabled version. Paste resume text or continue manually.','bad');return}
  notify('Reading your resume...');try{let j;
  if(['txt','md','tex'].includes(ext)){let text=await file.text();const lines=text.split('\n').map(s=>s.trim()).filter(Boolean);j={text,draft:{name:lines[0]||'',email:(text.match(/[\w.+-]+@[\w.-]+\.\w+/)||[])[0]||'',bullets:lines.filter(x=>/^[•*\-]/.test(x)).map(x=>x.replace(/^[•*\-]\s*/,''))},warning:'Check imported details before confirming.'}}
  else{let res=await fetch('/api/parse-resume',{method:'POST',headers:{'x-filename':file.name},body:file});j=await res.json();if(!res.ok)throw Error(j.detail||'Parse failed')}
- S.profile.resumeText=String(j.text||'').slice(0,40000);S.profile.source='imported_resume';S.profile.verified=false;
- if(j.draft?.name&&!S.profile.name)S.profile.name=j.draft.name;
- if(j.draft?.email&&!S.profile.email)S.profile.email=j.draft.email;
- if(j.draft?.bullets?.length&&!S.profile.achievements)S.profile.achievements=j.draft.bullets.slice(0,3).join('\n');
- if(j.draft?.skills&&!S.profile.skills)S.profile.skills=j.draft.skills;
+ const incomingText=String(j.text||'').slice(0,40000);
+ if(!incomingText.trim())throw Error('The document contained no readable resume text');
+ // Guided intake can be tried with different people's resumes in the same browser.
+ // Do not silently mix the previous person's profile, practice evidence, or resume.
+ const previousText=String(S.profile.resumeText||'');
+ const hasExistingJourney=Boolean(S.profile.name||S.profile.role||S.profile.verified||previousText||S.attempts.length);
+ const looksDifferent=previousText ? previousText!==incomingText : hasExistingJourney;
+ if(newProfile&&hasExistingJourney&&looksDifferent){
+   const approved=confirm('This appears to be a new resume. Start a fresh career profile and replace the saved journey in this browser? Export the old career data first if you want to keep it.');
+   if(!approved){notify('Your existing career profile is unchanged. Resume switch cancelled.');return false;}
+   const fresh=seedState();
+   S.profile=fresh.profile;S.career=fresh.career;S.resume=fresh.resume;
+   S.attempt=null;S.attempts=[];S.tasks=[];S.practiceView='case';
+   S.discoveryStep=0;S.showAllRoles=false;S.chat=[];
+   S.coachGoal='career_exploration';S.pipGuideScene=null;
+   if(S.pipIntake){S.pipIntake.owned=[];S.pipIntake.note='';S.pipIntake.recorded=false;}
+ }
+ S.profile.resumeText=incomingText;S.profile.source='imported_resume';S.profile.verified=false;
+ if(j.draft?.name&&(newProfile||!S.profile.name))S.profile.name=j.draft.name;
+ if(j.draft?.email&&(newProfile||!S.profile.email))S.profile.email=j.draft.email;
+ if(j.draft?.bullets?.length&&(newProfile||!S.profile.achievements))S.profile.achievements=j.draft.bullets.slice(0,3).join('\n');
+ if(j.draft?.skills&&(newProfile||!S.profile.skills))S.profile.skills=j.draft.skills;
  if(j.draft?.sections){for(let section of S.resume.sections)section.items=section.items.filter(it=>!it.imported);for(let [sid,items] of Object.entries(j.draft.sections)){let section=getSection(sid);if(section)for(let it of items.slice(0,40))section.items.push({id:uid(),title:it.title||'',detail:it.detail||'',kind:it.kind||'bullet',imported:true})}}
  save();render();notify('Resume extracted. Review and confirm the facts before proceeding.');if(j.warning)notify(j.warning);return true;
  }catch(e){notify('Could not read resume: '+e.message+'. Paste text or continue manually.','bad');return false}
