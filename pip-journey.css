@@ -32,3 +32,21 @@
  body.pipGuideDocked .shellBody{padding-right:0}
  body.pipGuideDocked .shellBody .main{margin:0 auto;max-width:100%}
 }
+
+/* V5.8: one compact, pinned next-action control, not a repeated chat card */
+.coachQuick:has(.pipNextPanel){display:block;padding:9px 12px 10px;border-top:1px solid #e6e9f5;background:#fff;flex:0 0 auto}
+.pipNextPanel{width:100%;box-sizing:border-box;border:1px solid #e1e5f7;background:#f8f9ff;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:7px}
+.pipNextHeader{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.pipNextHeader span{display:block;color:#5962ad;font-size:10px;font-weight:810;letter-spacing:.2px;line-height:1.4}
+.coachQuick .pipNextHeader button{border:0;background:transparent;color:#6268bc;text-decoration:underline;text-underline-offset:3px;border-radius:5px;padding:3px 2px;font-size:10px;line-height:1.3;white-space:nowrap;cursor:pointer;font-weight:680}
+.pipNextStage{display:block;font-size:12px;color:#29365f;line-height:1.4;font-weight:800}
+.pipNextActions{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.coachQuick .pipNextActions button,.coachQuick .pipNextExtra button{border:1px solid #dce1f2;border-radius:9px;background:#fff;color:#4e5ba8;cursor:pointer;padding:10px 8px;font-weight:760;font-size:11px;text-align:center;line-height:1.35;min-width:0;white-space:normal}
+.coachQuick .pipNextActions button:first-child{background:#6265d2;border-color:#6265d2;color:#fff}
+.coachQuick .pipNextActions button:hover,.coachQuick .pipNextExtra button:hover{filter:brightness(.96)}
+.pipNextExtra{display:flex;flex-direction:column;gap:7px}
+.coachQuick .pipNextExtra button{text-align:left;padding:8px 10px}
+.pipNextDescription{font-size:11px;line-height:1.5;color:#64718d;border-top:1px solid #e1e5f1;padding-top:8px;margin:1px 0}
+.coachMessages{min-height:100px;min-width:0;overscroll-behavior:contain}
+.coachComposer{flex-shrink:0}
+@media(max-width:400px){.pipNextActions{grid-template-columns:1fr}.pipNextHeader span{font-size:9px}}
