@@ -1,0 +1,26 @@
+/* Quiet, milestone-led Pip companion. One mascot, one speech bubble, no timers. */
+.coachFloat .coachNudge{display:none!important}
+.pipGuideTip{position:relative;order:-1;box-sizing:border-box;width:min(334px,calc(100vw - 118px));max-height:min(420px,70dvh);overflow:auto;margin:0 2px 5px 0;padding:16px 17px 14px;background:#fff;border:1px solid #dde2f5;border-radius:18px 18px 5px 18px;box-shadow:0 18px 46px rgba(32,44,90,.18);color:#303f6a;animation:pipGuideEntrance .3s cubic-bezier(.2,.8,.2,1) both}
+.pipGuideTip:after{content:"";position:absolute;bottom:13px;right:-7px;width:12px;height:12px;background:#fff;border-top:1px solid #dde2f5;border-right:1px solid #dde2f5;transform:rotate(45deg)}
+.pipGuideTipTop{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:7px}
+.pipGuideEyebrow{font-size:10px;letter-spacing:.095em;font-weight:850;color:#6562c4}
+.pipGuideTipTop>button{display:grid;place-items:center;flex:none;width:27px;height:27px;border:1px solid #e3e7f3;background:#fff;border-radius:8px;font-size:20px;color:#637091;cursor:pointer;line-height:1}
+.pipGuideTitle{display:block;font-size:15px;line-height:1.28;font-weight:850;color:#26345b}
+.pipGuideTip p{font-size:12px;line-height:1.55;color:#64728e;margin:8px 0 13px}
+.pipGuidePrimary{width:100%;min-height:40px;border:1px solid #6661cb;border-radius:11px;background:#6661cb;color:#fff;cursor:pointer;font-size:12px;font-weight:780;padding:10px 12px}
+.pipGuidePrimary:hover{background:#514cb5}
+.pipGuideSecondary{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:11px}
+.pipGuideSecondary button{padding:5px 0;border:0;background:none;color:#686caa;font-size:11px;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.pipGuideTip button:focus-visible,.pipGuidePreference button:focus-visible{outline:3px solid #b0b2f2;outline-offset:2px}
+.pipGuideMoment .coachBtn{animation:pipGuideWave .64s ease-in-out 2;transform-origin:center bottom;outline:2px solid rgba(117,108,224,.28);outline-offset:2px}
+.pipGuideMoment .coachBtn .mascotSvg{animation:pipGuideFloat 2.3s ease-in-out 2}
+@keyframes pipGuideEntrance{from{opacity:0;transform:translateY(12px) scale(.975)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes pipGuideWave{0%,100%{transform:rotate(0)}30%{transform:rotate(-6deg)}65%{transform:rotate(5deg)}}
+@keyframes pipGuideFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+.pipGuidePreference{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;margin:20px 0;padding:15px 18px;border:1px solid #e3e7f4;background:#f8f9fe;border-radius:13px}
+.pipGuidePreference span{display:flex;flex-direction:column;gap:3px}
+.pipGuidePreference strong{font-size:13px;color:#334268}
+.pipGuidePreference small{font-size:11px;color:#7e8aa5}
+.pipGuidePreference button{border:1px solid #d2d8f0;border-radius:9px;padding:9px 12px;font-size:11px;font-weight:760;color:#575cad;background:#fff;cursor:pointer}
+@media(max-width:680px){.pipGuideTip{width:min(325px,calc(100vw - 95px));max-height:55dvh;margin-bottom:3px;padding:13px 14px}.pipGuideTitle{font-size:14px}.pipGuideTip p{font-size:11px}.pipGuideSecondary button{font-size:10px}.pipGuideMoment .coachBtn{flex:none}}
+@media(prefers-reduced-motion:reduce){.pipGuideTip,.pipGuideMoment .coachBtn,.pipGuideMoment .coachBtn .mascotSvg{animation:none!important}}
