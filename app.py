@@ -158,25 +158,70 @@ def valid_answer(s: str)->bool:
 async def pip_json(system: str, payload: dict, max_output_tokens: int, task: str, allow_gemini: bool):
     return await route_json(system, payload, max_output_tokens, task, allow_gemini)
 
+_META_USER_QUESTION = re.compile(r"(?:what did i ask(?: you)?|what was my (?:last|previous|earlier) question|do you (?:know|remember) what my (?:last|previous) question was)", re.I)
+
+def _clean_thread(raw):
+    if not isinstance(raw,list): return []
+    items=[]
+    for x in raw[-20:]:
+        if not isinstance(x,dict): continue
+        who=x.get('who')
+        if who not in ('user','pip'): continue
+        msg=str(x.get('text','')).strip()[:2000]
+        if msg: items.append({'speaker':'user' if who=='user' else 'pip','text':msg})
+    return items
+
 @app.post('/api/coach')
 async def coach(request:Request):
     data=await request.json()
-    message=str(data.get('message',''))[:3000]
-    context=data.get('context',{})
-    thread=data.get('thread',[])[-6:]
-    if not message.strip(): raise HTTPException(400,detail='Enter a message')
-    sys=('You are Pip, an approachable, concise, proactive AI career coach in PivotPath. '
-    'You help early career professionals changing across data, business and product roles. '
-    'Use only supplied profile facts, goal, current screen, and previous conversation. Never invent employment, '\
-    'resume results or technical proficiency. Respect the user-selected target even if a different role aligns better. '
-    'Ask at most one helpful follow-up question, propose the next specific action when useful. '
-    'NEVER claim that a resume skill proves competency. Never claim you scored a case unless an assessment record was supplied. '
-    'Any website change requires user confirmation. Reply strictly in JSON: '
-    '{"reply":"short helpful response", "follow_up_question":"optional question or empty string", "suggested_route":"discovery|readiness|practice|resume|profile|"}. '
-    'Do not use markdown code fences.')
-    out=await pip_json(sys,{'message':message,'context':context,'recent_thread':thread},650,'coach',data.get('allow_gemini') is True)
+    message=str(data.get('message','')).strip()[:3000]
+    if not message: raise HTTPException(400,detail='Enter a message')
+    context=data.get('context') if isinstance(data.get('context'),dict) else {}
+    goal=str(data.get('conversation_goal') or 'general')
+    if goal not in ('career_exploration','practice','resume','general'): goal='general'
+    # Never let an unrelated case question override a career-exploration chat.
+    if goal!='practice':
+        context={k:v for k,v in context.items() if k not in ('active_question','latest_results')}
+    thread=_clean_thread(data.get('thread',[]))
+    if _META_USER_QUESTION.search(message):
+        questions=[m['text'] for m in thread if m['speaker']=='user' and
+                   '?' in m['text'] and not _META_USER_QUESTION.search(m['text'])]
+        if questions:
+            last=questions[-1].strip()[:550]
+            return {'reply':'Earlier, you asked: “'+last+'” I should respond to that career goal, not switch to an unrelated practice case.',
+                    'follow_up_question':'','suggested_route':'','provider':'conversation_history'}
+        return {'reply':'I can only reference messages in this chat, and I cannot find an earlier question from you in the available history.',
+                'follow_up_question':'','suggested_route':'','provider':'conversation_history'}
+    sys=('You are Pip, a friendly but grounded career-transition interviewer. '
+    'This is a natural conversation, NOT an assessment unless the user specifically requests practice. '
+    'The current conversation_goal is '+goal+'. Honor it; screen location is secondary and may be unrelated. '
+    'The recent_thread is the REAL, chronological dialogue; speaker=user means the human, speaker=pip means you. '
+    'The user_message is the newest message and is NOT included in recent_thread. '
+    'When asked about previous questions, use the actual dialogue, and never attribute your own words to the user. '
+    'When a user says no, cannot, or has no relevant experience, acknowledge that and ask about '
+    'transferable work such as research, problem-solving, stakeholder collaboration, or process improvement. '
+    'Never force product-requirements experience or make up projects, metrics, activation data, or skills. '
+    'Do not abruptly introduce funnel metrics, practice cases, or unrelated topics. '
+    'Ask at most ONE simple follow-up question, tailored to the last reply and original career aim. '
+    'Keep the response concise (usually 2-4 sentences) and avoid repeating prompts. '
+    'Treat unassessed competency as unknown rather than a weakness. Respect the user-chosen aspiration. '
+    'Only suggest a navigation route if the user explicitly asks to navigate to that workspace. '
+    'Return JSON ONLY with {"reply":"helpful response", "follow_up_question":"optional single question or empty string", '
+    '"suggested_route":"discovery|readiness|practice|resume|profile|"}; no markdown fences.')
+    out=await pip_json(sys,{'user_message':message,'conversation_goal':goal,
+                            'context':context,'recent_thread':thread},650,'coach',data.get('allow_gemini') is True)
+    reply=str(out.get('reply','')).strip()[:2300]
+    followup=str(out.get('follow_up_question','')).strip()[:450]
+    if followup and followup.lower() not in reply.lower():
+        reply=(reply+'\n\n'+followup).strip()
+    if not reply: reply='Could you tell me a little more about the experience you want to discuss?'
     route=out.get('suggested_route','')
-    return {'reply':str(out.get('reply',''))[:2300], 'follow_up_question':str(out.get('follow_up_question',''))[:450], 'suggested_route':route if route in ('discovery','readiness','practice','resume','profile') else '', 'provider':out.get('_provider','unknown')}
+    # No unsolicited 'Open practice' button in a career-interview conversation.
+    explicit_navigation=bool(re.search(r"\\b(?:open|go to|navigate to|take me to|show me|start)\\s+(?:the |my )?(?:practice|readiness|resume|profile|discovery)\\b", message,re.I))
+    if goal=='career_exploration' or not explicit_navigation: route=''
+    return {'reply':reply,'follow_up_question':'',
+            'suggested_route':route if route in ('discovery','readiness','practice','resume','profile') else '',
+            'provider':out.get('_provider','unknown')}
 
 @app.post('/api/assess')
 async def assess(request:Request):
