@@ -51,6 +51,16 @@ Pip's next-step action tray responds in place. Resume/profile edits are detours 
 
 If users rate themselves highly but score 2/5, show a respectful *calibration prompt* ("This exercise missed a trade-off; try another scenario"), not a personality judgment. Low confidence + 4/5 suggests a possible transferable strength, not proof of mastery. Score 3/5 is **developing**, not a validated strength.
 
+## Competency explanations and earned practice milestones
+
+I have replaced the generic **Why?** explanation with a role-specific guide. For every competency in the six role maps, it shows (1) why the skill matters in that job, (2) a practical situation in which it is used, (3) example metrics or decision signals, (4) what sound reasoning looks like, and (5) the candidate's own evidence and recommended next action. Illustrative metrics are **not** employer-specific skill benchmarks.
+
+I chose to separate **strong practice evidence** from **full professional competency**. A candidate earns a **Practice milestone reached** indicator only after scoring at least 4/5 on that competency in both **Case A and Case B**, with assessable *live formative AI* feedback for the most recent completed version of each. Multiple questions in the same case must all meet that standard. Repeated attempts are not cherry-picked; the latest case of each variant counts. Demo/checklist scores never unlock the milestone.
+
+Passing a practice milestone is useful, but it does not prove mastery in a workplace. Each popup therefore includes an additional goal: demonstrate the skill on an actual project or externally checked artifact, with appropriate feedback. **We do not automatically certify that final step**. SQL and role competencies not covered by the current case bank are explicitly labeled as requiring separate practical evidence rather than receiving a misleading case score.
+
+The Readiness Map also displays how many *case-checkable* competencies have reached this practice milestone, while identifying the remaining competencies that need outside evidence. This provides a positive, earned progression indicator without turning the platform into an unvalidated hiring predictor.
+
 ## 5. Streaks inspired by learning platforms
 A seven-day strip and current-day streak reward days with an **assessable completed case**, a **marked-complete learning action**, or an **approved factual resume revision**; multiple actions in a day count once. Browsing, mere logins, chats, opening lessons and ungraded warmups do not earn days. Progress evidence survives a missed streak, and the interface never pressures users to grind for points.
 
