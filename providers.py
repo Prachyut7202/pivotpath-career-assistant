@@ -109,7 +109,7 @@ async def route_json(system, payload, max_output_tokens=800, task="coach", allow
                 # Diagnostics expose only provider, exception class and HTTP
                 # status, never prompts, responses, credentials, or raw bodies.
                 message = str(err)
-                status = re.search(r"HTTP\\s+(\\d{3})", message)
+                status = re.search(r"HTTP\s+(\d{3})", message)
                 code = ("HTTP " + status.group(1)) if status else (
                     "timeout" if isinstance(err, httpx.TimeoutException) else
                     "invalid response" if isinstance(err, (ValueError, KeyError, IndexError, TypeError)) else
