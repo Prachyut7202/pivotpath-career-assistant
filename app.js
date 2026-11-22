@@ -259,8 +259,33 @@ async function sendCoach(text){
   stage:S.discoveryStep,resume_summary:S.resume.sections.filter(s=>s.enabled).map(s=>({section:s.title,item_count:s.items.length}))};
  // The active goal's self-ratings, case observations and unfinished work
  // are provided as separate evidence, never merged into a mastery score.
+ // Provide the real UI map to prevent invented hubs, videos or tabs.
+ context.available_ui={
+  discovery:'Career Discovery — choose or change the target role',
+  readiness:'Readiness Map — competencies that matter, expandable skill evidence, and external Learn this skill links',
+  practice:'Practice & Improve — role-specific cases, feedback, warm-ups, improvement plan and progress',
+  resume:'Living Resume — review factual edits and export the one-page resume',
+  profile:'My profile & settings — confirm resume facts and update the career profile'
+ };
  const goalRole=S.career.activeRole;
  if(ROLES[goalRole]){
+  context.active_goal_name=roleName(goalRole);
+  const attempts=S.attempts.filter(a=>a.role===goalRole&&a.completedAt);
+  const assessed=attempts.flatMap(a=>(a.evaluations||[]).filter(e=>e.assessable===true&&Number.isFinite(Number(e.rating))&&Number(e.rating)>=1&&Number(e.rating)<=5));
+  const recent=attempts.at(-1);
+  const lastValid=(recent?.evaluations||[]).filter(e=>e.assessable===true&&Number.isFinite(Number(e.rating))&&Number(e.rating)>=1&&Number(e.rating)<=5);
+  const avg=assessed.length?assessed.reduce((sum,e)=>sum+Number(e.rating),0)/assessed.length:null;
+  context.practice_checkpoint={
+   completed_cases:attempts.length,
+   distinct_scenarios:new Set(attempts.map(a=>a.variant)).size,
+   rated_answers:assessed.length,
+   overall_formative_average:avg==null?null:Number(avg.toFixed(1)),
+   latest_case_all_at_least_3:lastValid.length>0&&lastValid.every(e=>Number(e.rating)>=3),
+   suggested_harder_mock_checkpoint:'Two different cases; at least eight assessable answers; overall average 3.5/5 or higher; no answer below 3/5 in the latest case. Learning suggestion only, not a hiring verdict.'
+  };
+  context.current_skill_evidence=allEvidence(goalRole).map(e=>({
+   competency:e.code,skill:e.label,observation:e.state,reason:String(e.detail||'').slice(0,170)
+  }));
   const confidence=S.pipSkillConfidence?.[goalRole]||{};
   context.career_skill_picture=ROLES[goalRole].competencies.map(([code,label])=>({
     code,skill:label,self_report:confidence[code]?.level||'not provided'
