@@ -88,7 +88,7 @@ async def route_json(system, payload, max_output_tokens=800, task="coach", allow
     if not eligible:
         raise HTTPException(503, "No eligible live AI provider. Configure GROQ_API_KEY or opt in to configured Gemini.")
     errors = []
-    async with httpx.AsyncClient(timeout=25) as client:
+    async with httpx.AsyncClient(timeout=12) as client:
         for provider in eligible:
             try:
                 out = await provider_request(client, provider, system, payload, max_output_tokens)
