@@ -99,10 +99,12 @@
         emit('Your selected career goal changed during the detour. To avoid mixing assessment evidence, I kept your return point. Choose the intended goal in Career Discovery first.',
           {buttons:[['Career Discovery','discovery']]});return;
       }
+      const edits=Number(S.resume?.proposals?.length||0)+Number(S.resume?.history?.length||0)-Number(j.resumeBaseline||0);
+      if(edits>0)j.completedDetours=Number(j.completedDetours||0)+1;
       S.practiceView=previous.practiceView||'case';
       S.coachGoal='career_exploration';
       save();setRoute(previous.route);
-      emit('Welcome back to '+(human[previous.route]||'your previous step')+' for '+goal+'. Your case answers and readiness evidence are still here. We can continue from where you paused.');
+      emit((edits>0?'Your resume changes are saved. ':'Your resume detour is finished. ')+'Welcome back to '+(human[previous.route]||'your previous step')+' for '+goal+'. Your case answers and readiness evidence are intact. Continue where you paused.');
       return;
     }
     if(action==='start-case'){
@@ -130,7 +132,7 @@
     }
     if(action==='plan'){S.practiceView='plan';save();go('practice');emit('Here’s the improvement plan tied to your case evidence. Choose one task, learn the concept, then reassess.');return;}
     if(action==='practice-case'){S.practiceView='case';save();go('practice');return;}
-    if(action==='lesson'){if(typeof openLesson==='function')openLesson();else emit('Open the current feedback and practice the underlying concept.');return;}
+    if(action==='lesson'){if(typeof window.PipStartLesson==='function')window.PipStartLesson();else emit('Open the current feedback and practice the underlying concept.');return;}
     if(action==='next-question'){
       const a=S.attempt;
       if(a?.status!=='feedback'){emit('Please submit the current answer before continuing.');return;}
