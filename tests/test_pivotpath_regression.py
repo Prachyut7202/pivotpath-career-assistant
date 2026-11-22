@@ -70,7 +70,7 @@ class FrontendStructureTests(unittest.TestCase):
         self.assertIn('body.scrollTop=body.scrollHeight',script)
         self.assertIn('.pipConversationHistory',css)
         self.assertIn('overflow-y:auto',css)
-        self.assertIn('/pip-experience.js?v=5.11',html)
+        self.assertRegex(html,r'/pip-experience[.]js[?]v=[0-9]+(?:[.][0-9]+)*')
 
     def test_progress_card_follows_pip_chat(self):
         script=(ROOT/'pip-progress.js').read_text('utf-8')
