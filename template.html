@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#f8f9fc"/><title>PivotPath — Your career, forward.</title><meta name="description" content="Meet Pip, your guided AI career coach for discovering career paths, assessing readiness, practicing case skills, and refining your resume."/>
+<style>/*__CSS__*/</style></head><body>
+<div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+<div id="welcome" class="welcome"></div>
+<div id="shell" class="shell">
+ <aside class="sidebar"><div class="brand"><div class="brandicon">✦</div><span class="logo">Pivot<i>Path</i></span></div>
+  <nav class="navgroup"><div class="navlabel">Your journey</div>
+   <button class="navitem" data-action="nav" data-route="discovery"><span class="ni">⌁</span><span class="navtext">Career discovery</span></button>
+   <button class="navitem" data-action="nav" data-route="readiness"><span class="ni">◫</span><span class="navtext">Readiness map</span></button>
+   <button class="navitem" data-action="nav" data-route="practice"><span class="ni">✎</span><span class="navtext">Practice & improve</span></button>
+   <button class="navitem" data-action="nav" data-route="resume"><span class="ni">▤</span><span class="navtext">Living resume</span></button>
+  </nav><div class="sidebarFoot stack gap8"><div class="notice">🐣 <strong>Ask Pip</strong> anytime for guidance on this screen.</div><button class="navitem" data-action="nav" data-route="profile"><span class="ni">♙</span><span class="navtext">My profile & settings</span></button></div>
+ </aside>
+ <div class="shellBody"><header class="topbar"><div class="frow gap8"><div class="logo">Pivot<i>Path</i></div><span class="stage" id="stageName">Your career journey</span></div><div class="topright"><span id="modePill" class="pill amber">Demo guide</span><button class="btn small soft" data-action="continue">Continue →</button><button class="btn small light" data-action="nav" data-route="profile" aria-label="My profile">◯ <span class="mutedlabel">Profile</span></button></div></header>
+ <main class="main" id="main" tabindex="-1"></main></div>
+</div>
+<nav id="bottomNav" class="bottomNav"><button class="navitem" data-action="nav" data-route="discovery"><span class="ni">⌁</span>Discover</button><button class="navitem" data-action="nav" data-route="readiness"><span class="ni">◫</span>Readiness</button><button class="navitem" data-action="nav" data-route="practice"><span class="ni">✎</span>Practice</button><button class="navitem" data-action="nav" data-route="resume"><span class="ni">▤</span>Resume</button></nav>
+<div id="coachFloat" class="coachFloat hidden"><div class="coachNudge" id="coachNudge"></div><button class="coachBtn" data-action="toggle-coach" aria-label="Ask Pip, your career coach"><span id="mascotFloat"></span></button></div>
+<div id="coachPanel" class="coachPanel hidden" role="dialog" aria-label="Pip career coach"><header class="coachHeader fspread"><div class="frow gap8"><div style="width:35px;height:35px" id="mascotPanel"></div><div><strong>Pip · Career Coach</strong><div class="textxs muted" id="coachModeLabel">Contextual demo guide</div></div></div><button class="btn light small" data-action="toggle-coach" aria-label="Close coach">✕</button></header><div class="coachMessages" id="coachMessages"></div><div class="coachQuick" id="coachQuick"></div><form id="coachForm" class="coachComposer"><input id="coachInput" autocomplete="off" placeholder="Ask Pip about this step..." aria-label="Your message to Pip"/><button class="btn small soft" type="button" data-action="mic" aria-label="Speak to Pip">🎙</button><button class="btn small" type="submit">Send</button></form></div>
+<div id="modalRoot"></div>
+<script>const DATA=/*__DATA__*/;/*__JS__*/</script>
+</body></html>

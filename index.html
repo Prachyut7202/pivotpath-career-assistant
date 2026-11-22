@@ -1,0 +1,1178 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#f8f9fc"/><title>PivotPath — Your career, forward.</title><meta name="description" content="Meet Pip, your guided AI career coach for discovering career paths, assessing readiness, practicing case skills, and refining your resume."/>
+<style>:root{--ink:#172343;--muted:#68758c;--blue:#566bd8;--blue2:#725cd4;--deep:#293078;--pale:#eff1ff;--line:#e6eaf4;--bg:#f7f8fc;--white:#fff;--green:#128664;--amber:#a36b17;--red:#b7414f;--shadow:0 18px 55px rgba(38,44,97,.075)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);margin:0;line-height:1.48;font-size:14px}button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.45}a{color:#455dcc;text-decoration:none}a:hover{text-decoration:underline}h1,h2,h3,h4{margin:0;font-weight:720;letter-spacing:-.035em}h1{font-size:clamp(28px,4vw,48px);line-height:1.12}h2{font-size:clamp(24px,3vw,31px);line-height:1.2}h3{font-size:17px;line-height:1.3}p{margin:0}ul{padding-left:20px}small,.muted{color:var(--muted)}.mono{font-variant-numeric:tabular-nums}.wrap{max-width:1200px;margin:auto}.frow{display:flex;gap:12px;align-items:center}.fspread{display:flex;justify-content:space-between;gap:14px;align-items:center}.stack{display:flex;flex-direction:column;gap:14px}.gap8{gap:8px}.gap6{gap:6px}.gap20{gap:20px}.textsm{font-size:12px}.textxs{font-size:11px}.semibold{font-weight:650}.kicker{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:750;color:#6777a2}.textblue{color:var(--blue)}.subtle{color:var(--muted);font-size:13px}.pagelead{font-size:15px;color:#5c6983;max-width:740px;margin-top:10px}.divider{height:1px;background:var(--line);margin:4px 0}.hidden{display:none!important}
+.btn{border:1px solid transparent;border-radius:11px;background:var(--blue);color:#fff;font-weight:670;padding:11px 17px;display:inline-flex;gap:8px;align-items:center;justify-content:center;transition:transform .12s,background .12s;text-align:center}.btn:hover{transform:translateY(-1px);background:#4b5bc7;text-decoration:none}.btn:focus-visible,.navitem:focus-visible{outline:3px solid #a9b3ff;outline-offset:2px}.btn.light{background:#fff;color:var(--ink);border-color:var(--line)}.btn.light:hover{background:#f6f7ff}.btn.soft{background:var(--pale);color:#414bb3;border-color:#dfe4ff}.btn.soft:hover{background:#e4e9ff}.btn.ghost{background:transparent;border-color:#dfe4f1;color:#394768}.btn.warn{background:#fff4ef;border-color:#ffcfb5;color:#995129}.btn.small{font-size:12px;padding:8px 11px;border-radius:9px}.btn.block{width:100%}.pill{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:5px 10px;background:#f1f3fa;color:#53617b;font-size:11px;font-weight:650}.pill.green{background:#e8f7f2;color:#187a60}.pill.amber{background:#fff5e3;color:#986413}.pill.purple{background:#f0edff;color:#6550b0}.pill.blue{background:#edf0ff;color:#4d62c6}.pill.red{background:#fff0ee;color:#ad4851}.dot{width:7px;height:7px;border-radius:50%;background:currentColor;display:inline-block}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 3px 14px rgba(20,35,80,.016)}.card.sm{padding:16px}.card.flush{padding:0;overflow:hidden}.card.pale{background:#f1f3ff}.card.selectable{cursor:pointer;transition:border-color .15s,box-shadow .15s}.card.selectable:hover{border-color:#9eabfb;box-shadow:0 10px 30px rgba(77,83,181,.08)}.card.selected{border:2px solid var(--blue);padding:21px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.col{min-width:0}.hr{height:1px;background:var(--line);margin:20px 0}.tagrow{display:flex;gap:7px;flex-wrap:wrap}.tag{font-size:11px;border:1px solid #dde3f2;background:#f8faff;border-radius:8px;padding:5px 8px;color:#52627f}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:12px;font-weight:680;color:#3a4761}.field input,.field select,.field textarea,.textentry{background:#fff;border:1px solid #dce2ef;border-radius:10px;padding:12px;outline:none;width:100%;color:var(--ink)}.field textarea,.textentry{resize:vertical;min-height:82px;line-height:1.5}.field input:focus,.field select:focus,.field textarea:focus,.textentry:focus{border-color:#7b88eb;box-shadow:0 0 0 3px #eef0ff}.field .hint{color:#8490a5;font-size:11px}.inputrow{display:flex;gap:9px;align-items:flex-start}.inputrow>*{min-width:0}.notice{background:#f1f4ff;border:1px solid #e1e7ff;border-radius:12px;padding:12px 14px;color:#4a5891;font-size:12px}.notice.warn{background:#fff7eb;border-color:#ffe3b9;color:#815e22}.notice.bad{background:#fff0ef;border-color:#f7d5d4;color:#a13e48}.notice.good{background:#eaf8f0;border-color:#ceefdd;color:#19764f}.notice.white{background:#fff;color:#59657a}.notice a{text-decoration:underline}.notice strong{color:inherit}.mini-num{height:31px;width:31px;background:#eef0ff;color:#5366ca;border-radius:10px;display:flex;justify-content:center;align-items:center;font-weight:750;flex:none}.big-num{font-size:32px;font-weight:800;letter-spacing:-.055em}
+.logo{font-size:21px;color:#252d68;font-weight:850;letter-spacing:-.05em}.logo i{font-style:normal;color:#6c7aec}.shell{display:none;min-height:100vh}.shell.active{display:flex}.sidebar{width:238px;flex:none;background:#fff;border-right:1px solid var(--line);padding:26px 16px;display:flex;flex-direction:column;gap:28px;position:sticky;top:0;height:100vh}.brand{display:flex;align-items:center;gap:10px;padding:2px 8px}.brandicon{width:34px;height:34px;border-radius:12px;background:linear-gradient(145deg,#5269e6,#8c72df);color:white;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 6px 20px rgba(79,99,214,.22)}.navgroup{display:flex;flex-direction:column;gap:5px}.navlabel{font-size:10px;letter-spacing:.1em;color:#a0a9bb;font-weight:800;margin:0 12px 8px;text-transform:uppercase}.navitem{width:100%;border:none;background:transparent;border-radius:11px;padding:12px 13px;display:flex;align-items:center;gap:11px;color:#62718b;font-weight:640;text-align:left}.navitem.active{background:#eef0ff;color:#4c58c4}.navitem:hover{background:#f4f5ff}.navitem .ni{width:22px;font-size:18px;text-align:center}.sidebarFoot{margin-top:auto}.shellBody{min-width:0;flex:1;display:flex;flex-direction:column}.topbar{height:70px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.82);backdrop-filter:blur(12px);padding:0 35px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:5}.topbar .topright{display:flex;align-items:center;gap:10px}.stage{font-size:12px;color:#737f93}.main{padding:34px 36px 110px;max-width:1320px;width:100%;margin:0 auto}.sectiontop{margin-bottom:24px}.sectionhead{margin:0 0 14px}.topcallout{background:linear-gradient(118deg,#edf0ff,#f6f2ff);border:1px solid #e3e8ff;border-radius:17px;padding:21px;display:flex;gap:14px;justify-content:space-between;align-items:center}.bar{height:7px;border-radius:20px;background:#e9ecf9;overflow:hidden}.barfill{height:100%;background:linear-gradient(90deg,#5979ef,#8363dc);border-radius:20px}.pageicon{font-size:24px;background:#edf0ff;border-radius:14px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;flex:none}
+.welcome{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(circle at 20% 25%,#e5eaff,transparent 29%),radial-gradient(circle at 85% 76%,#ebe7fc,transparent 35%),#f7f8ff}.welcomeLayout{max-width:1050px;width:100%;display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}.welcomeCopy h1{font-size:clamp(38px,5.2vw,60px);line-height:1.04;margin:20px 0}.welcomeCopy h1 span{color:#5b6dde}.welcomeCopy p{color:#6e7992;font-size:16px;line-height:1.65;max-width:500px}.welcomeCard{background:#fff;border:1px solid #e2e6f7;border-radius:26px;padding:31px;box-shadow:0 20px 80px rgba(64,73,140,.13)}.mascotCircle{width:96px;height:96px;border-radius:30px;display:flex;align-items:center;justify-content:center;background:#eae8ff}.mascotSvg{height:100%;width:100%;overflow:visible;filter:drop-shadow(0 5px 6px rgba(54,74,147,.12))}.mascotfloat{animation:float 3.5s ease-in-out infinite}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}.welcome .benefits{display:grid;gap:12px;margin-top:32px}.benefit{display:flex;gap:12px;align-items:flex-start;color:#586581}.benefit .check{background:#e9ebff;color:#6673d5;width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:8px;flex:none}.orline{display:flex;gap:10px;align-items:center;color:#97a1b4;font-size:11px;margin:4px 0}.orline:before,.orline:after{content:'';height:1px;background:#e6e9f4;flex:1}.sampleLinks{display:flex;flex-wrap:wrap;gap:8px}.sampleLinks button{border:1px solid #e0e4f1;color:#5f6e88;background:#f8f9fc;padding:7px 10px;border-radius:9px;font-size:12px}.sampleLinks button:hover{border-color:#abb3f1;background:#f1f3ff}.smallprint{color:#8c99ab;font-size:11px}
+.discoveryWizard{max-width:700px;margin:10px auto}.chatbubble{border-radius:18px;padding:15px 16px;background:#f1f3fe;font-size:14px;line-height:1.55}.chatbubble.user{background:#e6eaff;align-self:flex-end;max-width:90%}.roleRow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.roleCard{border:1px solid var(--line);border-radius:16px;padding:16px;background:#fff;display:flex;flex-direction:column;gap:10px;min-width:0}.roleCard h3{font-size:16px}.roleCard.active{border-color:#7582df;background:#f8f9ff}.roleCard .foot{margin-top:auto}.skillRow{padding:17px 0;border-bottom:1px solid #edf0f5;display:grid;grid-template-columns:1.05fr 1.4fr auto;gap:18px;align-items:center}.skillRow:last-child{border-bottom:none}.swotGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.swot{padding:16px;border-radius:12px;background:#fafbff;border:1px solid #e8ebf7}.swot b{display:block;margin-bottom:7px}.caseQuestion{max-width:800px}.qbig{font-size:21px;line-height:1.38;font-weight:710;letter-spacing:-.028em}.progressSteps{display:flex;gap:5px}.progressSteps span{height:5px;border-radius:20px;background:#e7eaf2;flex:1}.progressSteps .done{background:#6d7ee5}.progressSteps .now{background:#9c88e6}.answerBox{min-height:190px}.feedbackRating{height:56px;width:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:#edf3ff;color:#4d60b9;font-size:23px;font-weight:790}.reviewlist{padding-left:19px;color:#4e5d73;font-size:13px;line-height:1.75}.ratingline{border-bottom:1px solid var(--line);padding:12px 0}.ratingline:last-child{border:0}.inline-actions{display:flex;gap:8px;flex-wrap:wrap}.resourcecard{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:13px;background:#fff}.resourcecard .linktext{font-weight:670;font-size:13px;color:var(--ink)}
+.resumeArea{display:grid;grid-template-columns:minmax(260px,.85fr) minmax(380px,1.15fr);gap:20px;align-items:start}.resumePanel{position:sticky;top:88px}.sheetWrap{background:#e8ebf3;border-radius:18px;padding:18px;overflow:auto}.resumeSheet{width:210mm;min-height:297mm;height:297mm;max-width:100%;background:#fff;margin:0 auto;padding:12mm 12mm 11mm;box-shadow:0 5px 20px rgba(43,55,90,.09);color:#21233a;font-family:Georgia,"Times New Roman",serif;font-size:10px;line-height:1.31;position:relative}.resumeSheet .rsname{text-align:center;font-size:17px;font-weight:750;line-height:1.2;margin-bottom:3px}.resumeSheet .rscontact{text-align:center;font-size:8px;color:#4e5370;word-break:break-word}.resumeSheet .rsection{border-bottom:1px solid #34317f;color:#34317f;font-size:11px;letter-spacing:.02em;font-variant:small-caps;margin:13px 0 7px;padding-bottom:3px}.resumeSheet .resumeitem{font-size:9.7px;margin:4px 0 4px 2px;line-height:1.31}.resumeSheet .resumeitem:hover{background:#f1f4ff;cursor:pointer}.resumeSheet .resumeitem .rtitle{font-weight:700}.resumeSheet .resumeitem .rdesc{font-size:9.4px}.resumeSheet .rslink{color:#28378a}.paperalert{position:absolute;bottom:7px;right:10px;color:#a23d4b;font-family:Arial,sans-serif;font-size:9px}.editable{outline-offset:3px}.editpanel .field{margin:10px 0}.resumeSections{display:flex;flex-wrap:wrap;gap:7px}.resumesectiontoggle{font-size:12px;border-radius:9px;border:1px solid #dfe5f5;padding:7px 10px;display:flex;gap:7px;align-items:center;background:#f9faff}.resumesectiontoggle input{margin:0}.profileExtract{max-height:225px;overflow:auto;background:#f9faff;border-radius:11px;border:1px solid var(--line);font-size:11px;padding:10px;white-space:pre-wrap;color:#6b7992}
+.coachFloat{position:fixed;z-index:20;right:22px;bottom:20px;display:flex;align-items:flex-end;gap:9px}.coachNudge{display:none;max-width:255px;background:#fff;border:1px solid #e2e5f3;border-radius:14px;padding:11px 14px;box-shadow:var(--shadow);font-size:12px;color:#53617b}.coachFloat:hover .coachNudge{display:block}.coachBtn{width:64px;height:64px;display:flex;align-items:center;justify-content:center;border:3px solid #fff;border-radius:24px;background:linear-gradient(140deg,#dde5ff,#f4e8fd);box-shadow:0 10px 30px rgba(75,70,139,.2)}.coachBtn .mascotSvg{height:55px;width:55px}.coachPanel{position:fixed;z-index:25;right:20px;bottom:95px;width:390px;max-height:min(650px,80vh);background:#fff;border:1px solid #dce1ef;border-radius:20px;box-shadow:0 24px 75px rgba(23,35,67,.2);display:flex;flex-direction:column;overflow:hidden}.coachHeader{padding:15px 17px;background:#f4f4ff;border-bottom:1px solid #e2e7f5}.coachMessages{padding:15px;overflow:auto;display:flex;flex-direction:column;gap:12px;min-height:150px;flex:1}.bubble{max-width:91%;font-size:13px;padding:11px 13px;border-radius:14px;background:#f3f5fb;align-self:flex-start;white-space:pre-wrap}.bubble.me{background:#e9edff;align-self:flex-end}.coachComposer{padding:11px;border-top:1px solid var(--line);display:flex;gap:8px}.coachComposer input{flex:1;width:100%;border:1px solid #dee3f1;border-radius:11px;padding:10px}.coachQuick{display:flex;flex-wrap:wrap;gap:5px;padding:0 13px 9px}.coachQuick button{border:1px solid #dfe4f5;background:#fff;color:#5564b1;font-size:11px;border-radius:20px;padding:5px 9px}.toast{position:fixed;z-index:200;top:18px;left:50%;transform:translateX(-50%);background:#23325b;color:#fff;padding:11px 16px;border-radius:12px;box-shadow:var(--shadow);max-width:90vw;font-size:12px}.bottomNav{display:none}.modalbg{position:fixed;z-index:80;inset:0;background:rgba(15,26,55,.43);display:flex;align-items:center;justify-content:center;padding:20px}.modal{background:#fff;max-width:580px;width:100%;border-radius:19px;box-shadow:var(--shadow);padding:24px;max-height:90vh;overflow:auto}
+@media(max-width:1120px){.roleRow{grid-template-columns:1fr 1fr}.resumeArea{grid-template-columns:1fr}.resumePanel{position:static}.resumeSheet{max-width:210mm}.main{padding:26px 25px 110px}}
+@media(max-width:900px){.sidebar{width:72px;padding:20px 7px}.sidebar .logo,.sidebar .navtext,.sidebar .navlabel,.sidebarFoot,.sidebar .brand span{display:none}.sidebar .brand{justify-content:center;padding:0}.sidebar .navitem{justify-content:center}.topbar{padding:0 20px}.welcomeLayout{grid-template-columns:1fr;gap:25px;max-width:650px}.welcomeCopy h1{font-size:42px}.welcomeCopy .benefits{display:none}}
+@media(max-width:680px){body{font-size:13px}.shell{display:none}.sidebar{display:none}.topbar{height:61px;padding:0 15px}.topbar .stage{display:none}.topbar .logo{font-size:18px}.topright .mutedlabel{display:none}.main{padding:23px 14px 125px}.grid2,.grid3,.roleRow,.swotGrid{grid-template-columns:1fr}.card{padding:17px;border-radius:15px}.card.selected{padding:16px}.welcome{padding:15px 12px}.welcomeLayout{grid-template-columns:1fr}.welcomeCopy h1{font-size:34px;margin:15px 0}.welcomeCopy p{font-size:14px}.welcomeCard{padding:20px;border-radius:20px}.welcomeCard .mascotCircle{width:74px;height:74px}.welcomeCopy .benefits{display:none}.skillRow{grid-template-columns:1fr;gap:8px}.skillRow .skbtn{text-align:left}.bottomNav{display:flex;z-index:12;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);justify-content:space-around;padding:8px 4px 10px;gap:1px}.bottomNav .navitem{display:flex;flex-direction:column;gap:2px;font-size:10px;border-radius:8px;padding:5px 2px;color:#6b7690;max-width:90px;justify-content:center;align-items:center}.bottomNav .navitem.active{color:#4c58c4}.bottomNav .navitem .ni{font-size:19px}.coachFloat{right:13px;bottom:73px}.coachNudge{display:none}.coachBtn{width:55px;height:55px;border-radius:19px}.coachPanel{right:0;left:0;bottom:65px;width:100%;max-height:79dvh;border-radius:20px 20px 0 0}.resumeArea{display:block}.resumeSheet{width:595px;max-width:595px;transform-origin:top left;transform:scale(.58);margin-bottom:-123mm;box-shadow:none}.sheetWrap{overflow:hidden}.notice{font-size:11px}.modalbg{align-items:end;padding:0}.modal{border-radius:20px 20px 0 0;max-height:90vh}.topcallout{flex-direction:column;align-items:flex-start}.btn.blockMobile{width:100%}}
+@media print{body{background:white!important}.sidebar,.topbar,.bottomNav,.coachFloat,.coachPanel,.noPrint,.resumeEditor,.topcallout,.toast{display:none!important}.shellBody,.main,.resumeArea,.resumePanel,.sheetWrap{display:block!important;margin:0!important;padding:0!important;border:0!important;background:white!important;width:100%!important;box-shadow:none!important}.main>*:not(.resumeArea){display:none!important}.resumePrintView,.resumePrintView .sheetWrap,.resumePrintView .resumeSheet{display:block!important}.resumeSheet{transform:none!important;margin:0!important;max-width:none!important;width:210mm!important;height:297mm!important;min-height:297mm!important;box-shadow:none!important;padding:12mm!important;font-size:9px}.resumeSheet .resumeitem:hover{background:none!important}@page{size:A4;margin:0}}
+</style></head><body>
+<div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+<div id="welcome" class="welcome"></div>
+<div id="shell" class="shell">
+ <aside class="sidebar"><div class="brand"><div class="brandicon">✦</div><span class="logo">Pivot<i>Path</i></span></div>
+  <nav class="navgroup"><div class="navlabel">Your journey</div>
+   <button class="navitem" data-action="nav" data-route="discovery"><span class="ni">⌁</span><span class="navtext">Career discovery</span></button>
+   <button class="navitem" data-action="nav" data-route="readiness"><span class="ni">◫</span><span class="navtext">Readiness map</span></button>
+   <button class="navitem" data-action="nav" data-route="practice"><span class="ni">✎</span><span class="navtext">Practice & improve</span></button>
+   <button class="navitem" data-action="nav" data-route="resume"><span class="ni">▤</span><span class="navtext">Living resume</span></button>
+  </nav><div class="sidebarFoot stack gap8"><div class="notice">🐣 <strong>Ask Pip</strong> anytime for guidance on this screen.</div><button class="navitem" data-action="nav" data-route="profile"><span class="ni">♙</span><span class="navtext">My profile & settings</span></button></div>
+ </aside>
+ <div class="shellBody"><header class="topbar"><div class="frow gap8"><div class="logo">Pivot<i>Path</i></div><span class="stage" id="stageName">Your career journey</span></div><div class="topright"><span id="modePill" class="pill amber">Demo guide</span><button class="btn small soft" data-action="continue">Continue →</button><button class="btn small light" data-action="nav" data-route="profile" aria-label="My profile">◯ <span class="mutedlabel">Profile</span></button></div></header>
+ <main class="main" id="main" tabindex="-1"></main></div>
+</div>
+<nav id="bottomNav" class="bottomNav"><button class="navitem" data-action="nav" data-route="discovery"><span class="ni">⌁</span>Discover</button><button class="navitem" data-action="nav" data-route="readiness"><span class="ni">◫</span>Readiness</button><button class="navitem" data-action="nav" data-route="practice"><span class="ni">✎</span>Practice</button><button class="navitem" data-action="nav" data-route="resume"><span class="ni">▤</span>Resume</button></nav>
+<div id="coachFloat" class="coachFloat hidden"><div class="coachNudge" id="coachNudge"></div><button class="coachBtn" data-action="toggle-coach" aria-label="Ask Pip, your career coach"><span id="mascotFloat"></span></button></div>
+<div id="coachPanel" class="coachPanel hidden" role="dialog" aria-label="Pip career coach"><header class="coachHeader fspread"><div class="frow gap8"><div style="width:35px;height:35px" id="mascotPanel"></div><div><strong>Pip · Career Coach</strong><div class="textxs muted" id="coachModeLabel">Contextual demo guide</div></div></div><button class="btn light small" data-action="toggle-coach" aria-label="Close coach">✕</button></header><div class="coachMessages" id="coachMessages"></div><div class="coachQuick" id="coachQuick"></div><form id="coachForm" class="coachComposer"><input id="coachInput" autocomplete="off" placeholder="Ask Pip about this step..." aria-label="Your message to Pip"/><button class="btn small soft" type="button" data-action="mic" aria-label="Speak to Pip">🎙</button><button class="btn small" type="submit">Send</button></form></div>
+<div id="modalRoot"></div>
+<script>const DATA={
+  "roles": {
+    "PA": {
+      "name": "Product Analyst",
+      "summary": "Understand product behavior, measure journeys, and recommend changes with clear evidence.",
+      "source_ids": [
+        "S05",
+        "S06"
+      ],
+      "competencies": [
+        [
+          "C1a",
+          "Problem framing"
+        ],
+        [
+          "C2b",
+          "Funnels & cohorts"
+        ],
+        [
+          "C2c",
+          "Hypotheses and causal caution"
+        ],
+        [
+          "C2d",
+          "Business interpretation"
+        ],
+        [
+          "C2a",
+          "KPI design"
+        ],
+        [
+          "C3a",
+          "SQL (external practice only)"
+        ]
+      ],
+      "resource": {
+        "title": "Amplitude: Product analytics fundamentals",
+        "url": "https://www.amplitude.com/guides/product-analytics"
+      },
+      "keywords": [
+        "analysis",
+        "data",
+        "research",
+        "kpi",
+        "metrics",
+        "excel",
+        "python",
+        "sql",
+        "product",
+        "dashboard",
+        "funnel",
+        "cohort"
+      ],
+      "scenario_A": "A consumer app's downloads are stable, but weekly active users are down 15% for a month. Synthetic case; no real company is implicated.",
+      "questions_A": [
+        {
+          "id": "PA1",
+          "prompt": "What would you clarify before investigating the 15% decline?",
+          "competency": "C1a",
+          "ideal": "Metric definition, dates, segment, instrumentation, seasonality"
+        },
+        {
+          "id": "PA2",
+          "prompt": "Which usage funnel or cohorts would you examine first?",
+          "competency": "C2b",
+          "ideal": "Acquisition→activation→repeat use; weekly cohorts; denominators"
+        },
+        {
+          "id": "PA3",
+          "prompt": "Downloads are stable but first-week activation fell. Give three hypotheses and how you'd distinguish them.",
+          "competency": "C2c",
+          "ideal": "UX regression, mix shift, tracking issue; evidence per hypothesis"
+        },
+        {
+          "id": "PA4",
+          "prompt": "You can investigate only one hypothesis today. Which and why?",
+          "competency": "C2d",
+          "ideal": "Prioritization using impact, evidence and effort; check data validity"
+        },
+        {
+          "id": "PA5",
+          "prompt": "What would you measure after a fix, and what guardrail would you monitor?",
+          "competency": "C2a",
+          "ideal": "Activation and retained use; clear windows/guardrail"
+        }
+      ],
+      "scenario_B": "Signup-to-verification conversion has declined on Android, but iOS has remained stable. The event instrumentation recently changed.",
+      "questions_B": [
+        {
+          "id": "PA1B",
+          "prompt": "Before diagnosing verification conversion, what definitions and baseline would you confirm?",
+          "competency": "C1a",
+          "ideal": "Metric definition, dates, segment, instrumentation, seasonality"
+        },
+        {
+          "id": "PA2B",
+          "prompt": "Which stages and cohorts of the verification journey would you compare?",
+          "competency": "C2b",
+          "ideal": "Acquisition→activation→repeat use; weekly cohorts; denominators"
+        },
+        {
+          "id": "PA3B",
+          "prompt": "Offer three possible explanations for the Android decline and explain what data distinguishes them.",
+          "competency": "C2c",
+          "ideal": "UX regression, mix shift, tracking issue; evidence per hypothesis"
+        },
+        {
+          "id": "PA4B",
+          "prompt": "Which explanation would you investigate first, and why?",
+          "competency": "C2d",
+          "ideal": "Prioritization using impact, evidence and effort; check data validity"
+        },
+        {
+          "id": "PA5B",
+          "prompt": "What success and guardrail metrics would you use after a change?",
+          "competency": "C2a",
+          "ideal": "Activation and retained use; clear windows/guardrail"
+        }
+      ],
+      "sources": [
+        {
+          "kind": "E",
+          "title": "United Tech — Product Analyst (Web)",
+          "description": "SQL, funnel, retention and testing",
+          "url": "https://jobs.lever.co/vacancies/f74a4d8c-43d9-4b28-a49f-f42cf8d1c2da"
+        },
+        {
+          "kind": "F",
+          "title": "Amplitude — Product Analytics Guide",
+          "description": "Funnels, cohorts, retention, activation",
+          "url": "https://www.amplitude.com/guides/product-analytics"
+        }
+      ]
+    },
+    "APM": {
+      "name": "Associate Product Manager",
+      "summary": "Discover user needs, prioritize product decisions, and coordinate measurable delivery.",
+      "source_ids": [
+        "S11",
+        "S12",
+        "S13"
+      ],
+      "competencies": [
+        [
+          "C1a",
+          "Problem framing"
+        ],
+        [
+          "C1b",
+          "User discovery"
+        ],
+        [
+          "C4b",
+          "Feature prioritization"
+        ],
+        [
+          "C4c",
+          "PRDs and solution scope"
+        ],
+        [
+          "C2a",
+          "Product outcomes and metrics"
+        ],
+        [
+          "C5c",
+          "Delivery and rollout"
+        ]
+      ],
+      "resource": {
+        "title": "Atlassian: Product management interview handbook",
+        "url": "https://www.atlassian.com/company/careers/resources/career-growth/product-managers"
+      },
+      "keywords": [
+        "prd",
+        "product",
+        "user",
+        "roadmap",
+        "prioritization",
+        "requirements",
+        "launch",
+        "research",
+        "strategy",
+        "growth"
+      ],
+      "scenario_A": "A team has capacity to ship only one improvement in the next cycle: onboarding simplification, smarter notifications or a new recommendation feature.",
+      "questions_A": [
+        {
+          "id": "PM1",
+          "prompt": "What outcome and user group must be clarified before choosing?",
+          "competency": "C1a",
+          "ideal": "Customer need, baseline outcome, constraints"
+        },
+        {
+          "id": "PM2",
+          "prompt": "What evidence would you collect about the three opportunities?",
+          "competency": "C1b",
+          "ideal": "User research, funnel issues, costs, complaints"
+        },
+        {
+          "id": "PM3",
+          "prompt": "Choose one feature using explicit criteria and defend the trade-off.",
+          "competency": "C4b",
+          "ideal": "User impact, confidence, effort, risk, alternatives"
+        },
+        {
+          "id": "PM4",
+          "prompt": "What is the smallest testable version and how would you describe it to engineering?",
+          "competency": "C4c",
+          "ideal": "MVP scope, user story, acceptance conditions"
+        },
+        {
+          "id": "PM5",
+          "prompt": "What outcome metric and guardrails would decide whether to continue?",
+          "competency": "C2a",
+          "ideal": "Clear metric tree, experiment and risk constraints"
+        }
+      ],
+      "scenario_B": "A job platform can build only one next-quarter feature: simplify applications, improve search filters, or add recruiter messaging.",
+      "questions_B": [
+        {
+          "id": "PM1B",
+          "prompt": "What user group and outcome would you clarify before choosing a feature?",
+          "competency": "C1a",
+          "ideal": "Customer need, baseline outcome, constraints"
+        },
+        {
+          "id": "PM2B",
+          "prompt": "What research or metrics would you gather for the three options?",
+          "competency": "C1b",
+          "ideal": "User research, funnel issues, costs, complaints"
+        },
+        {
+          "id": "PM3B",
+          "prompt": "Pick one feature and justify the trade-off with an explicit decision framework.",
+          "competency": "C4b",
+          "ideal": "User impact, confidence, effort, risk, alternatives"
+        },
+        {
+          "id": "PM4B",
+          "prompt": "Define the smallest usable version and its acceptance criteria.",
+          "competency": "C4c",
+          "ideal": "MVP scope, user story, acceptance conditions"
+        },
+        {
+          "id": "PM5B",
+          "prompt": "What would indicate success and what unintended effects would you monitor?",
+          "competency": "C2a",
+          "ideal": "Clear metric tree, experiment and risk constraints"
+        }
+      ],
+      "sources": [
+        {
+          "kind": "E",
+          "title": "Metaforms — Associate Product Manager",
+          "description": "Experience from business/analytical roles, user flows",
+          "url": "https://jobs.ashbyhq.com/metaforms/11927a5f-ed4b-4e2a-ae42-aab75bb307c9"
+        },
+        {
+          "kind": "E",
+          "title": "Scan.com — Associate Product Manager",
+          "description": "Discovery, PRDs, product outcomes",
+          "url": "https://jobs.ashbyhq.com/scan-com/e3460b05-078d-4050-ab6a-e62a0f8733a7"
+        },
+        {
+          "kind": "F/I",
+          "title": "Atlassian — Product interview handbook",
+          "description": "PM customer/outcome/communication expectations",
+          "url": "https://www.atlassian.com/company/careers/resources/career-growth/product-managers"
+        }
+      ]
+    },
+    "PO": {
+      "name": "Product Operations Associate",
+      "summary": "Keep product launches and operating processes running reliably across teams.",
+      "source_ids": [
+        "S07",
+        "S08"
+      ],
+      "competencies": [
+        [
+          "C5a",
+          "Workflow design"
+        ],
+        [
+          "C2c",
+          "Operational diagnosis"
+        ],
+        [
+          "C5d",
+          "Escalation and operating cadence"
+        ],
+        [
+          "C5b",
+          "Quality assurance"
+        ],
+        [
+          "C5c",
+          "Rollout planning"
+        ],
+        [
+          "C7b",
+          "Stakeholder alignment"
+        ]
+      ],
+      "resource": {
+        "title": "IIBA: Business Analysis Standard",
+        "url": "https://www.iiba.org/knowledgehub/the-business-analysis-standard/"
+      },
+      "keywords": [
+        "operations",
+        "process",
+        "workflow",
+        "stakeholder",
+        "implementation",
+        "program",
+        "delivery",
+        "coordination",
+        "qa",
+        "launch"
+      ],
+      "scenario_A": "A digital onboarding process takes 30% longer this month even though application volume is stable.",
+      "questions_A": [
+        {
+          "id": "PO1",
+          "prompt": "What would you clarify about turnaround time and the affected users?",
+          "competency": "C5a",
+          "ideal": "Mean/median, SLA, segments, measurement window"
+        },
+        {
+          "id": "PO2",
+          "prompt": "Map the stages, owners and possible queues.",
+          "competency": "C5a",
+          "ideal": "Queue time vs touch time, rework, handoffs"
+        },
+        {
+          "id": "PO3",
+          "prompt": "How would you separate a product defect from a staffing or process bottleneck?",
+          "competency": "C2c",
+          "ideal": "Logs, queue aging, errors, capacity measures"
+        },
+        {
+          "id": "PO4",
+          "prompt": "Pick a short-term containment and a longer-term change. Explain the trade-off.",
+          "competency": "C5d",
+          "ideal": "Escalation, prioritization, owner, root-cause remediation"
+        },
+        {
+          "id": "PO5",
+          "prompt": "What launch/QA and operational monitoring would prevent recurrence?",
+          "competency": "C5b",
+          "ideal": "SLA dashboard, alerts, UAT, post-fix checks"
+        }
+      ],
+      "scenario_B": "After a new feature launch, support tickets spike and resolutions slow down despite unchanged staffing.",
+      "questions_B": [
+        {
+          "id": "PO1B",
+          "prompt": "What definitions, customer segments and time windows would you clarify?",
+          "competency": "C5a",
+          "ideal": "Mean/median, SLA, segments, measurement window"
+        },
+        {
+          "id": "PO2B",
+          "prompt": "Map the support process and identify where tickets may be accumulating.",
+          "competency": "C5a",
+          "ideal": "Queue time vs touch time, rework, handoffs"
+        },
+        {
+          "id": "PO3B",
+          "prompt": "How would you distinguish product defects from operations capacity or process issues?",
+          "competency": "C2c",
+          "ideal": "Logs, queue aging, errors, capacity measures"
+        },
+        {
+          "id": "PO4B",
+          "prompt": "What immediate response and longer-term fix would you prioritize?",
+          "competency": "C5d",
+          "ideal": "Escalation, prioritization, owner, root-cause remediation"
+        },
+        {
+          "id": "PO5B",
+          "prompt": "What monitoring and release quality controls would prevent recurrence?",
+          "competency": "C5b",
+          "ideal": "SLA dashboard, alerts, UAT, post-fix checks"
+        }
+      ],
+      "sources": [
+        {
+          "kind": "E",
+          "title": "Omnea — Product Ops",
+          "description": "Launch coordination and metrics",
+          "url": "https://jobs.ashbyhq.com/omnea/55478d98-7a69-4386-a57b-ecf6d88087c0"
+        },
+        {
+          "kind": "E",
+          "title": "Credo.AI — Product Operations Manager",
+          "description": "Metric system, release readiness",
+          "url": "https://jobs.ashbyhq.com/credo.ai/0d90b98f-0979-4b2f-b808-e38a90141ff1"
+        }
+      ]
+    },
+    "DA": {
+      "name": "Data Analyst",
+      "summary": "Prepare and analyze data, check its quality, and communicate reliable business findings.",
+      "source_ids": [
+        "S01",
+        "S02"
+      ],
+      "competencies": [
+        [
+          "C2a",
+          "Analytical metrics"
+        ],
+        [
+          "C3d",
+          "Data quality & joins"
+        ],
+        [
+          "C2c",
+          "Hypothesis checking"
+        ],
+        [
+          "C2d",
+          "Business interpretation"
+        ],
+        [
+          "C7a",
+          "Analytical communication"
+        ],
+        [
+          "C3a",
+          "SQL (external practice only)"
+        ]
+      ],
+      "resource": {
+        "title": "SQLBolt: Interactive SQL lessons",
+        "url": "https://sqlbolt.com/"
+      },
+      "keywords": [
+        "sql",
+        "python",
+        "data",
+        "analytics",
+        "report",
+        "excel",
+        "dashboard",
+        "statistics",
+        "power bi",
+        "tableau"
+      ],
+      "scenario_A": "A signup dashboard shows 1,000 signups and 450 activated users this month, versus 800 signups and 400 activated last month. The new tracking event was introduced midmonth.",
+      "questions_A": [
+        {
+          "id": "DA1",
+          "prompt": "Calculate activation rates for both months and interpret the change.",
+          "competency": "C2a",
+          "ideal": "50%→45%; rates down 5 pp despite count up"
+        },
+        {
+          "id": "DA2",
+          "prompt": "What data-definition problems could make this comparison invalid?",
+          "competency": "C3d",
+          "ideal": "Event change, unique IDs, eligibility, cutoff"
+        },
+        {
+          "id": "DA3",
+          "prompt": "What checks would you run before publishing the dashboard?",
+          "competency": "C2c",
+          "ideal": "Duplicates, missingness, join grain, window consistency"
+        },
+        {
+          "id": "DA4",
+          "prompt": "Which two segments would you compare first?",
+          "competency": "C2d",
+          "ideal": "New/returning, platform, source, region; rationale"
+        },
+        {
+          "id": "DA5",
+          "prompt": "How would you communicate this cautiously to management?",
+          "competency": "C7a",
+          "ideal": "Caveat, magnitude, next checks, no false causation"
+        }
+      ],
+      "scenario_B": "Purchases have increased after a pricing change, but revenue per active customer has declined.",
+      "questions_B": [
+        {
+          "id": "DA1B",
+          "prompt": "What metrics would you calculate and how would you interpret their movement?",
+          "competency": "C2a",
+          "ideal": "50%→45%; rates down 5 pp despite count up"
+        },
+        {
+          "id": "DA2B",
+          "prompt": "What definitions, joins and recording changes could distort this conclusion?",
+          "competency": "C3d",
+          "ideal": "Event change, unique IDs, eligibility, cutoff"
+        },
+        {
+          "id": "DA3B",
+          "prompt": "Which validity checks would you run before publishing the result?",
+          "competency": "C2c",
+          "ideal": "Duplicates, missingness, join grain, window consistency"
+        },
+        {
+          "id": "DA4B",
+          "prompt": "What customer segments or periods would you compare first?",
+          "competency": "C2d",
+          "ideal": "New/returning, platform, source, region; rationale"
+        },
+        {
+          "id": "DA5B",
+          "prompt": "How would you explain the trade-offs and uncertainty to management?",
+          "competency": "C7a",
+          "ideal": "Caveat, magnitude, next checks, no false causation"
+        }
+      ],
+      "sources": [
+        {
+          "kind": "E",
+          "title": "Fam — Data Analyst (posting; example asks 3–5 years SQL)",
+          "description": "DA SQL/Python/Excel",
+          "url": "https://jobs.lever.co/fampay/811d4537-ade2-43fa-83c5-e2d07839b402"
+        },
+        {
+          "kind": "F",
+          "title": "SQLBolt — interactive SQL lessons",
+          "description": "External technical study",
+          "url": "https://sqlbolt.com/"
+        }
+      ]
+    },
+    "BA": {
+      "name": "Business Analyst",
+      "summary": "Turn business problems and stakeholder needs into clear requirements and measurable solutions.",
+      "source_ids": [
+        "S03",
+        "S04"
+      ],
+      "competencies": [
+        [
+          "C1b",
+          "Stakeholder discovery"
+        ],
+        [
+          "C5a",
+          "Process mapping"
+        ],
+        [
+          "C7b",
+          "Stakeholder alignment"
+        ],
+        [
+          "C4c",
+          "Requirements & acceptance criteria"
+        ],
+        [
+          "C5c",
+          "Solution validation"
+        ],
+        [
+          "C2a",
+          "KPIs"
+        ]
+      ],
+      "resource": {
+        "title": "IIBA: Business Analysis Standard",
+        "url": "https://www.iiba.org/knowledgehub/the-business-analysis-standard/"
+      },
+      "keywords": [
+        "analysis",
+        "requirements",
+        "stakeholder",
+        "consulting",
+        "process",
+        "market",
+        "business",
+        "interview",
+        "operating model"
+      ],
+      "scenario_A": "A company wants to replace spreadsheet-based leave approvals with a self-service workflow, but HR and line managers disagree on exception policies.",
+      "questions_A": [
+        {
+          "id": "BA1",
+          "prompt": "Who are your stakeholders and what outcomes do you clarify?",
+          "competency": "C1b",
+          "ideal": "Employees, HR, managers, payroll, audit, outcomes"
+        },
+        {
+          "id": "BA2",
+          "prompt": "How would you document the current process and pain points?",
+          "competency": "C5a",
+          "ideal": "Current-state steps, turnaround, error/exception rates"
+        },
+        {
+          "id": "BA3",
+          "prompt": "How would you resolve conflicting approval rules?",
+          "competency": "C7b",
+          "ideal": "Decision rights, exceptions, escalation, policy owner"
+        },
+        {
+          "id": "BA4",
+          "prompt": "State three testable requirements or acceptance criteria.",
+          "competency": "C4c",
+          "ideal": "Role permissions, SLA, audit trail, edge cases"
+        },
+        {
+          "id": "BA5",
+          "prompt": "What would you evaluate after rollout?",
+          "competency": "C5c",
+          "ideal": "Adoption, SLA, errors, auditability, employee feedback"
+        }
+      ],
+      "scenario_B": "Finance, risk, and customer support disagree on the rules for a new self-service refund workflow.",
+      "questions_B": [
+        {
+          "id": "BA1B",
+          "prompt": "Identify the relevant stakeholders and the desired business outcomes.",
+          "competency": "C1b",
+          "ideal": "Employees, HR, managers, payroll, audit, outcomes"
+        },
+        {
+          "id": "BA2B",
+          "prompt": "How would you capture the current-state refund process and issues?",
+          "competency": "C5a",
+          "ideal": "Current-state steps, turnaround, error/exception rates"
+        },
+        {
+          "id": "BA3B",
+          "prompt": "How would you resolve the conflicting approval and exception rules?",
+          "competency": "C7b",
+          "ideal": "Decision rights, exceptions, escalation, policy owner"
+        },
+        {
+          "id": "BA4B",
+          "prompt": "Write three testable requirements or acceptance conditions.",
+          "competency": "C4c",
+          "ideal": "Role permissions, SLA, audit trail, edge cases"
+        },
+        {
+          "id": "BA5B",
+          "prompt": "How would you evaluate the solution after rollout?",
+          "competency": "C5c",
+          "ideal": "Adoption, SLA, errors, auditability, employee feedback"
+        }
+      ],
+      "sources": [
+        {
+          "kind": "E",
+          "title": "Lingaro — Business Analyst, India",
+          "description": "Elicitation/requirements/process",
+          "url": "https://jobs.lever.co/lingarogroup/cd755053-4b17-4958-84be-6459737b0120"
+        },
+        {
+          "kind": "F",
+          "title": "IIBA — Business Analysis Standard",
+          "description": "Elicitation, needs, solution evaluation",
+          "url": "https://www.iiba.org/knowledgehub/the-business-analysis-standard/"
+        }
+      ]
+    },
+    "PMM": {
+      "name": "Product Marketing Associate",
+      "summary": "Research customers, position products, and design measurable go-to-market plans.",
+      "source_ids": [
+        "S09",
+        "S10"
+      ],
+      "competencies": [
+        [
+          "C1c",
+          "Customer segments"
+        ],
+        [
+          "C6b",
+          "Positioning"
+        ],
+        [
+          "C6c",
+          "GTM channels"
+        ],
+        [
+          "C6d",
+          "Activation and growth metrics"
+        ],
+        [
+          "C7a",
+          "Commercial storytelling"
+        ]
+      ],
+      "resource": {
+        "title": "Product Marketing Alliance: PMM interview guide",
+        "url": "https://www.productmarketingalliance.com/how-to-prepare-for-a-product-marketing-interview/"
+      },
+      "keywords": [
+        "marketing",
+        "gtm",
+        "growth",
+        "sales",
+        "market research",
+        "customer",
+        "segmentation",
+        "positioning",
+        "product"
+      ],
+      "scenario_A": "A B2B analytics tool launches a simplified dashboard for small retail chains but adoption is low.",
+      "questions_A": [
+        {
+          "id": "MK1",
+          "prompt": "Who is the highest-priority buyer/user and what job do they need done?",
+          "competency": "C1c",
+          "ideal": "Decision maker, user, pain, segment selection"
+        },
+        {
+          "id": "MK2",
+          "prompt": "What positioning statement would differentiate the offer?",
+          "competency": "C6b",
+          "ideal": "Target, pain, value, proof, distinction"
+        },
+        {
+          "id": "MK3",
+          "prompt": "Which two channels would you test first with limited budget?",
+          "competency": "C6c",
+          "ideal": "Channel logic, reach, buying journey, resources"
+        },
+        {
+          "id": "MK4",
+          "prompt": "What would sales/customer-success need to explain the launch?",
+          "competency": "C6c",
+          "ideal": "Messaging, objections, demo, enablement"
+        },
+        {
+          "id": "MK5",
+          "prompt": "How would you measure launch success and separate awareness from activation?",
+          "competency": "C6d",
+          "ideal": "Funnel, conversion, adoption, feedback loops"
+        }
+      ],
+      "scenario_B": "An existing learning app is launching a paid employer offering, but its users are currently students.",
+      "questions_B": [
+        {
+          "id": "MK1B",
+          "prompt": "Who are the new buyers, users, and stakeholders, and what jobs are they hiring the product for?",
+          "competency": "C1c",
+          "ideal": "Decision maker, user, pain, segment selection"
+        },
+        {
+          "id": "MK2B",
+          "prompt": "Write a differentiated positioning statement for the new offer.",
+          "competency": "C6b",
+          "ideal": "Target, pain, value, proof, distinction"
+        },
+        {
+          "id": "MK3B",
+          "prompt": "Which two GTM channels would you test first with limited resources?",
+          "competency": "C6c",
+          "ideal": "Channel logic, reach, buying journey, resources"
+        },
+        {
+          "id": "MK4B",
+          "prompt": "What sales-enablement materials and objections should the launch plan address?",
+          "competency": "C6c",
+          "ideal": "Messaging, objections, demo, enablement"
+        },
+        {
+          "id": "MK5B",
+          "prompt": "How would you distinguish campaign awareness from actual adoption and willingness to pay?",
+          "competency": "C6d",
+          "ideal": "Funnel, conversion, adoption, feedback loops"
+        }
+      ],
+      "sources": [
+        {
+          "kind": "E",
+          "title": "Primer.io — Product Marketing Associate",
+          "description": "Messaging, positioning, GTM",
+          "url": "https://jobs.ashbyhq.com/primer.io/70c05b42-ebfa-4806-8ef1-d042b6b6895f"
+        },
+        {
+          "kind": "F/I",
+          "title": "Product Marketing Alliance — interview guide",
+          "description": "Positioning and GTM themes",
+          "url": "https://www.productmarketingalliance.com/how-to-prepare-for-a-product-marketing-interview/"
+        }
+      ]
+    }
+  },
+  "sourceRegistry": {
+    "S01": {
+      "kind": "E",
+      "title": "Fam — Data Analyst (posting; example asks 3–5 years SQL)",
+      "description": "DA SQL/Python/Excel",
+      "url": "https://jobs.lever.co/fampay/811d4537-ade2-43fa-83c5-e2d07839b402"
+    },
+    "S02": {
+      "kind": "F",
+      "title": "SQLBolt — interactive SQL lessons",
+      "description": "External technical study",
+      "url": "https://sqlbolt.com/"
+    },
+    "S03": {
+      "kind": "E",
+      "title": "Lingaro — Business Analyst, India",
+      "description": "Elicitation/requirements/process",
+      "url": "https://jobs.lever.co/lingarogroup/cd755053-4b17-4958-84be-6459737b0120"
+    },
+    "S04": {
+      "kind": "F",
+      "title": "IIBA — Business Analysis Standard",
+      "description": "Elicitation, needs, solution evaluation",
+      "url": "https://www.iiba.org/knowledgehub/the-business-analysis-standard/"
+    },
+    "S05": {
+      "kind": "E",
+      "title": "United Tech — Product Analyst (Web)",
+      "description": "SQL, funnel, retention and testing",
+      "url": "https://jobs.lever.co/vacancies/f74a4d8c-43d9-4b28-a49f-f42cf8d1c2da"
+    },
+    "S06": {
+      "kind": "F",
+      "title": "Amplitude — Product Analytics Guide",
+      "description": "Funnels, cohorts, retention, activation",
+      "url": "https://www.amplitude.com/guides/product-analytics"
+    },
+    "S07": {
+      "kind": "E",
+      "title": "Omnea — Product Ops",
+      "description": "Launch coordination and metrics",
+      "url": "https://jobs.ashbyhq.com/omnea/55478d98-7a69-4386-a57b-ecf6d88087c0"
+    },
+    "S08": {
+      "kind": "E",
+      "title": "Credo.AI — Product Operations Manager",
+      "description": "Metric system, release readiness",
+      "url": "https://jobs.ashbyhq.com/credo.ai/0d90b98f-0979-4b2f-b808-e38a90141ff1"
+    },
+    "S09": {
+      "kind": "E",
+      "title": "Primer.io — Product Marketing Associate",
+      "description": "Messaging, positioning, GTM",
+      "url": "https://jobs.ashbyhq.com/primer.io/70c05b42-ebfa-4806-8ef1-d042b6b6895f"
+    },
+    "S10": {
+      "kind": "F/I",
+      "title": "Product Marketing Alliance — interview guide",
+      "description": "Positioning and GTM themes",
+      "url": "https://www.productmarketingalliance.com/how-to-prepare-for-a-product-marketing-interview/"
+    },
+    "S11": {
+      "kind": "E",
+      "title": "Metaforms — Associate Product Manager",
+      "description": "Experience from business/analytical roles, user flows",
+      "url": "https://jobs.ashbyhq.com/metaforms/11927a5f-ed4b-4e2a-ae42-aab75bb307c9"
+    },
+    "S12": {
+      "kind": "E",
+      "title": "Scan.com — Associate Product Manager",
+      "description": "Discovery, PRDs, product outcomes",
+      "url": "https://jobs.ashbyhq.com/scan-com/e3460b05-078d-4050-ab6a-e62a0f8733a7"
+    },
+    "S13": {
+      "kind": "F/I",
+      "title": "Atlassian — Product interview handbook",
+      "description": "PM customer/outcome/communication expectations",
+      "url": "https://www.atlassian.com/company/careers/resources/career-growth/product-managers"
+    },
+    "S14": {
+      "kind": "F",
+      "title": "Atlassian — Prioritizing ideas",
+      "description": "Prioritization reasoning",
+      "url": "https://www.atlassian.com/software/jira/product-discovery/resources/handbook/prioritization"
+    }
+  }
+};'use strict';
+const ROLES=DATA.roles, SOURCES=DATA.sourceRegistry;
+const roleOrder=['DA','BA','PA','PO','PMM','APM'];
+const v=(o,k,d='')=>o&&o[k]!==undefined?o[k]:d;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const initials=s=>String(s||'').split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
+const stamp=()=>new Date().toISOString();
+const uid=()=>Math.random().toString(36).slice(2,10);
+const mascot=`<svg class="mascotSvg" viewBox="0 0 82 82" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="41" cy="70" rx="25" ry="6" fill="#aab5eb" opacity=".28"/><path d="M19 36 C16 18 33 7 45 12 C68 13 70 29 68 43 C70 61 56 70 39 69 C21 69 11 55 19 36Z" fill="#f6f0fa" stroke="#555c9f" stroke-width="2"/><path d="M25 30 Q22 20 33 15 Q27 26 29 35" fill="#bbbaf2" opacity=".7"/><circle cx="31" cy="39" r="4" fill="#30365f"/><circle cx="54" cy="39" r="4" fill="#30365f"/><circle cx="32" cy="38" r="1.4" fill="white"/><circle cx="55" cy="38" r="1.4" fill="white"/><ellipse cx="24" cy="46" rx="5" ry="3" fill="#fab8c5" opacity=".8"/><ellipse cx="61" cy="46" rx="5" ry="3" fill="#fab8c5" opacity=".8"/><path d="M39 45 Q43 49 48 45" stroke="#b87c75" fill="none" stroke-width="2" stroke-linecap="round"/><path d="M15 45 Q7 41 6 48 Q5 54 17 53" fill="#b6b6ef" stroke="#555c9f" stroke-width="1.4"/><path d="M68 46 Q77 40 77 48 Q75 57 65 54" fill="#b6b6ef" stroke="#555c9f" stroke-width="1.4"/><path d="M35 14 Q35 5 42 8 L48 15" fill="#8c93da" stroke="#555c9f" stroke-width="1.3"/></svg>`;
+const defaultSections=()=>[
+ {id:'education',title:'Education',enabled:true,items:[]},
+ {id:'experience',title:'Professional Experience',enabled:true,items:[]},
+ {id:'internships',title:'Internships',enabled:true,items:[]},
+ {id:'projects',title:'Projects',enabled:true,items:[]},
+ {id:'skills',title:'Skills',enabled:true,items:[]},
+ {id:'certifications',title:'Certifications',enabled:false,items:[]},
+ {id:'leadership',title:'Leadership & Achievements',enabled:false,items:[]}
+];
+const seedState=()=>({version:4.1,stage:'welcome',route:'discovery',profile:{name:'',email:'',phone:'',linkedin:'',portfolio:'',employer:'',role:'',years:'',education:'',skills:'',achievements:'',resumeText:'',source:'manual',verified:false},career:{aspiration:'',motivation:'',workPreference:'',urgency:'',activeRole:'',shortlist:[]},discoveryStep:0,showAllRoles:false,attempt:null,attempts:[],practiceView:'case',tasks:[],resume:{sections:defaultSections(),history:[],proposals:[]},chat:[],coachOpen:false,coachMuted:false,selectedItem:null,showSource:false});
+let S;
+try{S=JSON.parse(localStorage.getItem('pivotpath_v4_state')||'null');if(!S||S.version!==4.1)S=seedState()}catch(e){S=seedState()}
+let server={ai:'demo',resume_parser:'unavailable',pdf_export:'unavailable'};
+let modal=null, toastTimer=null, busy=false, warnedStorage=false, draftSaveTimer=null;
+const save=()=>{try{localStorage.setItem('pivotpath_v4_state',JSON.stringify(S))}catch(e){if(!warnedStorage){warnedStorage=true;notify('Browser storage is restricted here. Export career data in Profile to keep a backup.','bad')}}};
+const notify=(message,type='')=>{const t=document.getElementById('toast');t.textContent=message;t.className='toast';if(type)t.classList.add(type);clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.add('hidden'),4200)};
+const sourceTag=(s)=>`<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer" class="tag">↗ ${esc((s.title||'Source').split(' — ')[0])}</a>`;
+const roleName=id=>(ROLES[id]||{}).name||'Not selected';
+const actionBtn=(name,text,extra='',style='btn soft small')=>`<button class="${style}" data-action="${esc(name)}" ${extra}>${text}</button>`;
+function api(path,opts={}){return fetch(path,opts).then(async r=>{let obj=await r.json().catch(()=>({}));if(!r.ok)throw Error(obj.detail||'Request failed ('+r.status+')');return obj})}
+async function checkServer(){try{let j=await api('/api/status');if(j.ai)server=j}catch(e){}updateMode()}
+function updateMode(){const p=document.getElementById('modePill');if(p){p.textContent=server.ai==='live'?'✦ Live AI connected':'◇ Guided demo · AI not connected';p.className='pill '+(server.ai==='live'?'green':'amber')}const el=document.getElementById('coachModeLabel');if(el)el.textContent=server.ai==='live'?'Live AI coach':'Contextual demo guide · not live AI'}
+function screenTitle(){return ({discovery:'Career discovery',readiness:'Readiness map',practice:'Practice & improve',resume:'Living resume',profile:'Career profile & settings'})[S.route]||'Your career journey'}
+function setRoute(route){if(!['discovery','readiness','practice','resume','profile'].includes(route))return;if(S.stage==='welcome'){S.stage='profile'}S.route=route;save();render();window.scrollTo({top:0,behavior:'instant'})}
+function roleSources(id){return (ROLES[id]?.sources||[]).filter(x=>x.url)}
+function showcaseSource(id){let list=roleSources(id);return `<div class="stack gap8"><span class="kicker">Example requirements & learning references</span><div class="tagrow">${list.map(sourceTag).join('')}</div><p class="textxs muted">Illustrative employer examples and professional resources; postings may close or change. Not a market-wide hiring benchmark.</p></div>`}
+function promptNudge(){if(S.route==='profile')return 'Your experience comes first. Review what I know and add anything missing.';if(!S.career.activeRole){return S.discoveryStep<3?'Tell me what you want to do more of in your next role.':'I can compare career paths with your aspirations.'};if(S.route==='readiness')return 'A missing keyword is not proof of a skill gap. Let’s test the right things.';if(S.route==='practice')return 'One question at a time. Ask me for a hint whenever you need one.';if(S.route==='resume')return 'Click any line on your one-pager to edit it, or ask me for a better bullet.';return 'I’m here to help with your next step.'}
+function render(){const isWelcome=S.stage==='welcome';document.getElementById('welcome').classList.toggle('hidden',!isWelcome);document.getElementById('shell').classList.toggle('active',!isWelcome);document.getElementById('bottomNav').classList.toggle('hidden',isWelcome);document.getElementById('coachFloat').classList.toggle('hidden',isWelcome);document.getElementById('coachFloat').classList.toggle('hidden',!!S.coachMuted||isWelcome);if(isWelcome){renderWelcome();document.getElementById('coachPanel').classList.add('hidden');return}
+ document.getElementById('stageName').textContent=' / '+screenTitle()+(S.career.activeRole?' · '+roleName(S.career.activeRole):'');document.querySelectorAll('.navitem[data-route]').forEach(el=>el.classList.toggle('active',el.dataset.route===S.route));updateMode();document.getElementById('coachNudge').textContent=promptNudge();document.getElementById('mascotFloat').innerHTML=mascot;document.getElementById('mascotPanel').innerHTML=mascot;
+ const main=document.getElementById('main');main.innerHTML=({discovery:renderDiscovery,readiness:renderReadiness,practice:renderPractice,resume:renderResume,profile:renderProfile})[S.route]();
+ if(S.route==='resume')setTimeout(checkOverflow,50);
+ renderCoach();renderModal();}
+function pageHeader(kicker,title,desc){return `<div class="sectiontop"><div class="kicker">${kicker}</div><h2 style="margin-top:6px">${title}</h2><p class="pagelead">${desc}</p></div>`}
+const fmt=(t)=>esc(t||'Not provided');
+function renderWelcome(){let e=document.getElementById('welcome');e.innerHTML=`<div class="welcomeLayout"><div class="welcomeCopy"><div class="frow gap8"><div class="brandicon">✦</div><span class="logo">Pivot<i>Path</i></span><span class="pill blue">Meet Pip 🐣</span></div><h1>Your experience.<br/><span>Your next chapter.</span></h1><p>A guided career workspace for discovering your next role, understanding what it takes, practicing relevant skills, and creating a resume that grows with you.</p><div class="benefits"><div class="benefit"><span class="check">✓</span><span>Explore realistic transitions while keeping your ambition in charge.</span></div><div class="benefit"><span class="check">✓</span><span>Assess → learn → reassess with feedback tied to real competencies.</span></div><div class="benefit"><span class="check">✓</span><span>Build a role-focused, editable one-page resume.</span></div></div></div>
+ <div class="welcomeCard stack gap20"><div class="frow"><div class="mascotCircle mascotfloat">${mascot}</div><div class="stack gap6"><strong style="font-size:18px">Hi! I'm Pip.</strong><p class="subtle">Your career coach, from first question to next opportunity.</p></div></div><div class="chatbubble">“We'll start with your experience—not a job title you have to pick now. You can upload a resume or tell me about your work.”</div><div class="stack gap8"><button class="btn block" data-action="intake-upload">↑ &nbsp; Start with my resume</button><button class="btn block light" data-action="intake-manual">☰ &nbsp; Tell Pip about my experience</button></div><div class="orline">TRY A SAMPLE JOURNEY</div><div class="sampleLinks"><button data-action="demo-persona" data-persona="JRA">Research analyst</button><button data-action="demo-persona" data-persona="AC">Associate consultant</button><button data-action="demo-persona" data-persona="BA">Business analyst</button></div><div class="smallprint">No account required. Workspace progress is stored in this browser. Live AI works only when a server with an API key is connected.</div></div></div>`}
+const personas={JRA:{name:'Alex Research',role:'Junior Research Analyst',employer:'Example Research Studio',years:1.5,skills:'Excel, market research, benchmarking, reporting, PowerPoint',achievements:'Benchmarked competitors for a consulting engagement and created a structured market-sizing analysis; findings were used to brief project stakeholders.',education:'B.Tech — Example University',source:'demo persona'},AC:{name:'Sam Consulting',role:'Associate Consultant',employer:'Example Consulting Group',years:2.3,skills:'Excel, stakeholder workshops, process mapping, business research, PowerPoint',achievements:'Led a workstream to identify improvement opportunities in onboarding operations; facilitated stakeholder interviews and prepared recommendations for the client.',education:'Bachelor of Commerce — Example College',source:'demo persona'},BA:{name:'Taylor Analysis',role:'Business Analyst',employer:'Example SaaS Firm',years:2,skills:'Excel, business requirements, Power BI, UAT, process mapping',achievements:'Documented process requirements and coordinated UAT for an internal ticketing workflow, with feedback from support and engineering teams.',education:'BBA — Example University',source:'demo persona'}};
+function loadPersona(p){const o=personas[p];if(!o)return;S=seedState();Object.assign(S.profile,o);S.profile.verified=false;S.stage='profile';S.route='profile';save();render();notify('Sample persona loaded. Review or edit before continuing.');}
+function renderProfile(){let p=S.profile;return `${pageHeader('01 · First, understand me','Your career profile','Edit the facts Pip will use. Job titles and resume keywords do not prove proficiency; your actual responsibilities matter more.')}
+ <div class="grid2"><div class="card stack gap20"><div class="fspread"><h3>Personal & work details</h3><span class="pill ${p.verified?'green':'amber'}">${p.verified?'Confirmed by you':'Needs review'}</span></div><form id="profileForm" class="stack"><div class="grid2"><div class="field"><label for="pname">Full name *</label><input id="pname" name="name" value="${esc(p.name)}" required placeholder="Your full name"/></div><div class="field"><label for="pemail">Email</label><input id="pemail" name="email" type="email" value="${esc(p.email)}" placeholder="you@example.com"/></div></div><div class="grid2"><div class="field"><label for="prole">Current / most recent role *</label><input id="prole" name="role" value="${esc(p.role)}" required placeholder="e.g. Research Associate"/></div><div class="field"><label for="pcompany">Employer / organization</label><input id="pcompany" name="employer" value="${esc(p.employer)}" placeholder="Where you worked"/></div></div><div class="grid2"><div class="field"><label for="pyears">Years of experience</label><input id="pyears" name="years" type="number" min="0" max="45" step="any" value="${esc(p.years)}" placeholder="e.g. 1.7"/></div><div class="field"><label for="pedu">Education</label><input id="pedu" name="education" value="${esc(p.education)}" placeholder="Degree and institution"/></div></div><div class="field"><label for="pskills">Tools & skills (self-reported)</label><textarea id="pskills" name="skills" rows="2" placeholder="Excel, SQL, stakeholder interviews...">${esc(p.skills)}</textarea></div><div class="field"><label for="pachieve">What have you actually done? (1–3 key projects or achievements)</label><textarea id="pachieve" name="achievements" rows="5" placeholder="Describe your role, what you did and the result. Exact outcomes only if known.">${esc(p.achievements)}</textarea></div><div class="grid2"><div class="field"><label for="pphone">Phone</label><input id="pphone" name="phone" value="${esc(p.phone)}"/></div><div class="field"><label for="plinked">LinkedIn URL</label><input id="plinked" name="linkedin" value="${esc(p.linkedin)}"/></div></div><div class="field"><label for="pportfolio">Portfolio URL</label><input id="pportfolio" name="portfolio" value="${esc(p.portfolio)}"/></div><div id="profileError" class="notice bad hidden"></div><div class="frow" style="flex-wrap:wrap"><button class="btn" type="submit">${p.verified?'Save changes':'Confirm profile & continue'} →</button><button type="button" class="btn light" data-action="reset-to-discovery">Explore paths</button></div></form></div>
+ <div class="stack gap20"><div class="card stack"><div class="fspread"><h3>Resume intake</h3><span class="pill">Optional</span></div><div class="notice">PDF/DOCX extraction works in the server-enabled website. In the offline file demo, paste resume text instead. Imported facts are drafts until you confirm them.</div><div class="field"><label for="resumeFile">Choose a PDF, DOCX, TXT, MD or TEX file</label><input id="resumeFile" type="file" accept=".pdf,.docx,.txt,.md,.tex,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"/></div><button data-action="paste-resume" class="btn light small">Paste or edit resume text</button>${p.resumeText?`<div class="profileExtract">${esc(p.resumeText.slice(0,1500))}${p.resumeText.length>1500?'…':''}</div><div class="frow">${actionBtn('build-resume','Use in my one-pager','','btn soft small')}<span class="textxs muted">Original preserved separately</span></div>`:'<p class="subtle">You can continue without a resume. The Living Resume can be completed later.</p>'}</div><div class="card stack gap8"><h3>Data & privacy</h3><p class="subtle">This assignment prototype stores profile and practice state locally in your browser, not in a user account. A live AI request sends necessary context to the connected AI backend.</p><div class="field"><label for="careerDataImport">Restore from a previous career data export</label><input type="file" id="careerDataImport" accept=".json,application/json"/></div><div class="frow" style="flex-wrap:wrap">${actionBtn('export-data','Download career data','','btn light small')}${actionBtn('mute-pip',S.coachMuted?'Show Pip again':'Mute Pip suggestions','','btn light small')}${actionBtn('reset','Delete my local data','','btn warn small')}</div></div></div></div>`}
+const roleLabels=['Data Analyst','Business Analyst','Product Analyst','Product Operations Associate','Product Marketing Associate','Associate Product Manager'];
+const baseTerms={'C1a':['problem','objective','framing','hypothesis','scope'],'C1b':['interview','user','research','stakeholder','requirements'],'C1c':['segment','persona','customer','buyer'],'C2a':['metrics','kpi','measurement','conversion','retention','dashboard'],'C2b':['cohort','funnel','activation','retention','drop-off'],'C2c':['hypothesis','experiment','testing','validation','causal'],'C2d':['analysis','insights','interpretation','diagnostics'],'C3a':['sql','mysql','postgres'],'C3b':['python','pandas'],'C3d':['data quality','data cleaning','joins','duplicate'],'C4b':['prioritization','prioritised','prioritized','trade-offs','feature decision'],'C4c':['prd','requirements','user stories','acceptance criteria'],'C5a':['process','workflow','operating model','operations'],'C5b':['qa','uat','testing','quality assurance'],'C5c':['implementation','rollout','launch','deployment'],'C5d':['escalation','sla','ops','process improvement'],'C6b':['positioning','messaging','value proposition'],'C6c':['gtm','go-to-market','marketing','campaign'],'C6d':['acquisition','retention','growth','conversion'],'C7a':['storytelling','recommendations','reporting','presentation'],'C7b':['stakeholders','client','collaboration','cross-functional']};
+function matches(text,words){const s=' '+String(text||'').toLowerCase()+' ';return (words||[]).filter(w=>s.includes(w.toLowerCase()))}
+function roleFit(id){const p=S.profile;const work=(p.role+' '+p.achievements+' '+p.resumeText).toLowerCase();const skills=(p.skills||'').toLowerCase();let confirmed=matches(work,ROLES[id].keywords), claimed=matches(skills,ROLES[id].keywords);let value=Math.min(9,confirmed.length*2+claimed.length);return {value,confirmed,claimed,summary:confirmed.length?`Your history mentions ${confirmed.slice(0,3).join(', ')}.`:(claimed.length?`You've listed ${claimed.slice(0,3).join(', ')} as skills.`:'Your existing information does not yet demonstrate these role-specific competencies.')};}
+function shortlist(){let all=roleOrder.map(id=>({id,...roleFit(id)})).sort((a,b)=>b.value-a.value);let aspiration=S.career.aspiration;if(aspiration&&ROLES[aspiration]&&!all.slice(0,3).some(x=>x.id===aspiration))return [all.find(x=>x.id===aspiration),...all.filter(x=>x.id!==aspiration).slice(0,2)];return all.slice(0,3)}
+function renderDiscovery(){let step=S.discoveryStep;
+ if(!S.profile.verified)return `${pageHeader('01 · Discovery','Start with your experience','Before Pip suggests roles, confirm your basic career details so the suggestions are grounded in actual work.')}${introCallout('Your profile needs review','It only takes a moment, and resume upload is optional.','Go to profile','profile')}<div style="margin-top:15px" class="card">${actionBtn('nav','Review my profile','data-route="profile"','btn')}</div>`;
+ if(step<3){let content=[
+  {title:'What would you like to do more of?',prompt:'Tell me what energizes you at work and what you would like to change. A few sentences are enough.',name:'workPreference',label:'The kind of work I want',example:'I want to solve product problems and own end-to-end decisions, rather than only support analysis.'},
+  {title:'Do you have a particular role in mind?',prompt:'You can tell me your aspiration even if it seems difficult today. I will never replace it with an easier role.',name:'aspiration',label:'My desired destination',example:''},
+  {title:'What is driving this transition?',prompt:'Is it a change in responsibilities, learning opportunities, scope, industry, or something else? You can skip nonessential details.',name:'motivation',label:'Reason for making the switch',example:'I want a role with more technical or product execution ownership.'}
+ ][step];return `${pageHeader('01 · Discovery','Let’s figure out your next chapter','Pip asks one relevant question at a time. You can skip, go back, or ask questions freely.')}
+ <div class="discoveryWizard stack gap20"><div class="fspread"><span class="pill purple">Conversation ${step+1} of 3</span><span class="textxs muted">You control your aspiration</span></div><div class="progressSteps"><span class="${step>=0?'done':''}"></span><span class="${step>=1?'done':''}"></span><span class="${step>=2?'done':''}"></span></div><div class="frow" style="align-items:flex-start"><div style="width:55px;min-width:55px;height:55px" class="mascotfloat">${mascot}</div><div class="card pale stack gap8" style="flex:1"><div class="kicker">Pip asks</div><h2>${content.title}</h2><p class="subtle">${content.prompt}</p></div></div><form id="discoveryForm" class="card stack"><div class="field"><label for="discoveryResponse">${content.label}</label>${step===1?`<select id="aspirationSelect" name="aspiration"><option value="">I'm still exploring</option>${roleOrder.map(id=>`<option value="${id}" ${S.career.aspiration===id?'selected':''}>${esc(roleName(id))}</option>`).join('')}</select><p class="hint">If your desired title isn't listed, describe it in Pip chat; this MVP supports six destination families.</p>`:`<textarea id="discoveryResponse" name="${content.name}" rows="5" placeholder="${esc(content.example)}">${esc(S.career[content.name])}</textarea>`}</div><div class="fspread" style="flex-wrap:wrap"><div class="frow">${step>0?actionBtn('discovery-back','← Back','','btn light small'):''}${actionBtn('discovery-skip','Skip for now','','btn light small')}</div><button class="btn" type="submit">${step===2?'Find suitable career paths':'Continue'} →</button></div></form></div>`}
+ const options=S.showAllRoles?roleOrder.map(id=>({id,...roleFit(id)})):shortlist();return `${pageHeader('01 · Career Discovery','Where could your experience take you?','These are reasoned suggestions based on the work you shared—not certifications or hiring probabilities. Your preference stays in the picture.')}
+ <div class="topcallout" style="margin-bottom:20px"><div class="frow"><div class="pageicon">🐣</div><div><strong>${S.career.aspiration?`You mentioned ${esc(roleName(S.career.aspiration))}. Let's explore that.`:'I found some possible next steps.'}</strong><p class="subtle">You have the final say. Pip helps you understand the distance to your chosen destination.</p></div></div>${actionBtn('restart-discovery','Edit my answers','','btn light small')}</div>
+ <div class="roleRow">${options.map(x=>roleCard(x.id,x)).join('')}</div><div style="margin-top:16px" class="fspread"><button data-action="all-roles" class="btn light small">${S.showAllRoles?'Show top 3':'Explore all 6 roles'} →</button><span class="textxs muted">Employer examples are illustrative and may not currently be hiring.</span></div>
+ <div class="card stack" style="margin-top:22px"><h3>What did Pip consider?</h3><p class="subtle">Role scope from real job postings, relevant words in your verified work, self-reported skills, and your desired role. We haven't tested your performance yet. A challenging aspiration is never hidden.</p><div class="frow" style="flex-wrap:wrap">${actionBtn('nav','Review my profile','data-route="profile"','btn soft small')}${actionBtn('toggle-coach','Discuss my options with Pip','','btn light small')}</div></div>`}
+function roleCard(id,fit){const r=ROLES[id];fit=fit||roleFit(id);const pref=S.career.aspiration===id;const selectable=S.career.activeRole===id;let related=fit.confirmed.length+fit.claimed.length;let accessibility=related>3?'More apparent overlap':related>0?'Some transferable overlap':'More to investigate';return `<article class="roleCard ${selectable?'active':''}"><div class="fspread"><span class="pill ${pref?'purple':'blue'}">${pref?'✦ Your aspiration':'Suggested option'}</span><span class="pill">${esc(accessibility)}</span></div><h3>${esc(r.name)}</h3><p class="subtle">${esc(r.summary)}</p><div class="notice white"><strong>Why this may align</strong><br/>${esc(fit.summary)}</div><div><div class="textxs semibold" style="margin-bottom:6px">What we'd still need to check</div><div class="tagrow">${r.competencies.filter(([code])=>!matches(S.profile.achievements,baseTerms[code]||[]).length).slice(0,3).map(c=>`<span class="tag">${esc(c[1])}</span>`).join('')}</div></div><div class="foot stack gap8">${showcaseSource(id)}<button class="btn block" data-action="select-role" data-role="${id}">${selectable?'View readiness map':'Choose as my goal'} →</button></div></article>`}
+function introCallout(title,text,button,route){return `<div class="topcallout"><div class="frow"><div class="pageicon">🐣</div><div><strong>${title}</strong><p class="subtle">${text}</p></div></div><button class="btn" data-action="nav" data-route="${route}">${button} →</button></div>`}
+function allEvidence(role){const p=S.profile;const skillText=p.skills.toLowerCase(), workText=(p.role+' '+p.achievements).toLowerCase(),rawText=p.resumeText.toLowerCase();return (ROLES[role]?.competencies||[]).map(([code,label])=>{const related=baseTerms[code]||ROLES[role].keywords.slice(0,4);let latest=null;for(let a of S.attempts){if(a.role!==role)continue;for(let ev of a.evaluations){if(ev.competency===code&&ev.assessable)latest={...ev,caseId:a.caseId,variant:a.variant,completed:a.completedAt}}}let state='unassessed',detail='No confirmed evidence yet. This is not the same as a weakness.';
+ const work=matches(workText,related), raw=matches(rawText,related), claimed=matches(skillText,related);
+ if(work.length&&p.verified){state='work';detail=`Your confirmed description mentions: ${work.slice(0,2).join(', ')}. Practical depth still needs review.`}
+ else if(raw.length){state='resume';detail=`Appears in your imported resume: ${raw.slice(0,2).join(', ')}. This is a claim, not tested proficiency.`}
+ else if(claimed.length){state='self';detail=`You listed ${claimed.slice(0,2).join(', ')}. Application has not been assessed.`}
+ if(latest){state=latest.rating<=2?'gap':'observed';detail=`${latest.variant} case: ${latest.rating}/5 on an exercise (${latest.source==='demo'?'illustrative demo review':'live AI formative assessment'}).`}
+ return {code,label,state,detail,latest,work};})}
+function statePill(x){let t={work:['Experience described','green'],resume:['Resume claim','blue'],self:['Self-reported','blue'],unassessed:['Unassessed','amber'],gap:['Practice gap','red'],observed:['Case observed','green']};let [lab,col]=t[x]||t.unassessed;return `<span class="pill ${col}">${lab}</span>`}
+function renderReadiness(){const role=S.career.activeRole;if(!role)return `${pageHeader('02 · Readiness','Understand your starting point','Choose a role after discovery so Pip can compare requirements to your actual experience.')}${introCallout('No active target yet','We’ll recommend paths after reviewing your career story.','Explore my roles','discovery')}`;
+ let evidence=allEvidence(role);let strengths=evidence.filter(x=>x.state==='work'||x.state==='observed');let gaps=evidence.filter(x=>x.state==='gap');let unknown=evidence.filter(x=>['self','resume','unassessed'].includes(x.state));let nextGap=(evidence.find(x=>x.state==='gap')||unknown[0]||evidence[0]);return `${pageHeader('02 · Your Readiness Map',`How does your background map to ${esc(roleName(role))}?`,'An explainable, evolving competency map—not a hiring likelihood score. Your self-reports and case performance are kept separate.')}
+ <div class="topcallout" style="margin-bottom:20px"><div class="frow"><div class="pageicon">◫</div><div><strong>${esc(roleName(role))} · Provisional role review</strong><p class="subtle">${strengths.length} work/case indicators · ${unknown.length} still need confirmation · ${gaps.length} case gaps observed</p></div></div>${actionBtn('start-case','Assess my skills','data-variant="A"','btn')}</div>
+ <div class="grid2" style="grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr)"><div class="card stack gap8"><div class="fspread"><h3>Competencies that matter</h3><span class="pill blue">${evidence.length} role criteria</span></div>${evidence.map(e=>`<div class="skillRow"><div class="stack gap6"><strong>${esc(e.label)}</strong><span class="textxs muted">${esc(e.code)}</span></div><div><div style="margin-bottom:6px">${statePill(e.state)}</div><p class="textxs muted">${esc(e.detail)}</p></div><div class="skbtn">${actionBtn('inspect-skill','Why?','data-code="'+e.code+'"','btn light small')}</div></div>`).join('')}<p class="textxs muted">Technical skills such as SQL require hands-on execution to verify. We do not pretend a written case demonstrates SQL proficiency.</p></div>
+ <div class="stack gap20"><div class="card stack gap8"><h3>SWOT · Based on what we know</h3><div class="swotGrid"><div class="swot"><b>Strengths</b><p class="textsm muted">${strengths.length?esc(strengths.slice(0,2).map(x=>x.label).join(' · ')):'No strengths validated by a case yet; existing experience may still be relevant.'}</p></div><div class="swot"><b>Weaknesses</b><p class="textsm muted">${gaps.length?esc(gaps.slice(0,2).map(x=>x.label).join(' · ')):'No observed weakness yet. Unknown ≠ weak.'}</p></div><div class="swot"><b>Opportunities</b><p class="textsm muted">Targeted practice, adjacent roles, learning resources and tailored portfolio descriptions.</p></div><div class="swot"><b>Threats</b><p class="textsm muted">Employer-specific prerequisites and applicants with more direct functional experience.</p></div></div></div><div class="card stack gap8"><h3>What should you do next?</h3><p class="subtle">${nextGap?`Let's investigate ${esc(nextGap.label.toLowerCase())} through a realistic exercise or supported learning resource.`:'Keep validating your claimed experience.'}</p>${actionBtn('start-case','Start a five-question case','data-variant="A"','btn block')} ${actionBtn('toggle-coach','Ask Pip about this map','','btn light block')}</div><div class="card stack gap8"><h3>Role expectations, with sources</h3>${showcaseSource(role)}<button class="btn small light" data-action="change-goal">Change my selected goal</button></div></div></div>`}
+const resourceMap={C1:'https://www.iiba.org/knowledgehub/the-business-analysis-standard/',C2:'https://www.amplitude.com/guides/product-analytics',C3:'https://sqlbolt.com/',C4:'https://www.atlassian.com/software/jira/product-discovery/resources/handbook/prioritization',C5:'https://www.iiba.org/knowledgehub/the-business-analysis-standard/',C6:'https://www.productmarketingalliance.com/how-to-prepare-for-a-product-marketing-interview/',C7:'https://www.atlassian.com/company/careers/resources/career-growth/product-managers'};
+function resourceFor(code){return resourceMap[String(code||'C2').slice(0,2)]||'https://www.amplitude.com/guides/product-analytics'}
+function beginCase(role,variant='A'){role=role||S.career.activeRole;if(!ROLES[role]){notify('Choose a target role in discovery first.');setRoute('discovery');return}if(variant==='B'&&!S.attempts.some(a=>a.role===role&&a.variant==='A')){notify('Complete the first case before reassessment.');variant='A'}S.attempt={id:uid(),role,variant,caseId:role+'-'+variant,index:0,answers:[],evaluations:[],hints:[],status:'question',startedAt:stamp()};S.practiceView='case';S.route='practice';save();render();}
+function currentQ(){const a=S.attempt;if(!a)return null;return ROLES[a.role]?.['questions_'+a.variant]?.[a.index]||null}
+function practiceSummary(role=S.career.activeRole){return S.attempts.filter(a=>a.role===role).map(a=>({variant:a.variant,completed:a.completedAt,valid:a.evaluations.filter(e=>e.assessable).length,average:a.evaluations.filter(e=>e.assessable).length?Math.round((a.evaluations.filter(e=>e.assessable).reduce((n,e)=>n+e.rating,0)/a.evaluations.filter(e=>e.assessable).length)*10)/10:null,demo:a.evaluations.some(e=>e.source==='demo')}))}
+function renderPractice(){let role=S.career.activeRole; if(!role)return `${pageHeader('03 · Practice & Improve','Build your proficiency','Choose a career goal first to get questions relevant to your destination and background.')}${introCallout('Your questions will be tailored to your goal','Select a role before entering the Practice Lab.','Discover my roles','discovery')}`;
+ if(S.practiceView==='plan')return renderActionPlan();if(S.practiceView==='history')return renderAttemptHistory();
+ if(!S.attempt||S.attempt.role!==role){let completed=S.attempts.filter(a=>a.role===role);return `${pageHeader('03 · Practice & Improve',`Practice ${esc(roleName(role))} skills`,'Five short, sequential questions, one at a time. Your answers are saved and feedback is mapped to specific competencies.')}
+ <div class="grid2"><div class="card stack gap20"><div class="frow"><div class="pageicon">✎</div><div><h3>${esc(roleName(role))} · Main case</h3><p class="subtle">${esc(ROLES[role].scenario_A)}</p></div></div><div class="notice ${server.ai==='live'?'good':'warn'}">${server.ai==='live'?'Live AI evaluates each answer against the published rubric.':'Offline demo uses a transparent keyword checklist with illustrative feedback. It is not real AI assessment.'}</div>${actionBtn('start-case','Start case A · 5 questions','data-variant="A"','btn block')}${completed.some(a=>a.variant==='A')?actionBtn('start-case','Start new scenario B · reassess','data-variant="B"','btn soft block'):''}</div><div class="card stack"><h3>Continue your improvement loop</h3><p class="subtle">Explore feedback, study a targeted resource, and practice again on a different scenario.</p>${actionBtn('plan','My action plan','','btn light block')}${actionBtn('history','Past attempts & progress','','btn light block')}${showcaseSource(role)}</div></div>`}
+ let a=S.attempt,q=currentQ(),questions=ROLES[role]['questions_'+a.variant],isFeedback=a.status==='feedback',complete=a.status==='complete';
+ if(complete)return renderCaseComplete();
+ const val=a.answers[a.index]?.answer||'';
+ return `${pageHeader('03 · Practice & Improve',`${esc(roleName(role))} · ${a.variant==='A'?'First assessment':'Reassessment'}`,'Answer one question at a time. Each step is saved, so a refresh will restore your place.')}
+ <div class="grid2" style="grid-template-columns:minmax(0,1.55fr) minmax(250px,.65fr);align-items:start"><div class="card caseQuestion stack gap20"><div class="fspread"><span class="pill purple">${a.variant==='A'?'Scenario A':'New scenario B'}</span><span class="subtle mono">Question ${a.index+1} of ${questions.length}</span></div><div class="progressSteps">${questions.map((x,i)=>`<span class="${i<a.index?'done':i===a.index?'now':''}"></span>`).join('')}</div>
+ <div class="stack gap8"><div class="kicker">Case scenario</div><p class="subtle">${esc(ROLES[role]['scenario_'+a.variant])}</p></div><div class="hr"></div><div class="stack gap8"><div class="kicker">${esc(q.competency)} · ${esc(ROLES[role].competencies.find(x=>x[0]===q.competency)?.[1]||'Role competency')}</div><div class="qbig">${esc(q.prompt)}</div></div>
+ ${isFeedback?feedbackCard(a.evaluations[a.index],q):`<form id="answerForm" class="stack gap8"><div class="field"><label for="caseAnswer">Your reasoning</label><textarea id="caseAnswer" class="answerBox" name="answer" placeholder="Explain how you'd approach this. Include assumptions, checks, metrics or trade-offs when relevant." required>${esc(val)}</textarea><span class="hint">A meaningful response is required before feedback.</span></div>${a.hints.some(h=>h.index===a.index)?`<div class="notice"><strong>Pip’s hint:</strong> Think about ${esc(q.ideal.split(',')[0].trim().toLowerCase())}. Your answer is still yours to develop.</div>`:''}<div id="answerError" class="notice bad hidden"></div><div class="fspread" style="flex-wrap:wrap"><div class="inline-actions">${actionBtn('hint','💡 Show hint','','btn light small')}${actionBtn('toggle-coach','Ask Pip','','btn light small')}</div><button type="submit" class="btn" ${busy?'disabled':''}>${busy?'Reviewing...':'Submit answer →'}</button></div></form>`}
+ <div class="fspread" style="flex-wrap:wrap"><button data-action="plan" class="btn light small">← Improvement plan</button><button data-action="history" class="btn light small">View past attempts</button></div></div><aside class="stack gap20"><div class="card stack"><h3>What this question tests</h3><p class="subtle">${esc(ROLES[role].competencies.find(x=>x[0]===q.competency)?.[1]||q.competency)}</p><div class="notice white">A thoughtful answer explains both the decision and the reasoning behind it. This is an authored practice case, not a verbatim company interview question.</div></div><div class="card stack"><h3>Need help?</h3><p class="subtle">Pip can explain the concept or offer a nudge. Hints are recorded for context.</p>${actionBtn('hint','Get a hint','','btn soft block')}<a href="${esc(resourceFor(q.competency))}" target="_blank" rel="noopener noreferrer" class="btn light block">Open learning resource ↗</a></div></aside></div>`}
+function feedbackCard(ev,q){if(!ev)return '<div class="notice bad">Feedback was not saved. Retry this question.</div>';return `<div class="stack gap20"><div class="frow" style="align-items:flex-start"><div class="feedbackRating">${ev.assessable?ev.rating+'/5':'—'}</div><div class="stack gap6"><h3>${ev.assessable?'Question review':'Not assessable yet'}</h3><span class="pill ${ev.source==='live'?'green':'amber'}">${ev.source==='live'?'Live AI · formative':'Illustrative demo checklist'}</span><p class="subtle">${ev.assessable?'This reflects your performance on this question, not overall job readiness.':'No skill score is recorded from irrelevant or insufficient input.'}</p></div></div>${ev.evidence?.length?`<div><strong>What you demonstrated in your answer</strong><ul class="reviewlist">${ev.evidence.map(x=>`<li>“${esc(x)}”</li>`).join('')}</ul></div>`:''}${ev.strengths?.length?`<div><strong>Observed strengths</strong><ul class="reviewlist">${ev.strengths.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:''}${ev.missed?.length?`<div><strong>What to improve</strong><ul class="reviewlist">${ev.missed.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:''}<div class="notice"><strong>Next step:</strong> ${esc(ev.next_action||'Practice the concept again.')}</div><div class="fspread" style="flex-wrap:wrap"><button class="btn light small" data-action="retry-question">Edit my answer</button><button class="btn" data-action="next-question">${S.attempt.index===4?'Complete case':'Next question'} →</button></div></div>`}
+function buildDemoReview(q,answer){const text=answer.replace(/\s+/g,' ').trim();const words=text.toLowerCase().match(/[a-z]{2,}/g)||[];if(text.length<42||words.length<8||new Set(words).size<6||new Set(text.toLowerCase().replace(/[^a-z]/g,'')).size<6)return {assessable:false,rating:null,evidence:[],strengths:[],missed:['Please respond with relevant reasoning, not filler or repeated characters.'],next_action:'Explain at least two concrete steps and why you would take them.',source:'demo'};
+ const components=q.ideal.split(/[,;]/).map(s=>s.trim()).filter(Boolean).slice(0,6);
+ const stop=new Set('with what when why how that this from into they them their would should there about before after under which first then based using only need you your and the for across'.split(' '));
+ let hits=[],miss=[];
+ for(let c of components){let toks=(c.toLowerCase().match(/[a-z]{3,}/g)||[]).filter(w=>!stop.has(w));let matched=toks.filter(w=>text.toLowerCase().includes(w));if(matched.length)hits.push({c,matched});else miss.push(c)}
+ if(!hits.length){let relevant=/\b(user|users|customer|metric|data|process|goal|feature|stakeholder|risk|impact|analysis|decision|hypothesis|compare|clarify|investigate|implement|measure|business|funnel|conversion|retention|experiment|outcome)\b/i.test(text);if(relevant)return {assessable:true,rating:1,evidence:[text.slice(0,95)],strengths:['A relevant line of reasoning was attempted, but the simple demo checklist could not confirm the specific rubric elements.'],missed:components.slice(0,2).map(c=>'Consider '+c.toLowerCase()),next_action:'Explicitly address the question’s scope, key evidence and decision criteria. The offline checklist may miss valid alternative reasoning.',source:'demo'};return {assessable:false,rating:null,evidence:[],strengths:[],missed:[`The response does not yet address the expected dimension: ${q.ideal}.`],next_action:'State the steps you would take using the question’s business context.',source:'demo'}}
+ const coverage=hits.length/Math.max(1,components.length);let score=Math.min(5,Math.max(1,Math.round(1+coverage*3+(words.length>60?1:0))));
+ const snippets=[];for(let h of hits.slice(0,3)){let term=h.matched[0],ix=text.toLowerCase().indexOf(term);if(ix>=0)snippets.push(text.slice(Math.max(0,ix-14),Math.min(text.length,ix+term.length+28)).trim())}
+ return {assessable:true,rating:score,evidence:snippets,strengths:hits.slice(0,2).map(h=>'Touches on '+h.c.toLowerCase()),missed:miss.slice(0,2).map(c=>'Consider '+c.toLowerCase()),next_action:miss.length?'Next time, explicitly address '+miss[0].toLowerCase()+'.':'Develop a sharper rationale, trade-offs, and a concrete measure of success.',source:'demo'}
+}
+function addImprovementTask(a){const valid=a.evaluations.filter(e=>e.assessable);if(!valid.length)return;const lowest=[...valid].sort((a,b)=>a.rating-b.rating)[0];const code=lowest.competency,role=a.role;const label=ROLES[role].competencies.find(x=>x[0]===code)?.[1]||'Role skill';const title='Improve '+label.toLowerCase();if(S.tasks.some(t=>t.title===title&&t.role===role&&t.status!=='done'))return;S.tasks.unshift({id:uid(),role,competency:code,title,reason:`${a.variant} case · ${lowest.rating}/5 (${lowest.source==='demo'?'illustrative review':'formative AI feedback'})`,url:resourceFor(code),caseId:role+'-'+(a.variant==='A'?'B':'A'),status:'open',createdAt:stamp()})}
+function finalizeCase(){let a=S.attempt;if(!a)return;a.status='complete';a.completedAt=stamp();S.attempts.push(JSON.parse(JSON.stringify(a)));addImprovementTask(a);S.practiceView='case';save();render()}
+function renderCaseComplete(){const a=S.attempt;if(!a)return '';const valid=a.evaluations.filter(x=>x.assessable);const avg=valid.length?(valid.reduce((n,x)=>n+x.rating,0)/valid.length).toFixed(1):'—';return `${pageHeader('03 · Case completed','You finished the case!','Pip has saved your answers and identified the next learning action. You can now try a comparable but different scenario.')}
+ <div class="grid2"><div class="card stack gap20"><div class="frow"><div class="pageicon">✓</div><div><h3>${esc(roleName(a.role))} · ${a.variant} case</h3><p class="subtle">${valid.length}/5 assessable questions · Case practice, not a job readiness prediction</p></div></div><div class="grid2"><div class="card pale sm"><div class="kicker">Average question rating</div><div class="big-num">${avg}${avg==='—'?'':'/5'}</div><p class="textxs muted">${a.evaluations.some(x=>x.source==='demo')?'Illustrative checklist only':'Live formative assessment'}</p></div><div class="card sm"><div class="kicker">Cases completed</div><div class="big-num">${S.attempts.filter(x=>x.role===a.role).length}</div><p class="textxs muted">Across your selected role</p></div></div><div class="stack gap8">${a.evaluations.map((x,i)=>`<div class="fspread ratingline"><span class="textsm">${esc(ROLES[a.role]['questions_'+a.variant][i].prompt)}</span><span class="pill ${x.rating>=3?'green':'amber'}">${x.assessable?x.rating+'/5':'Unassessed'}</span></div>`).join('')}</div><div class="inline-actions">${actionBtn('plan','View my improvement plan','','btn')}${actionBtn('start-case','Try another scenario','data-variant="'+(a.variant==='A'?'B':'A')+'"','btn soft')}${actionBtn('nav','Updated readiness map','data-route="readiness"','btn light')}</div></div><div class="stack gap20"><div class="card stack"><h3>What happened to my results?</h3><p class="subtle">They have been added to this role's practice history. The readiness map now shows which competencies were observed in the exercise, and which remain self-reported or unknown.</p>${actionBtn('history','Compare my attempts','','btn light block')}</div><div class="card stack"><h3>Your next learning step</h3><p class="subtle">A task based on the lowest-scoring assessed competency has been added to your action plan.</p>${actionBtn('plan','Open my plan','','btn soft block')}</div></div></div>`}
+function renderActionPlan(){let tasks=S.tasks.filter(t=>t.role===S.career.activeRole);return `${pageHeader('03 · Practice & Improve','My improvement plan','Every recommendation connects a real assessed need to a learning resource and a specific next case. Completing a reading task does not create a skill rating.')}
+ <div class="fspread" style="margin-bottom:18px;flex-wrap:wrap">${actionBtn('practice-home','Back to case','','btn light small')}${actionBtn('add-task','+ Add my own action','','btn soft small')}</div><div class="stack gap8">${tasks.length?tasks.map((t,i)=>`<div class="card"><div class="fspread" style="align-items:flex-start"><div class="frow" style="align-items:flex-start"><div class="mini-num">${i+1}</div><div class="stack gap6"><h3>${esc(t.title)}</h3><span class="pill ${t.status==='done'?'green':'amber'}">${t.status==='done'?'Marked done':'Next action'}</span><p class="subtle">${esc(t.reason||'User-added development action')}</p><p class="textxs muted">${esc(t.competency||'Personal goal')} · ${esc(t.caseId||'Practice optional')}</p></div></div><div class="inline-actions"><button class="btn soft small" data-action="complete-task" data-id="${t.id}">${t.status==='done'?'Reopen':'Mark done'}</button><button class="btn light small" data-action="delete-task" data-id="${t.id}">Remove</button></div></div><div class="hr"></div><div class="inline-actions">${t.url?`<a class="btn small light" target="_blank" rel="noopener noreferrer" href="${esc(t.url)}">Read resource ↗</a>`:`<span class="pill amber">No resource linked</span>`}${t.caseId?`<button class="btn small" data-action="task-practice" data-id="${t.id}">Practice this skill →</button>`:''}</div></div>`).join(''):`<div class="card stack"><h3>Nothing assigned yet</h3><p class="subtle">Complete a five-question case or add a personal development action.</p>${actionBtn('start-case','Start a role-specific case','data-variant="A"','btn')}</div>`}</div>`}
+function renderAttemptHistory(){let attempts=S.attempts.filter(a=>a.role===S.career.activeRole);let s=practiceSummary();let original=s.find(x=>x.variant==='A'),re=s.find(x=>x.variant==='B');return `${pageHeader('03 · Practice & Improve','Your practice history','Compare your previous and latest attempts, while keeping the limitations of the assessment visible.')}
+ <div class="fspread" style="margin-bottom:15px">${actionBtn('practice-home','← Return to practice','','btn light small')}${actionBtn('plan','Action plan','','btn soft small')}</div><div class="grid2">${attempts.map(a=>`<div class="card stack gap8"><div class="fspread"><h3>Case ${a.variant}</h3><span class="pill ${a.evaluations.some(x=>x.source==='demo')?'amber':'green'}">${a.evaluations.some(x=>x.source==='demo')?'Demo heuristic':'Live AI'}</span></div><p class="textsm muted">${esc(ROLES[a.role]['scenario_'+a.variant])}</p><div class="fspread"><strong>${a.evaluations.filter(x=>x.assessable).length} assessed questions</strong><span class="textxs muted">${new Date(a.completedAt).toLocaleDateString()}</span></div><div class="stack gap6">${a.evaluations.map(e=>`<div class="fspread textsm"><span>${esc(e.competency)}</span><span>${e.assessable?e.rating+'/5':'Unassessed'}</span></div>`).join('')}</div></div>`).join('')||'<div class="card">No completed case yet. Finish the first one to see your practice history.</div>'}</div>
+ ${original&&re?`<div class="notice ${original.demo||re.demo?'warn':'good'}" style="margin-top:18px"><strong>Comparing scenarios A and B:</strong> ${original.average??'—'}/5 → ${re.average??'—'}/5 (question rating averages). ${original.demo||re.demo?'At least one was scored by a demo heuristic; this is not evidence of confirmed career proficiency.':'Both are formative AI reviews on different scenarios. Differences reflect practice performance, not verified hiring readiness.'}</div>`:''}`}
+function ensureResume(){if(!S.resume||!S.resume.sections)S.resume={sections:defaultSections(),history:[],proposals:[]};return S.resume}
+function syncProfileToResume(force=false){
+ const rs=ensureResume().sections;let edu=rs.find(x=>x.id==='education'),exp=rs.find(x=>x.id==='experience'),skills=rs.find(x=>x.id==='skills');
+ const autoSync=(section,id,title,detail,allowNew=true)=>{
+  let item=section.items.find(x=>x.id===id);
+  if(item){if(!item.manualEdited){item.title=title;item.detail=detail}return}
+  if(allowNew&&String(title+detail).trim())section.items.push({id,title,detail,kind:id==='autoskills'||id==='autoachievement'?'bullet':'entry'})
+ };
+ autoSync(edu,'autoedu',S.profile.education||'','',!edu.items.length);
+ const existingWork=!!(S.profile.resumeText&&exp.items.length);
+ autoSync(exp,'autowork',S.profile.employer?(S.profile.employer+' · '+S.profile.role):'','',!existingWork);
+ autoSync(exp,'autoachievement','',S.profile.achievements||'',!existingWork);
+ const existingSkills=!!(S.profile.resumeText&&skills.items.length);
+ autoSync(skills,'autoskills','',S.profile.skills||'',!existingSkills);
+}
+
+function getSection(id){return ensureResume().sections.find(x=>x.id===id)}
+function findItem(id){for(let s of ensureResume().sections){let item=s.items.find(x=>x.id===id);if(item)return {section:s,item}}return null}
+function isHtmlUrl(s){try{let u=new URL(s);return ['https:','http:'].includes(u.protocol)}catch(e){return false}}
+function rawItem(item){return item.kind==='entry'?(item.title+(item.detail?' — '+item.detail:'')):(item.detail||item.title)}
+function resumeSectionsMarkup(){let r=ensureResume();return r.sections.filter(s=>s.enabled&&s.items.length).map(s=>`<section><h3 class="rsection">${esc(s.title)}</h3>${s.items.map(i=>`<div class="resumeitem editable" tabindex="0" role="button" data-action="edit-resume-item" data-id="${esc(i.id)}" title="Click to edit"><div class="${i.kind==='entry'?'rtitle':'rdesc'}">${i.kind==='bullet'?'•  ':''}${esc(i.title||i.detail)}</div>${i.kind==='entry'&&i.detail?`<div class="rdesc">${esc(i.detail)}</div>`:''}</div>`).join('')}</section>`).join('')}
+function renderResumeSheet(){const p=S.profile;return `<div class="resumeSheet" id="resumeSheet"><div class="rsname editable" data-action="edit-header" title="Edit name & contact">${esc(p.name||'Your Name')}</div><div class="rscontact editable" data-action="edit-header" title="Edit contact details">${p.email?`<a href="mailto:${encodeURIComponent(p.email)}" class="rslink" onclick="event.stopPropagation()">${esc(p.email)}</a>`:''}${p.phone?' · '+esc(p.phone):''}${p.linkedin&&isHtmlUrl(p.linkedin)?` · <a href="${esc(p.linkedin)}" class="rslink" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">LinkedIn</a>`:''}${p.portfolio&&isHtmlUrl(p.portfolio)?` · <a href="${esc(p.portfolio)}" class="rslink" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Portfolio</a>`:''}</div>${resumeSectionsMarkup()}<div id="overflowMark" class="paperalert hidden">One-page limit exceeded. Review sections.</div></div>`}
+function coverageCheck(){let r=ROLES[S.career.activeRole||'APM'];const resumeText=ensureResume().sections.filter(s=>s.enabled).flatMap(s=>s.items.map(rawItem)).join(' ').toLowerCase();return r.competencies.map(([c,n])=>({c,n,mentioned:matches(resumeText,baseTerms[c]||[]).length>0}));}
+function renderResume(){syncProfileToResume();let r=ensureResume();return `<div class="noPrint">${pageHeader('04 · Living Resume','A one-pager that grows with you','Edit directly, ask Pip for writing help, choose the sections relevant to your goal, and export without touching LaTeX.')}
+ <div class="topcallout" style="margin-bottom:18px"><div class="frow"><div class="pageicon">▤</div><div><strong>One master career history. One focused resume.</strong><p class="subtle">The source resume stays in your profile. Suggested changes never apply until you approve them.</p></div></div><div class="inline-actions">${actionBtn('export-pdf','Export PDF','','btn small')}${actionBtn('export-tex','Export LaTeX','','btn light small')}</div></div></div>
+ <div class="resumeArea"><div class="resumeEditor stack gap20 noPrint"><div class="card stack gap20"><div class="fspread"><h3>Structure & content</h3>${actionBtn('undo-resume','Undo last edit','','btn light small')}</div><p class="subtle">Click any item on the resume preview to edit its exact text. Changes affect this one-pager; your uploaded original remains unchanged.</p><div class="resumeSections">${r.sections.map(s=>`<label class="resumesectiontoggle"><input type="checkbox" data-section="${s.id}" ${s.enabled?'checked':''}/>${esc(s.title)}</label>`).join('')}</div><div class="inline-actions">${actionBtn('add-resume-item','+ Add entry','','btn soft small')}${actionBtn('coach-resume','✦ Draft with Pip','','btn light small')}</div><div class="notice warn" id="resumeOverflowText">One page is a goal, not permission to delete accomplishments. If space runs out, Pip suggests which lower-priority content to shorten or exclude.</div></div>
+ <div class="card stack gap8"><h3>Role-specific coverage</h3><p class="textxs muted">Mentions from this resume draft—not ATS performance or independently verified proficiency.</p>${S.career.activeRole?coverageCheck().map(x=>`<div class="fspread ratingline"><span class="textsm">${esc(x.n)}</span>${statePill(x.mentioned?'resume':'unassessed')}</div>`).join(''):'<p class="subtle">Choose a career goal in Discovery to see how this resume relates to that destination.</p>'}</div><div class="card stack gap8"><h3>Skills demonstrated in practice</h3><p class="subtle">Pip can propose a skills-section update based on strong performance. A case score is not a work credential.</p>${skillResumeSuggestion()}</div>${S.profile.resumeText?`<div class="card stack"><h3>Original uploaded resume</h3><p class="subtle">Preserved separately. Changes to the preview don't overwrite it.</p><div class="profileExtract">${esc(S.profile.resumeText.slice(0,1100))}${S.profile.resumeText.length>1100?'…':''}</div></div>`:''}</div>
+ <div class="resumePrintView resumePanel"><div class="fspread noPrint" style="margin-bottom:10px"><div><strong>Live one-page preview</strong><p class="textxs muted">Click any line to edit · A4 · Blue headings</p></div><span class="pill blue">Role: ${esc(roleName(S.career.activeRole)||'General')}</span></div><div class="sheetWrap">${renderResumeSheet()}</div></div></div>`}
+function skillResumeSuggestion(){let arr=S.attempts.filter(a=>a.role===S.career.activeRole).flatMap(a=>a.evaluations.filter(e=>e.assessable&&e.rating>=4).map(e=>({label:ROLES[a.role].competencies.find(x=>x[0]===e.competency)?.[1]||e.competency,source:e.source,comp:e.competency})));arr=arr.filter((x,i)=>arr.findIndex(y=>y.comp===x.comp)===i).slice(0,3);if(!arr.length)return '<p class="textsm muted">Strong exercise observations can appear here after completing a role-specific case. Nothing is automatically added to your resume.</p>';return arr.map(x=>`<div class="fspread ratingline"><span class="textsm">${esc(x.label)} <span class="textxs muted">(${x.source==='demo'?'demo':'AI'} case)</span></span><button class="btn small light" data-action="add-practice-skill" data-comp="${esc(x.comp)}">Review</button></div>`).join('')}
+function checkOverflow(){const x=document.getElementById('resumeSheet');if(!x)return;let overflow=x.scrollHeight>x.clientHeight+4;let warning=document.getElementById('overflowMark');let message=document.getElementById('resumeOverflowText');if(warning)warning.classList.toggle('hidden',!overflow);if(message)message.innerHTML=overflow?'<strong>One-page overflow detected.</strong> Hide a less-relevant section or shorten a bullet, with your approval.':'<strong>One-page preview.</strong> Preserve meaning; prioritize relevant evidence instead of shrinking text indefinitely.'}
+function copyResumeSnapshot(){ensureResume().history.push(JSON.stringify(ensureResume().sections));if(S.resume.history.length>25)S.resume.history.shift()}
+function addItem(sectionId,item){let sec=getSection(sectionId);if(!sec)return;copyResumeSnapshot();sec.enabled=true;sec.items.push({id:uid(),title:item.title||'',detail:item.detail||'',kind:item.kind||'bullet'});save()}
+function openEditItem(id){let pair=findItem(id);if(!pair)return;S.selectedItem=id;modal={type:'editItem',id};renderModal()}
+function renderModal(){let root=document.getElementById('modalRoot');if(!modal){root.innerHTML='';return}let m=modal;let body='';
+ if(m.type==='editItem'){let pair=findItem(m.id);if(!pair){modal=null;root.innerHTML='';return}let it=pair.item;body=`<div class="stack gap20"><div><div class="kicker">Edit resume text</div><h2>${esc(pair.section.title)}</h2></div><form id="editItemForm" class="stack"><div class="field"><label>Headline or entry title</label><input name="title" value="${esc(it.title)}" placeholder="e.g. Company — role, or project title"/></div><div class="field"><label>Detail / impact bullet</label><textarea name="detail" rows="4">${esc(it.detail)}</textarea></div><div class="fspread"><div class="inline-actions">${actionBtn('remove-resume-item','Remove from one-pager','data-id="'+m.id+'"','btn warn small')}${actionBtn('suggest-resume','Improve with Pip','data-id="'+m.id+'"','btn soft small')}</div><button class="btn" type="submit">Save exact changes</button></div></form></div>`}
+ if(m.type==='addItem'){body=`<form id="newItemForm" class="stack gap20"><div><div class="kicker">Living resume</div><h2>Add something meaningful</h2></div><div class="field"><label>Which section?</label><select name="section">${S.resume.sections.map(s=>`<option value="${s.id}" ${m.section===s.id?'selected':''}>${esc(s.title)}</option>`).join('')}</select></div><div class="field"><label>Entry title (optional for a bullet)</label><input name="title" placeholder="e.g. Product case competition finalist"/></div><div class="field"><label>What did you actually do or achieve?</label><textarea name="detail" rows="5" required placeholder="Write facts only. Pip can help polish the wording without inventing a result."></textarea></div><button class="btn" type="submit">Add to my resume</button></form>`}
+ if(m.type==='proposal'){body=`<div class="stack gap20"><div><div class="kicker">Review proposed change · Nothing applied yet</div><h2>Pip's suggested text</h2></div><div class="field"><label>Current text / facts</label><div class="notice white">${esc(m.before||'New entry')}</div></div><div class="field"><label>Suggested wording — edit before accepting</label><textarea id="proposalText" rows="4">${esc(m.draft||'')}</textarea></div><div class="notice">${esc(m.reason||'This draft is based only on the source facts you supplied. Please check accuracy.')}</div><div class="fspread"><button data-action="close-modal" class="btn light small">Reject</button><button data-action="accept-proposal" class="btn">Accept selected change</button></div></div>`}
+ if(m.type==='pasteResume'){body=`<form id="pasteResumeForm" class="stack"><h2>Paste your resume text</h2><p class="subtle">The original text is retained for review. Resume sections will not be silently rewritten.</p><textarea name="resumeText" rows="11" class="textentry" placeholder="Paste work experience, education, projects and skills here...">${esc(S.profile.resumeText)}</textarea><button class="btn" type="submit">Save for profile review</button></form>`}
+ if(m.type==='addTask'){body=`<form id="addTaskForm" class="stack"><h2>Add a development action</h2><div class="field"><label>What will you do?</label><input name="title" required placeholder="e.g. Read about funnel analysis"/></div><div class="field"><label>Learning resource (URL)</label><input name="url" type="url" placeholder="https://..."/></div><button type="submit" class="btn">Save action</button></form>`}
+ if(m.type==='skillInfo'){let x=allEvidence(S.career.activeRole).find(e=>e.code===m.code);body=`<div class="stack"><div class="kicker">${esc(m.code)}</div><h2>${esc(x?.label||'Competency')}</h2><p>${esc(x?.detail||'Not yet assessed')}</p><div class="notice">Imported skill keywords and self-reports do not become proof of applied proficiency. Practice observations remain separate from work experience.</div><a class="btn light" target="_blank" rel="noopener noreferrer" href="${esc(resourceFor(m.code))}">Learn about this competency ↗</a>${actionBtn('start-case','Practice a related case','data-variant="A"','btn')}</div>`}
+ if(m.type==='newBullet'){body=`<form id="newBulletForm" class="stack"><h2>Draft an achievement with Pip</h2><p class="subtle">Tell Pip what you actually accomplished. The draft is reviewed before insertion.</p><div class="field"><label>What did you do?</label><textarea name="source" required rows="5" placeholder="I created a PRD and tested an org mapping tool; reduced turnaround time by 80% across 10 cases."></textarea></div><div class="field"><label>Where should it appear?</label><select name="section">${S.resume.sections.map(s=>`<option value="${s.id}">${esc(s.title)}</option>`).join('')}</select></div><div class="field"><label>How should it be positioned? (optional)</label><input name="instruction" placeholder="Emphasize my product ownership"/></div><button class="btn" type="submit">Generate reviewable draft</button></form>`}
+ root.innerHTML=`<div class="modalbg" id="modalBackdrop"><div class="modal" role="dialog" aria-modal="true"><div class="fspread" style="margin-bottom:15px"><span class="pill purple">PivotPath · Your approval matters</span><button class="btn light small" data-action="close-modal">✕</button></div>${body}</div></div>`;}
+function resumeTex(){const p=S.profile;const escapeTex=s=>String(s||'').replace(/[\\&%$#_{}^~]/g,c=>({'\\':'\\textbackslash{}','&':'\\&','%':'\\%','$':'\\$','#':'\\#','_':'\\_','{':'\\{','}':'\\}','^':'\\textasciicircum{}','~':'\\textasciitilde{}'}[c]));let text='\\documentclass[a4paper,10pt]{article}\n\\usepackage[margin=1.2cm]{geometry}\n\\usepackage[T1]{fontenc}\n\\usepackage[utf8]{inputenc}\n\\usepackage[hidelinks]{hyperref}\n\\usepackage{xcolor,enumitem,titlesec}\n\\pagestyle{empty}\n\\setlength{\\parindent}{0pt}\n\\definecolor{SectionBlue}{RGB}{50,45,130}\n\\titleformat{\\section}{\\large\\scshape\\color{SectionBlue}}{}{0pt}{}[\\titlerule]\n\\titlespacing*{\\section}{0pt}{6pt}{4pt}\n\\begin{document}\n\\begin{center}{\\Large\\textbf{'+escapeTex(p.name||'Your Name')+'}}\\\\\n';
+ const contact=[p.email,p.phone,p.linkedin,p.portfolio].filter(Boolean).map(escapeTex).join(' $\\vert$ ');text+='\\small '+contact+'\\end{center}\n';
+ for(let s of S.resume.sections.filter(x=>x.enabled&&x.items.length)){text+='\\section{'+escapeTex(s.title)+'}\n';for(let it of s.items){if(it.kind==='entry'){text+='\\textbf{'+escapeTex(it.title)+'}\\\\\n'+(it.detail?escapeTex(it.detail)+'\\\\\n':'');}else text+='\\noindent $\\bullet$ '+escapeTex(it.detail||it.title)+'\\\\\n';}}
+ return text+'\\end{document}\n';}
+function downloadBlob(name,content,type='text/plain'){let blob=content instanceof Blob?content:new Blob([content],{type});const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=name;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1500)}
+function exportPdfPayload(){return {name:S.profile.name,email:S.profile.email,phone:S.profile.phone,linkedin:S.profile.linkedin,portfolio:S.profile.portfolio,sections:S.resume.sections.map(s=>({title:s.title,enabled:s.enabled,items:s.items.map(i=>i.kind==='entry'?{title:i.title,detail:i.detail}:rawItem(i))}))}}
+function closeModal(){modal=null;renderModal()}
+function demoPipReply(message){const m=message.toLowerCase(),role=S.career.activeRole;let reply='',suggested='';if(/hint|nudge|clarif/.test(m)&&currentQ()){reply='For the question “'+currentQ().prompt+'”, start by thinking about '+currentQ().ideal.split(',')[0].trim().toLowerCase()+'. Tell me what data or reasoning you would use before jumping to a solution.';suggested='practice'}
+ else if(/resume|cv|bullet|achievement|award|competition/.test(m)){reply='I can help improve your one-page resume without changing your original history. Open the Living Resume, click a line or select “Draft with Pip,” and review the proposed edit before accepting it.';suggested='resume'}
+ else if(/career|pivot|switch|transition|different roles|fit/.test(m)){reply=`I will keep your aspiration in charge. ${S.career.aspiration?'You want '+roleName(S.career.aspiration)+'. ':''}We can compare relevant responsibilities and sources, then you choose one role to prepare for.`;suggested='discovery'}
+ else if(/practice|question|case|interview|test/.test(m)){reply=`Let's work one question at a time. ${role?'Your current goal is '+roleName(role)+'. ':''}You can ask for a hint, submit an answer, and see exactly which competency was involved.`;suggested='practice'}
+ else if(/weak|score|readiness|gap|swot/.test(m)){reply='Your Readiness Map separates experience described, resume/self-reported skills, and case observations. Unassessed does not mean weak. Click any competency to see the explanation and a related learning resource.';suggested='readiness'}
+ else if(/help|next|start|what/.test(m)){reply=S.route==='profile'?'Confirm your employment history and real project contributions first; no resume upload is required.':S.route==='discovery'?'Tell me the work you want to do next and any career aspiration, then we will compare aligned roles.':S.route==='readiness'?'Choose one unassessed competency and try the role-specific five-question exercise.':S.route==='practice'?'Continue the current question, then follow its learning action and reassess on a new scenario.':'Select a resume line to revise, or add a real achievement. Every change is reviewable.';suggested=S.route}
+ else{reply=`You can ask me about your role fit, readiness, practice, or resume. In this downloaded demo my guidance is scripted and contextual, not generative AI. ${promptNudge()}`;suggested=S.route}
+ return {reply:'[Demo guidance] '+reply,suggested_route:suggested,follow_up_question:''}}
+function renderCoach(){let panel=document.getElementById('coachPanel');panel.classList.toggle('hidden',!S.coachOpen);document.getElementById('coachMessages').innerHTML=(S.chat.length?S.chat:[{who:'pip',text:'Hi! I’m Pip. I’ll guide you through each step. You can ask me anything about your current page.'}]).map(m=>`<div class="bubble ${m.who==='user'?'me':''}">${esc(m.text)}${m.who==='pip'&&['discovery','readiness','practice','resume','profile'].includes(m.route)?`<div style="margin-top:9px"><button class="btn light small" data-action="nav" data-route="${esc(m.route)}">Open ${esc(m.route)} →</button></div>`:''}</div>`).join('');let quick=[['What should I do next?','Help me choose my next action.'],['Explain my career options','Which career transitions are realistic for my background?'],['Help with my resume','Can you help improve a resume bullet?']];if(S.route==='practice')quick=[['Hint for this question','Can you give me a hint about my current case question?'],...quick.slice(0,2)];document.getElementById('coachQuick').innerHTML=quick.map(([x,q])=>`<button data-action="coach-quick" data-question="${esc(q)}">${esc(x)}</button>`).join('');const cm=document.getElementById('coachMessages');cm.scrollTop=cm.scrollHeight;updateMode()}
+async function sendCoach(text){text=String(text||'').trim();if(!text)return;S.chat.push({who:'user',text:text.slice(0,2000)});save();renderCoach();let result;const context={route:S.route,profile:{role:S.profile.role,employer:S.profile.employer,years:S.profile.years,achievements:S.profile.achievements.slice(0,1200),skills:S.profile.skills.slice(0,500)},aspiration:S.career.aspiration,active_goal:S.career.activeRole,stage:S.discoveryStep,active_question:currentQ()?.prompt||null,latest_results:S.attempts.slice(-2).map(a=>({role:a.role,variant:a.variant,evaluations:a.evaluations.map(e=>({competency:e.competency,rating:e.rating,source:e.source}))})),resume_summary:S.resume.sections.filter(s=>s.enabled).map(s=>({section:s.title,item_count:s.items.length}))};
+ try{if(server.ai==='live')result=await api('/api/coach',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text,context,thread:S.chat.slice(-6)})});else result=demoPipReply(text)}catch(e){result={reply:'Live AI is currently unavailable: '+e.message+' Your message remains saved. Use the site navigation or retry.',suggested_route:''}}S.chat.push({who:'pip',text:result.reply,route:result.suggested_route});save();renderCoach()}
+function modalFromAction(action,target){if(action==='coach-resume'){modal={type:'newBullet',section:'experience'};renderModal();return true}return false}
+function captureProfile(form){let f=new FormData(form);for(let k of ['name','email','phone','linkedin','portfolio','role','employer','years','education','skills','achievements'])S.profile[k]=String(f.get(k)||'').trim();if(!S.profile.name||!S.profile.role){const el=document.getElementById('profileError');el.textContent='Please enter your name and current or most recent role. The resume is optional.';el.classList.remove('hidden');return false}if(S.profile.years&&!Number.isFinite(Number(S.profile.years))){notify('Enter a valid experience value such as 1.7 years.','bad');return false}S.profile.verified=true;syncProfileToResume();S.stage='app';return true}
+async function handleResumeFile(file){if(!file)return;const ext=file.name.toLowerCase().split('.').pop();if(!['pdf','docx','txt','md','tex'].includes(ext)){notify('Choose PDF, DOCX, TXT, MD or TEX.','bad');return}if(file.size>7*1024*1024){notify('Files must be 7 MB or smaller.','bad');return}
+ if(['pdf','docx'].includes(ext)&&server.resume_parser==='unavailable'){notify('PDF/DOCX parsing needs the server-enabled version. Paste resume text or continue manually.','bad');return}
+ notify('Reading your resume...');try{let j;
+ if(['txt','md','tex'].includes(ext)){let text=await file.text();const lines=text.split('\n').map(s=>s.trim()).filter(Boolean);j={text,draft:{name:lines[0]||'',email:(text.match(/[\w.+-]+@[\w.-]+\.\w+/)||[])[0]||'',bullets:lines.filter(x=>/^[•*\-]/.test(x)).map(x=>x.replace(/^[•*\-]\s*/,''))},warning:'Check imported details before confirming.'}}
+ else{let res=await fetch('/api/parse-resume',{method:'POST',headers:{'x-filename':file.name},body:file});j=await res.json();if(!res.ok)throw Error(j.detail||'Parse failed')}
+ S.profile.resumeText=String(j.text||'').slice(0,40000);S.profile.source='imported_resume';S.profile.verified=false;
+ if(j.draft?.name&&!S.profile.name)S.profile.name=j.draft.name;
+ if(j.draft?.email&&!S.profile.email)S.profile.email=j.draft.email;
+ if(j.draft?.bullets?.length&&!S.profile.achievements)S.profile.achievements=j.draft.bullets.slice(0,3).join('\n');
+ if(j.draft?.skills&&!S.profile.skills)S.profile.skills=j.draft.skills;
+ if(j.draft?.sections){for(let section of S.resume.sections)section.items=section.items.filter(it=>!it.imported);for(let [sid,items] of Object.entries(j.draft.sections)){let section=getSection(sid);if(section)for(let it of items.slice(0,40))section.items.push({id:uid(),title:it.title||'',detail:it.detail||'',kind:it.kind||'bullet',imported:true})}}
+ save();render();notify('Resume extracted. Review and confirm the facts before proceeding.');if(j.warning)notify(j.warning);
+ }catch(e){notify('Could not read resume: '+e.message+'. Paste text or continue manually.','bad')}
+}
+function handleClick(event){let el=event.target.closest('[data-action]');if(!el)return;if(el.closest('a[href]')&&el.tagName!=='BUTTON')return;let action=el.dataset.action,route=el.dataset.route,id=el.dataset.id,role=el.dataset.role;
+ if(action==='nav'){setRoute(route);return}
+ if(action==='intake-upload'||action==='intake-manual'){S.stage='profile';S.route='profile';save();render();if(action==='intake-upload'){setTimeout(()=>{document.getElementById('resumeFile')?.focus();notify('Choose a resume, or simply fill in your experience to continue.')},30)}return}
+ if(action==='demo-persona'){loadPersona(el.dataset.persona);return}
+ if(action==='toggle-coach'){S.coachOpen=!S.coachOpen;save();renderCoach();return}
+ if(action==='coach-quick'){sendCoach(el.dataset.question);return}
+ if(action==='continue'){if(!S.profile.verified){setRoute('profile');return}if(S.discoveryStep<3&&!S.career.activeRole){setRoute('discovery');return}if(!S.career.activeRole){setRoute('discovery');return}if(!S.attempts.length){setRoute('readiness');return}if(S.route==='practice'){S.practiceView='plan';save();render();return}setRoute('practice');return}
+ if(action==='reset-to-discovery'){setRoute('discovery');return}
+ if(action==='paste-resume'){modal={type:'pasteResume'};renderModal();return}
+ if(action==='build-resume'){syncProfileToResume(true);save();setRoute('resume');return}
+ if(action==='discovery-back'){S.discoveryStep=Math.max(0,S.discoveryStep-1);save();render();return}
+ if(action==='discovery-skip'){S.discoveryStep=Math.min(3,S.discoveryStep+1);save();render();return}
+ if(action==='restart-discovery'){S.discoveryStep=0;S.showAllRoles=false;save();render();return}
+ if(action==='all-roles'){S.showAllRoles=!S.showAllRoles;save();render();return}
+ if(action==='select-role'){if(!ROLES[role])return;S.career.activeRole=role;S.attempt=null;S.practiceView='case';save();setRoute('readiness');notify('Your chosen goal is '+roleName(role)+'. You can change it later.');return}
+ if(action==='change-goal'){S.showAllRoles=true;S.discoveryStep=3;save();setRoute('discovery');return}
+ if(action==='inspect-skill'){modal={type:'skillInfo',code:el.dataset.code};renderModal();return}
+ if(action==='start-case'){modal=null;beginCase(S.career.activeRole,el.dataset.variant||'A');return}
+ if(action==='hint'){let a=S.attempt,q=currentQ();if(!a||!q){notify('Start a case first.');return}let answer=document.getElementById('caseAnswer')?.value||a.answers[a.index]?.answer||'';a.answers[a.index]={answer,savedAt:stamp()};if(!a.hints.find(h=>h.index===a.index))a.hints.push({index:a.index,time:stamp()});save();render();document.getElementById('caseAnswer')?.focus();return}
+ if(action==='retry-question'){let a=S.attempt;if(a){a.status='question';a.evaluations[a.index]=undefined;save();render()}return}
+ if(action==='next-question'){let a=S.attempt;if(!a)return;if(a.index===4){finalizeCase();return}a.index++;a.status='question';save();render();return}
+ if(action==='plan'){S.practiceView='plan';save();setRoute('practice');return}
+ if(action==='history'){S.practiceView='history';save();setRoute('practice');return}
+ if(action==='practice-home'){S.practiceView='case';save();render();return}
+ if(action==='add-task'){modal={type:'addTask'};renderModal();return}
+ if(action==='complete-task'){let t=S.tasks.find(t=>t.id===id);if(t){t.status=t.status==='done'?'open':'done';save();render()}return}
+ if(action==='delete-task'){if(!confirm('Remove this action from your plan?'))return;S.tasks=S.tasks.filter(t=>t.id!==id);save();render();return}
+ if(action==='task-practice'){let t=S.tasks.find(t=>t.id===id);if(!t)return;if(t.role!==S.career.activeRole){notify('This task belongs to '+roleName(t.role)+'. Switch your goal to continue.');return}beginCase(t.role,t.caseId?.endsWith('-B')?'B':'A');return}
+ if(action==='edit-resume-item'){openEditItem(id);return}
+ if(action==='edit-header'){setRoute('profile');return}
+ if(action==='add-resume-item'){modal={type:'addItem',section:'experience'};renderModal();return}
+ if(action==='coach-resume'){modal={type:'newBullet'};renderModal();return}
+ if(action==='close-modal'){closeModal();return}
+ if(action==='remove-resume-item'){if(!confirm('Remove this item from the one-page version? It remains in your original resume.'))return;let p=findItem(id);if(p){copyResumeSnapshot();p.section.items=p.section.items.filter(i=>i.id!==id);save();closeModal();render()}return}
+ if(action==='suggest-resume'){let p=findItem(id);if(!p)return;modal={type:'newBullet',itemId:id,section:p.section.id};renderModal();return}
+ if(action==='accept-proposal'){if(!modal||modal.type!=='proposal')return;let draft=document.getElementById('proposalText').value.trim();if(!draft){notify('Enter your approved wording first.','bad');return}copyResumeSnapshot();if(modal.itemId){let p=findItem(modal.itemId);if(p){p.item.detail=draft;p.item.manualEdited=true;}}else{let sec=getSection(modal.section||'projects');if(sec){sec.enabled=true;sec.items.push({id:uid(),title:'',detail:draft,kind:'bullet'})}}S.resume.proposals.push({draft,role:S.career.activeRole,acceptedAt:stamp()});save();closeModal();render();notify('Approved change added to the one-pager.');return}
+ if(action==='undo-resume'){let prev=S.resume.history.pop();if(prev){S.resume.sections=JSON.parse(prev);save();render();notify('Last resume edit undone.')}else notify('No recent changes to undo.');return}
+ if(action==='export-tex'){downloadBlob('PivotPath_Resume.tex',resumeTex(),'text/x-tex');notify('Editable LaTeX downloaded.');return}
+ if(action==='export-pdf'){exportPdf();return}
+ if(action==='add-practice-skill'){let comp=el.dataset.comp,label=ROLES[S.career.activeRole].competencies.find(x=>x[0]===comp)?.[1]||comp;modal={type:'proposal',section:'skills',before:'No entry added yet',draft:label+' (demonstrated in a formative practice case)',reason:'A successful practice answer can support a truthful skills description, but not a claim of professional experience.'};renderModal();return}
+ if(action==='mute-pip'){S.coachMuted=!S.coachMuted;if(S.coachMuted)S.coachOpen=false;save();render();notify(S.coachMuted?'Pip suggestions muted.':'Pip suggestions enabled.');return}
+ if(action==='export-data'){downloadBlob('PivotPath_Career_Data.json',JSON.stringify(S,null,2),'application/json');notify('Your local career data has been downloaded.');return}
+ if(action==='reset'){if(!confirm('Delete your entire local PivotPath workspace? This cannot be undone.'))return;localStorage.removeItem('pivotpath_v4_state');S=seedState();modal=null;render();notify('Local workspace cleared.');return}
+ if(action==='mic'){startSpeech();return}
+}
+async function exportPdf(){if(server.pdf_export==='available'){try{let r=await fetch('/api/export-pdf',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(exportPdfPayload())});if(!r.ok){let j=await r.json().catch(()=>({}));throw Error(j.detail||'PDF export failed')}downloadBlob('PivotPath_Resume.pdf',await r.blob(),'application/pdf');notify('PDF downloaded.');return}catch(e){notify(e.message+'. Use browser print as backup.','bad');return}}
+ if(S.route!=='resume'){setRoute('resume');setTimeout(()=>window.print(),150);return}notify('Choose Save as PDF in the browser print dialog.');setTimeout(()=>window.print(),80)}
+function startSpeech(){let R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R){notify('Voice input is not supported in this browser. Please type instead.','bad');return}let recog=new R();recog.lang='en-IN';recog.interimResults=false;recog.onresult=e=>{let text=e.results[0][0].transcript;let el=document.getElementById('coachInput')||document.getElementById('caseAnswer');if(el){el.value=(el.value?el.value+' ':'')+text;el.focus();notify('Voice text captured. Review before sending.')}};recog.onerror=()=>notify('Microphone input failed; please type instead.','bad');try{recog.start();notify('Listening... Speak clearly.')}catch(e){notify('Voice input unavailable.','bad')}}
+async function handleSubmit(event){const form=event.target;if(!['profileForm','discoveryForm','answerForm','editItemForm','newItemForm','pasteResumeForm','addTaskForm','newBulletForm','coachForm'].includes(form.id))return;event.preventDefault();let f=new FormData(form);
+ if(form.id==='profileForm'){if(!captureProfile(form))return;S.route='discovery';save();render();notify('Profile saved. Pip can now explore your options.');return}
+ if(form.id==='discoveryForm'){let step=S.discoveryStep;if(step===0)S.career.workPreference=String(f.get('workPreference')||'').trim();if(step===1)S.career.aspiration=String(f.get('aspiration')||'');if(step===2)S.career.motivation=String(f.get('motivation')||'').trim();S.discoveryStep=Math.min(3,step+1);save();render();return}
+ if(form.id==='answerForm'){let a=S.attempt,q=currentQ();if(!a||!q)return;let answer=String(f.get('answer')||'').trim();let ev;if(server.ai==='live'){
+ const btn=form.querySelector('[type=submit]');btn.disabled=true;btn.textContent='Pip is reviewing...';try{ev=await api('/api/assess',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({answer,question:q.prompt,competency:q.competency,ideal:q.ideal,scenario:ROLES[a.role]['scenario_'+a.variant],hints_used:a.hints.some(h=>h.index===a.index),previous_answers:a.answers.slice(0,a.index)})})}catch(e){let el=document.getElementById('answerError');if(el){el.textContent='AI evaluation unavailable: '+e.message+'. Your typed answer is saved; retry when the connection works.';el.classList.remove('hidden')}a.answers[a.index]={answer,savedAt:stamp()};save();btn.disabled=false;btn.textContent='Retry evaluation →';return}
+ }else ev=buildDemoReview(q,answer);
+ if(!ev.assessable){let el=document.getElementById('answerError');if(el){el.textContent=(ev.missed||[])[0]||'This response cannot be assessed yet. Try a more specific explanation.';el.classList.remove('hidden')}a.answers[a.index]={answer,savedAt:stamp()};save();return}
+ ev={...ev,competency:q.competency,questionId:q.id,asked:q.prompt,hints_used:a.hints.some(h=>h.index===a.index),id:uid()};a.answers[a.index]={answer,savedAt:stamp()};a.evaluations[a.index]=ev;a.status='feedback';save();render();return}
+ if(form.id==='editItemForm'){let pair=findItem(modal?.id);if(!pair)return;copyResumeSnapshot();pair.item.title=String(f.get('title')||'').trim();pair.item.detail=String(f.get('detail')||'').trim();pair.item.manualEdited=true;save();closeModal();render();notify('Resume entry saved.');return}
+ if(form.id==='newItemForm'){let section=String(f.get('section')||'projects'),title=String(f.get('title')||'').trim(),detail=String(f.get('detail')||'').trim();if(!detail&&!title){notify('Please describe the new entry.','bad');return}addItem(section,{title,detail,kind:title?'entry':'bullet'});closeModal();render();notify('Entry added to your resume.');return}
+ if(form.id==='pasteResumeForm'){S.profile.resumeText=String(f.get('resumeText')||'').slice(0,40000);S.profile.source='pasted_resume';S.profile.verified=false;save();closeModal();render();notify('Resume text saved. Review your profile facts.');return}
+ if(form.id==='addTaskForm'){let title=String(f.get('title')||'').trim(),url=String(f.get('url')||'').trim();if(!title)return;S.tasks.unshift({id:uid(),role:S.career.activeRole,competency:'personal',title,reason:'Added by you',url:isHtmlUrl(url)?url:'',caseId:'',status:'open',createdAt:stamp()});save();closeModal();render();notify('Custom action added.');return}
+ if(form.id==='newBulletForm'){let source=String(f.get('source')||'').trim(),section=String(f.get('section')||modal?.section||'experience'),instruction=String(f.get('instruction')||'').trim();if(source.length<15){notify('Please tell me more about what you actually did.','bad');return}let current=modal?.itemId?findItem(modal.itemId):null;let original=current?rawItem(current.item):'';let draft='',reason='';
+ if(server.ai==='live'){try{let out=await api('/api/resume-suggest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({source,role:roleName(S.career.activeRole),instruction})});draft=out.draft;reason=out.reason}catch(e){notify('Pip could not generate a draft: '+e.message,'bad');return}}
+ else{draft=source.replace(/\s+/g,' ').trim().replace(/^[a-z]/,c=>c.toUpperCase()).replace(/\.$/,'');reason='This offline draft only formats the factual text you entered. Live AI rewriting requires the connected server.'}
+ modal={type:'proposal',itemId:modal?.itemId||null,section,before:original||source,draft,reason};renderModal();return}
+ if(form.id==='coachForm'){let input=document.getElementById('coachInput');let text=input?.value?.trim();if(text)sendCoach(text);if(input)input.value='';return}
+}
+async function restoreCareerData(file){if(!file)return;try{let j=JSON.parse(await file.text());if(j.version!==4.1||!j.profile||!j.career||!j.resume||!Array.isArray(j.attempts))throw Error('This is not a compatible PivotPath V4 data export.');if(!confirm('Replace your current workspace with this saved backup?'))return;S=j;save();render();notify('Career workspace restored from your backup.')}catch(e){notify('Could not restore saved data: '+e.message,'bad')}}
+function applySectionToggle(e){let checkbox=e.target.closest('[data-section]');if(!checkbox)return;let section=getSection(checkbox.dataset.section);if(section){copyResumeSnapshot();section.enabled=checkbox.checked;save();render()}}
+document.addEventListener('click',handleClick);
+document.addEventListener('submit',handleSubmit);
+document.addEventListener('change',event=>{if(event.target.id==='resumeFile')handleResumeFile(event.target.files?.[0]);if(event.target.id==='careerDataImport')restoreCareerData(event.target.files?.[0]);applySectionToggle(event)});
+document.addEventListener('input',e=>{if(e.target.id==='caseAnswer'&&S.attempt){clearTimeout(draftSaveTimer);let t=e.target.value,idx=S.attempt.index;draftSaveTimer=setTimeout(()=>{if(S.attempt&&S.attempt.index===idx){S.attempt.answers[idx]={answer:t,savedAt:stamp()};save()}},350)}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal){closeModal()}else if((e.key==='Enter'||e.key===' ')&&e.target.classList?.contains('resumeitem')){e.preventDefault();openEditItem(e.target.dataset.id)}});
+document.addEventListener('click',e=>{if(e.target.id==='modalBackdrop')closeModal()});
+checkServer();render();
+</script>
+</body></html>

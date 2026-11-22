@@ -1,0 +1,873 @@
+{
+  "roles": {
+    "PA": {
+      "name": "Product Analyst",
+      "summary": "Understand product behavior, measure journeys, and recommend changes with clear evidence.",
+      "source_ids": [
+        "S05",
+        "S06"
+      ],
+      "competencies": [
+        [
+          "C1a",
+          "Problem framing"
+        ],
+        [
+          "C2b",
+          "Funnels & cohorts"
+        ],
+        [
+          "C2c",
+          "Hypotheses and causal caution"
+        ],
+        [
+          "C2d",
+          "Business interpretation"
+        ],
+        [
+          "C2a",
+          "KPI design"
+        ],
+        [
+          "C3a",
+          "SQL (external practice only)"
+        ]
+      ],
+      "resource": {
+        "title": "Amplitude: Product analytics fundamentals",
+        "url": "https://www.amplitude.com/guides/product-analytics"
+      },
+      "keywords": [
+        "analysis",
+        "data",
+        "research",
+        "kpi",
+        "metrics",
+        "excel",
+        "python",
+        "sql",
+        "product",
+        "dashboard",
+        "funnel",
+        "cohort"
+      ],
+      "scenario_A": "A consumer app's downloads are stable, but weekly active users are down 15% for a month. Synthetic case; no real company is implicated.",
+      "questions_A": [
+        {
+          "id": "PA1",
+          "prompt": "What would you clarify before investigating the 15% decline?",
+          "competency": "C1a",
+          "ideal": "Metric definition, dates, segment, instrumentation, seasonality"
+        },
+        {
+          "id": "PA2",
+          "prompt": "Which usage funnel or cohorts would you examine first?",
+          "competency": "C2b",
+          "ideal": "Acquisition→activation→repeat use; weekly cohorts; denominators"
+        },
+        {
+          "id": "PA3",
+          "prompt": "Downloads are stable but first-week activation fell. Give three hypotheses and how you'd distinguish them.",
+          "competency": "C2c",
+          "ideal": "UX regression, mix shift, tracking issue; evidence per hypothesis"
+        },
+        {
+          "id": "PA4",
+          "prompt": "You can investigate only one hypothesis today. Which and why?",
+          "competency": "C2d",
+          "ideal": "Prioritization using impact, evidence and effort; check data validity"
+        },
+        {
+          "id": "PA5",
+          "prompt": "What would you measure after a fix, and what guardrail would you monitor?",
+          "competency": "C2a",
+          "ideal": "Activation and retained use; clear windows/guardrail"
+        }
+      ],
+      "scenario_B": "Signup-to-verification conversion has declined on Android, but iOS has remained stable. The event instrumentation recently changed.",
+      "questions_B": [
+        {
+          "id": "PA1B",
+          "prompt": "Before diagnosing verification conversion, what definitions and baseline would you confirm?",
+          "competency": "C1a",
+          "ideal": "Metric definition, dates, segment, instrumentation, seasonality"
+        },
+        {
+          "id": "PA2B",
+          "prompt": "Which stages and cohorts of the verification journey would you compare?",
+          "competency": "C2b",
+          "ideal": "Acquisition→activation→repeat use; weekly cohorts; denominators"
+        },
+        {
+          "id": "PA3B",
+          "prompt": "Offer three possible explanations for the Android decline and explain what data distinguishes them.",
+          "competency": "C2c",
+          "ideal": "UX regression, mix shift, tracking issue; evidence per hypothesis"
+        },
+        {
+          "id": "PA4B",
+          "prompt": "Which explanation would you investigate first, and why?",
+          "competency": "C2d",
+          "ideal": "Prioritization using impact, evidence and effort; check data validity"
+        },
+        {
+          "id": "PA5B",
+          "prompt": "What success and guardrail metrics would you use after a change?",
+          "competency": "C2a",
+          "ideal": "Activation and retained use; clear windows/guardrail"
+        }
+      ],
+      "sources": [
+        {
+          "kind": "E",
+          "title": "United Tech — Product Analyst (Web)",
+          "description": "SQL, funnel, retention and testing",
+          "url": "https://jobs.lever.co/vacancies/f74a4d8c-43d9-4b28-a49f-f42cf8d1c2da"
+        },
+        {
+          "kind": "F",
+          "title": "Amplitude — Product Analytics Guide",
+          "description": "Funnels, cohorts, retention, activation",
+          "url": "https://www.amplitude.com/guides/product-analytics"
+        }
+      ]
+    },
+    "APM": {
+      "name": "Associate Product Manager",
+      "summary": "Discover user needs, prioritize product decisions, and coordinate measurable delivery.",
+      "source_ids": [
+        "S11",
+        "S12",
+        "S13"
+      ],
+      "competencies": [
+        [
+          "C1a",
+          "Problem framing"
+        ],
+        [
+          "C1b",
+          "User discovery"
+        ],
+        [
+          "C4b",
+          "Feature prioritization"
+        ],
+        [
+          "C4c",
+          "PRDs and solution scope"
+        ],
+        [
+          "C2a",
+          "Product outcomes and metrics"
+        ],
+        [
+          "C5c",
+          "Delivery and rollout"
+        ]
+      ],
+      "resource": {
+        "title": "Atlassian: Product management interview handbook",
+        "url": "https://www.atlassian.com/company/careers/resources/career-growth/product-managers"
+      },
+      "keywords": [
+        "prd",
+        "product",
+        "user",
+        "roadmap",
+        "prioritization",
+        "requirements",
+        "launch",
+        "research",
+        "strategy",
+        "growth"
+      ],
+      "scenario_A": "A team has capacity to ship only one improvement in the next cycle: onboarding simplification, smarter notifications or a new recommendation feature.",
+      "questions_A": [
+        {
+          "id": "PM1",
+          "prompt": "What outcome and user group must be clarified before choosing?",
+          "competency": "C1a",
+          "ideal": "Customer need, baseline outcome, constraints"
+        },
+        {
+          "id": "PM2",
+          "prompt": "What evidence would you collect about the three opportunities?",
+          "competency": "C1b",
+          "ideal": "User research, funnel issues, costs, complaints"
+        },
+        {
+          "id": "PM3",
+          "prompt": "Choose one feature using explicit criteria and defend the trade-off.",
+          "competency": "C4b",
+          "ideal": "User impact, confidence, effort, risk, alternatives"
+        },
+        {
+          "id": "PM4",
+          "prompt": "What is the smallest testable version and how would you describe it to engineering?",
+          "competency": "C4c",
+          "ideal": "MVP scope, user story, acceptance conditions"
+        },
+        {
+          "id": "PM5",
+          "prompt": "What outcome metric and guardrails would decide whether to continue?",
+          "competency": "C2a",
+          "ideal": "Clear metric tree, experiment and risk constraints"
+        }
+      ],
+      "scenario_B": "A job platform can build only one next-quarter feature: simplify applications, improve search filters, or add recruiter messaging.",
+      "questions_B": [
+        {
+          "id": "PM1B",
+          "prompt": "What user group and outcome would you clarify before choosing a feature?",
+          "competency": "C1a",
+          "ideal": "Customer need, baseline outcome, constraints"
+        },
+        {
+          "id": "PM2B",
+          "prompt": "What research or metrics would you gather for the three options?",
+          "competency": "C1b",
+          "ideal": "User research, funnel issues, costs, complaints"
+        },
+        {
+          "id": "PM3B",
+          "prompt": "Pick one feature and justify the trade-off with an explicit decision framework.",
+          "competency": "C4b",
+          "ideal": "User impact, confidence, effort, risk, alternatives"
+        },
+        {
+          "id": "PM4B",
+          "prompt": "Define the smallest usable version and its acceptance criteria.",
+          "competency": "C4c",
+          "ideal": "MVP scope, user story, acceptance conditions"
+        },
+        {
+          "id": "PM5B",
+          "prompt": "What would indicate success and what unintended effects would you monitor?",
+          "competency": "C2a",
+          "ideal": "Clear metric tree, experiment and risk constraints"
+        }
+      ],
+      "sources": [
+        {
+          "kind": "E",
+          "title": "Metaforms — Associate Product Manager",
+          "description": "Experience from business/analytical roles, user flows",
+          "url": "https://jobs.ashbyhq.com/metaforms/11927a5f-ed4b-4e2a-ae42-aab75bb307c9"
+        },
+        {
+          "kind": "E",
+          "title": "Scan.com — Associate Product Manager",
+          "description": "Discovery, PRDs, product outcomes",
+          "url": "https://jobs.ashbyhq.com/scan-com/e3460b05-078d-4050-ab6a-e62a0f8733a7"
+        },
+        {
+          "kind": "F/I",
+          "title": "Atlassian — Product interview handbook",
+          "description": "PM customer/outcome/communication expectations",
+          "url": "https://www.atlassian.com/company/careers/resources/career-growth/product-managers"
+        }
+      ]
+    },
+    "PO": {
+      "name": "Product Operations Associate",
+      "summary": "Keep product launches and operating processes running reliably across teams.",
+      "source_ids": [
+        "S07",
+        "S08"
+      ],
+      "competencies": [
+        [
+          "C5a",
+          "Workflow design"
+        ],
+        [
+          "C2c",
+          "Operational diagnosis"
+        ],
+        [
+          "C5d",
+          "Escalation and operating cadence"
+        ],
+        [
+          "C5b",
+          "Quality assurance"
+        ],
+        [
+          "C5c",
+          "Rollout planning"
+        ],
+        [
+          "C7b",
+          "Stakeholder alignment"
+        ]
+      ],
+      "resource": {
+        "title": "IIBA: Business Analysis Standard",
+        "url": "https://www.iiba.org/knowledgehub/the-business-analysis-standard/"
+      },
+      "keywords": [
+        "operations",
+        "process",
+        "workflow",
+        "stakeholder",
+        "implementation",
+        "program",
+        "delivery",
+        "coordination",
+        "qa",
+        "launch"
+      ],
+      "scenario_A": "A digital onboarding process takes 30% longer this month even though application volume is stable.",
+      "questions_A": [
+        {
+          "id": "PO1",
+          "prompt": "What would you clarify about turnaround time and the affected users?",
+          "competency": "C5a",
+          "ideal": "Mean/median, SLA, segments, measurement window"
+        },
+        {
+          "id": "PO2",
+          "prompt": "Map the stages, owners and possible queues.",
+          "competency": "C5a",
+          "ideal": "Queue time vs touch time, rework, handoffs"
+        },
+        {
+          "id": "PO3",
+          "prompt": "How would you separate a product defect from a staffing or process bottleneck?",
+          "competency": "C2c",
+          "ideal": "Logs, queue aging, errors, capacity measures"
+        },
+        {
+          "id": "PO4",
+          "prompt": "Pick a short-term containment and a longer-term change. Explain the trade-off.",
+          "competency": "C5d",
+          "ideal": "Escalation, prioritization, owner, root-cause remediation"
+        },
+        {
+          "id": "PO5",
+          "prompt": "What launch/QA and operational monitoring would prevent recurrence?",
+          "competency": "C5b",
+          "ideal": "SLA dashboard, alerts, UAT, post-fix checks"
+        }
+      ],
+      "scenario_B": "After a new feature launch, support tickets spike and resolutions slow down despite unchanged staffing.",
+      "questions_B": [
+        {
+          "id": "PO1B",
+          "prompt": "What definitions, customer segments and time windows would you clarify?",
+          "competency": "C5a",
+          "ideal": "Mean/median, SLA, segments, measurement window"
+        },
+        {
+          "id": "PO2B",
+          "prompt": "Map the support process and identify where tickets may be accumulating.",
+          "competency": "C5a",
+          "ideal": "Queue time vs touch time, rework, handoffs"
+        },
+        {
+          "id": "PO3B",
+          "prompt": "How would you distinguish product defects from operations capacity or process issues?",
+          "competency": "C2c",
+          "ideal": "Logs, queue aging, errors, capacity measures"
+        },
+        {
+          "id": "PO4B",
+          "prompt": "What immediate response and longer-term fix would you prioritize?",
+          "competency": "C5d",
+          "ideal": "Escalation, prioritization, owner, root-cause remediation"
+        },
+        {
+          "id": "PO5B",
+          "prompt": "What monitoring and release quality controls would prevent recurrence?",
+          "competency": "C5b",
+          "ideal": "SLA dashboard, alerts, UAT, post-fix checks"
+        }
+      ],
+      "sources": [
+        {
+          "kind": "E",
+          "title": "Omnea — Product Ops",
+          "description": "Launch coordination and metrics",
+          "url": "https://jobs.ashbyhq.com/omnea/55478d98-7a69-4386-a57b-ecf6d88087c0"
+        },
+        {
+          "kind": "E",
+          "title": "Credo.AI — Product Operations Manager",
+          "description": "Metric system, release readiness",
+          "url": "https://jobs.ashbyhq.com/credo.ai/0d90b98f-0979-4b2f-b808-e38a90141ff1"
+        }
+      ]
+    },
+    "DA": {
+      "name": "Data Analyst",
+      "summary": "Prepare and analyze data, check its quality, and communicate reliable business findings.",
+      "source_ids": [
+        "S01",
+        "S02"
+      ],
+      "competencies": [
+        [
+          "C2a",
+          "Analytical metrics"
+        ],
+        [
+          "C3d",
+          "Data quality & joins"
+        ],
+        [
+          "C2c",
+          "Hypothesis checking"
+        ],
+        [
+          "C2d",
+          "Business interpretation"
+        ],
+        [
+          "C7a",
+          "Analytical communication"
+        ],
+        [
+          "C3a",
+          "SQL (external practice only)"
+        ]
+      ],
+      "resource": {
+        "title": "SQLBolt: Interactive SQL lessons",
+        "url": "https://sqlbolt.com/"
+      },
+      "keywords": [
+        "sql",
+        "python",
+        "data",
+        "analytics",
+        "report",
+        "excel",
+        "dashboard",
+        "statistics",
+        "power bi",
+        "tableau"
+      ],
+      "scenario_A": "A signup dashboard shows 1,000 signups and 450 activated users this month, versus 800 signups and 400 activated last month. The new tracking event was introduced midmonth.",
+      "questions_A": [
+        {
+          "id": "DA1",
+          "prompt": "Calculate activation rates for both months and interpret the change.",
+          "competency": "C2a",
+          "ideal": "50%→45%; rates down 5 pp despite count up"
+        },
+        {
+          "id": "DA2",
+          "prompt": "What data-definition problems could make this comparison invalid?",
+          "competency": "C3d",
+          "ideal": "Event change, unique IDs, eligibility, cutoff"
+        },
+        {
+          "id": "DA3",
+          "prompt": "What checks would you run before publishing the dashboard?",
+          "competency": "C2c",
+          "ideal": "Duplicates, missingness, join grain, window consistency"
+        },
+        {
+          "id": "DA4",
+          "prompt": "Which two segments would you compare first?",
+          "competency": "C2d",
+          "ideal": "New/returning, platform, source, region; rationale"
+        },
+        {
+          "id": "DA5",
+          "prompt": "How would you communicate this cautiously to management?",
+          "competency": "C7a",
+          "ideal": "Caveat, magnitude, next checks, no false causation"
+        }
+      ],
+      "scenario_B": "Purchases have increased after a pricing change, but revenue per active customer has declined.",
+      "questions_B": [
+        {
+          "id": "DA1B",
+          "prompt": "What metrics would you calculate and how would you interpret their movement?",
+          "competency": "C2a",
+          "ideal": "50%→45%; rates down 5 pp despite count up"
+        },
+        {
+          "id": "DA2B",
+          "prompt": "What definitions, joins and recording changes could distort this conclusion?",
+          "competency": "C3d",
+          "ideal": "Event change, unique IDs, eligibility, cutoff"
+        },
+        {
+          "id": "DA3B",
+          "prompt": "Which validity checks would you run before publishing the result?",
+          "competency": "C2c",
+          "ideal": "Duplicates, missingness, join grain, window consistency"
+        },
+        {
+          "id": "DA4B",
+          "prompt": "What customer segments or periods would you compare first?",
+          "competency": "C2d",
+          "ideal": "New/returning, platform, source, region; rationale"
+        },
+        {
+          "id": "DA5B",
+          "prompt": "How would you explain the trade-offs and uncertainty to management?",
+          "competency": "C7a",
+          "ideal": "Caveat, magnitude, next checks, no false causation"
+        }
+      ],
+      "sources": [
+        {
+          "kind": "E",
+          "title": "Fam — Data Analyst (posting; example asks 3–5 years SQL)",
+          "description": "DA SQL/Python/Excel",
+          "url": "https://jobs.lever.co/fampay/811d4537-ade2-43fa-83c5-e2d07839b402"
+        },
+        {
+          "kind": "F",
+          "title": "SQLBolt — interactive SQL lessons",
+          "description": "External technical study",
+          "url": "https://sqlbolt.com/"
+        }
+      ]
+    },
+    "BA": {
+      "name": "Business Analyst",
+      "summary": "Turn business problems and stakeholder needs into clear requirements and measurable solutions.",
+      "source_ids": [
+        "S03",
+        "S04"
+      ],
+      "competencies": [
+        [
+          "C1b",
+          "Stakeholder discovery"
+        ],
+        [
+          "C5a",
+          "Process mapping"
+        ],
+        [
+          "C7b",
+          "Stakeholder alignment"
+        ],
+        [
+          "C4c",
+          "Requirements & acceptance criteria"
+        ],
+        [
+          "C5c",
+          "Solution validation"
+        ],
+        [
+          "C2a",
+          "KPIs"
+        ]
+      ],
+      "resource": {
+        "title": "IIBA: Business Analysis Standard",
+        "url": "https://www.iiba.org/knowledgehub/the-business-analysis-standard/"
+      },
+      "keywords": [
+        "analysis",
+        "requirements",
+        "stakeholder",
+        "consulting",
+        "process",
+        "market",
+        "business",
+        "interview",
+        "operating model"
+      ],
+      "scenario_A": "A company wants to replace spreadsheet-based leave approvals with a self-service workflow, but HR and line managers disagree on exception policies.",
+      "questions_A": [
+        {
+          "id": "BA1",
+          "prompt": "Who are your stakeholders and what outcomes do you clarify?",
+          "competency": "C1b",
+          "ideal": "Employees, HR, managers, payroll, audit, outcomes"
+        },
+        {
+          "id": "BA2",
+          "prompt": "How would you document the current process and pain points?",
+          "competency": "C5a",
+          "ideal": "Current-state steps, turnaround, error/exception rates"
+        },
+        {
+          "id": "BA3",
+          "prompt": "How would you resolve conflicting approval rules?",
+          "competency": "C7b",
+          "ideal": "Decision rights, exceptions, escalation, policy owner"
+        },
+        {
+          "id": "BA4",
+          "prompt": "State three testable requirements or acceptance criteria.",
+          "competency": "C4c",
+          "ideal": "Role permissions, SLA, audit trail, edge cases"
+        },
+        {
+          "id": "BA5",
+          "prompt": "What would you evaluate after rollout?",
+          "competency": "C5c",
+          "ideal": "Adoption, SLA, errors, auditability, employee feedback"
+        }
+      ],
+      "scenario_B": "Finance, risk, and customer support disagree on the rules for a new self-service refund workflow.",
+      "questions_B": [
+        {
+          "id": "BA1B",
+          "prompt": "Identify the relevant stakeholders and the desired business outcomes.",
+          "competency": "C1b",
+          "ideal": "Employees, HR, managers, payroll, audit, outcomes"
+        },
+        {
+          "id": "BA2B",
+          "prompt": "How would you capture the current-state refund process and issues?",
+          "competency": "C5a",
+          "ideal": "Current-state steps, turnaround, error/exception rates"
+        },
+        {
+          "id": "BA3B",
+          "prompt": "How would you resolve the conflicting approval and exception rules?",
+          "competency": "C7b",
+          "ideal": "Decision rights, exceptions, escalation, policy owner"
+        },
+        {
+          "id": "BA4B",
+          "prompt": "Write three testable requirements or acceptance conditions.",
+          "competency": "C4c",
+          "ideal": "Role permissions, SLA, audit trail, edge cases"
+        },
+        {
+          "id": "BA5B",
+          "prompt": "How would you evaluate the solution after rollout?",
+          "competency": "C5c",
+          "ideal": "Adoption, SLA, errors, auditability, employee feedback"
+        }
+      ],
+      "sources": [
+        {
+          "kind": "E",
+          "title": "Lingaro — Business Analyst, India",
+          "description": "Elicitation/requirements/process",
+          "url": "https://jobs.lever.co/lingarogroup/cd755053-4b17-4958-84be-6459737b0120"
+        },
+        {
+          "kind": "F",
+          "title": "IIBA — Business Analysis Standard",
+          "description": "Elicitation, needs, solution evaluation",
+          "url": "https://www.iiba.org/knowledgehub/the-business-analysis-standard/"
+        }
+      ]
+    },
+    "PMM": {
+      "name": "Product Marketing Associate",
+      "summary": "Research customers, position products, and design measurable go-to-market plans.",
+      "source_ids": [
+        "S09",
+        "S10"
+      ],
+      "competencies": [
+        [
+          "C1c",
+          "Customer segments"
+        ],
+        [
+          "C6b",
+          "Positioning"
+        ],
+        [
+          "C6c",
+          "GTM channels"
+        ],
+        [
+          "C6d",
+          "Activation and growth metrics"
+        ],
+        [
+          "C7a",
+          "Commercial storytelling"
+        ]
+      ],
+      "resource": {
+        "title": "Product Marketing Alliance: PMM interview guide",
+        "url": "https://www.productmarketingalliance.com/how-to-prepare-for-a-product-marketing-interview/"
+      },
+      "keywords": [
+        "marketing",
+        "gtm",
+        "growth",
+        "sales",
+        "market research",
+        "customer",
+        "segmentation",
+        "positioning",
+        "product"
+      ],
+      "scenario_A": "A B2B analytics tool launches a simplified dashboard for small retail chains but adoption is low.",
+      "questions_A": [
+        {
+          "id": "MK1",
+          "prompt": "Who is the highest-priority buyer/user and what job do they need done?",
+          "competency": "C1c",
+          "ideal": "Decision maker, user, pain, segment selection"
+        },
+        {
+          "id": "MK2",
+          "prompt": "What positioning statement would differentiate the offer?",
+          "competency": "C6b",
+          "ideal": "Target, pain, value, proof, distinction"
+        },
+        {
+          "id": "MK3",
+          "prompt": "Which two channels would you test first with limited budget?",
+          "competency": "C6c",
+          "ideal": "Channel logic, reach, buying journey, resources"
+        },
+        {
+          "id": "MK4",
+          "prompt": "What would sales/customer-success need to explain the launch?",
+          "competency": "C6c",
+          "ideal": "Messaging, objections, demo, enablement"
+        },
+        {
+          "id": "MK5",
+          "prompt": "How would you measure launch success and separate awareness from activation?",
+          "competency": "C6d",
+          "ideal": "Funnel, conversion, adoption, feedback loops"
+        }
+      ],
+      "scenario_B": "An existing learning app is launching a paid employer offering, but its users are currently students.",
+      "questions_B": [
+        {
+          "id": "MK1B",
+          "prompt": "Who are the new buyers, users, and stakeholders, and what jobs are they hiring the product for?",
+          "competency": "C1c",
+          "ideal": "Decision maker, user, pain, segment selection"
+        },
+        {
+          "id": "MK2B",
+          "prompt": "Write a differentiated positioning statement for the new offer.",
+          "competency": "C6b",
+          "ideal": "Target, pain, value, proof, distinction"
+        },
+        {
+          "id": "MK3B",
+          "prompt": "Which two GTM channels would you test first with limited resources?",
+          "competency": "C6c",
+          "ideal": "Channel logic, reach, buying journey, resources"
+        },
+        {
+          "id": "MK4B",
+          "prompt": "What sales-enablement materials and objections should the launch plan address?",
+          "competency": "C6c",
+          "ideal": "Messaging, objections, demo, enablement"
+        },
+        {
+          "id": "MK5B",
+          "prompt": "How would you distinguish campaign awareness from actual adoption and willingness to pay?",
+          "competency": "C6d",
+          "ideal": "Funnel, conversion, adoption, feedback loops"
+        }
+      ],
+      "sources": [
+        {
+          "kind": "E",
+          "title": "Primer.io — Product Marketing Associate",
+          "description": "Messaging, positioning, GTM",
+          "url": "https://jobs.ashbyhq.com/primer.io/70c05b42-ebfa-4806-8ef1-d042b6b6895f"
+        },
+        {
+          "kind": "F/I",
+          "title": "Product Marketing Alliance — interview guide",
+          "description": "Positioning and GTM themes",
+          "url": "https://www.productmarketingalliance.com/how-to-prepare-for-a-product-marketing-interview/"
+        }
+      ]
+    }
+  },
+  "sourceRegistry": {
+    "S01": {
+      "kind": "E",
+      "title": "Fam — Data Analyst (posting; example asks 3–5 years SQL)",
+      "description": "DA SQL/Python/Excel",
+      "url": "https://jobs.lever.co/fampay/811d4537-ade2-43fa-83c5-e2d07839b402"
+    },
+    "S02": {
+      "kind": "F",
+      "title": "SQLBolt — interactive SQL lessons",
+      "description": "External technical study",
+      "url": "https://sqlbolt.com/"
+    },
+    "S03": {
+      "kind": "E",
+      "title": "Lingaro — Business Analyst, India",
+      "description": "Elicitation/requirements/process",
+      "url": "https://jobs.lever.co/lingarogroup/cd755053-4b17-4958-84be-6459737b0120"
+    },
+    "S04": {
+      "kind": "F",
+      "title": "IIBA — Business Analysis Standard",
+      "description": "Elicitation, needs, solution evaluation",
+      "url": "https://www.iiba.org/knowledgehub/the-business-analysis-standard/"
+    },
+    "S05": {
+      "kind": "E",
+      "title": "United Tech — Product Analyst (Web)",
+      "description": "SQL, funnel, retention and testing",
+      "url": "https://jobs.lever.co/vacancies/f74a4d8c-43d9-4b28-a49f-f42cf8d1c2da"
+    },
+    "S06": {
+      "kind": "F",
+      "title": "Amplitude — Product Analytics Guide",
+      "description": "Funnels, cohorts, retention, activation",
+      "url": "https://www.amplitude.com/guides/product-analytics"
+    },
+    "S07": {
+      "kind": "E",
+      "title": "Omnea — Product Ops",
+      "description": "Launch coordination and metrics",
+      "url": "https://jobs.ashbyhq.com/omnea/55478d98-7a69-4386-a57b-ecf6d88087c0"
+    },
+    "S08": {
+      "kind": "E",
+      "title": "Credo.AI — Product Operations Manager",
+      "description": "Metric system, release readiness",
+      "url": "https://jobs.ashbyhq.com/credo.ai/0d90b98f-0979-4b2f-b808-e38a90141ff1"
+    },
+    "S09": {
+      "kind": "E",
+      "title": "Primer.io — Product Marketing Associate",
+      "description": "Messaging, positioning, GTM",
+      "url": "https://jobs.ashbyhq.com/primer.io/70c05b42-ebfa-4806-8ef1-d042b6b6895f"
+    },
+    "S10": {
+      "kind": "F/I",
+      "title": "Product Marketing Alliance — interview guide",
+      "description": "Positioning and GTM themes",
+      "url": "https://www.productmarketingalliance.com/how-to-prepare-for-a-product-marketing-interview/"
+    },
+    "S11": {
+      "kind": "E",
+      "title": "Metaforms — Associate Product Manager",
+      "description": "Experience from business/analytical roles, user flows",
+      "url": "https://jobs.ashbyhq.com/metaforms/11927a5f-ed4b-4e2a-ae42-aab75bb307c9"
+    },
+    "S12": {
+      "kind": "E",
+      "title": "Scan.com — Associate Product Manager",
+      "description": "Discovery, PRDs, product outcomes",
+      "url": "https://jobs.ashbyhq.com/scan-com/e3460b05-078d-4050-ab6a-e62a0f8733a7"
+    },
+    "S13": {
+      "kind": "F/I",
+      "title": "Atlassian — Product interview handbook",
+      "description": "PM customer/outcome/communication expectations",
+      "url": "https://www.atlassian.com/company/careers/resources/career-growth/product-managers"
+    },
+    "S14": {
+      "kind": "F",
+      "title": "Atlassian — Prioritizing ideas",
+      "description": "Prioritization reasoning",
+      "url": "https://www.atlassian.com/software/jira/product-discovery/resources/handbook/prioritization"
+    }
+  }
+}
