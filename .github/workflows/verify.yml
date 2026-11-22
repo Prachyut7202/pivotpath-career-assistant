@@ -27,6 +27,7 @@ jobs:
         run: |
           for js in app.js pip-experience.js pip-journey.js pip-progress.js pip-insights.js pip-guide.js; do node --check "$js"; done
           node tests/test_candidate_isolation.js
+          node tests/test_competency_guides.js
 
   browser_smoke:
     name: Three-persona Chromium journey and resume upload
