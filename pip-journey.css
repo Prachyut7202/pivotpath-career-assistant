@@ -93,3 +93,27 @@
 .pipRibbonAvatar .mascotSvg,.pipLessonAvatar .mascotSvg,.coachHeader .mascotSvg{animation:pipBreathe 4.8s ease-in-out infinite}
 @keyframes pipBreathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
 @media(prefers-reduced-motion:reduce){.mascotSvg>circle,.pipRibbonAvatar .mascotSvg,.pipLessonAvatar .mascotSvg,.coachHeader .mascotSvg{animation:none}}
+
+/* V5.14 — Pip's step guidance is a chat turn, not a pinned mini-dashboard. */
+.coachQuick:empty{display:none!important;padding:0!important;border:0!important}
+.coachMessages{scroll-behavior:smooth;overscroll-behavior:contain;gap:13px}
+.coachMessages .bubble{line-height:1.6}
+.coachMessages .bubble.pipFlowBubble{max-width:98%;align-self:flex-start;background:#f3f2ff;border:1px solid #deddf6;border-radius:16px 16px 16px 5px;padding:13px 14px;color:#3e4b79;white-space:normal}
+.pipFlowIdentity{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:11px;color:#6b63b9}
+.pipFlowIdentity strong{font-weight:850;letter-spacing:.01em}
+.pipFlowAvatar{width:35px;height:35px;flex:none;display:inline-flex;align-items:center;justify-content:center;background:#e7e7fe;border-radius:11px}
+.pipFlowAvatar .mascotSvg{width:32px;height:32px}
+.pipMessageText{display:block;white-space:pre-wrap;overflow-wrap:anywhere}
+.pipFlowActions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.pipFlowActions button{border:1px solid #d6dcf1;border-radius:9px;background:#fff;color:#535bb1;cursor:pointer;font-weight:750;font-size:11px;line-height:1.35;padding:9px 11px;text-align:left;flex:1 1 135px}
+.pipFlowActions button:first-child{background:#6661cc;border-color:#6661cc;color:#fff}
+.pipFlowActions button:hover{filter:brightness(.96)}
+.pipFlowActions button:focus-visible{outline:3px solid #b8b9fa;outline-offset:2px}
+.pipContextMascot .mascotSvg{height:42px;width:42px}
+.pipSidebarNotice{display:flex;align-items:center;gap:10px;line-height:1.55}
+.pipSidebarNotice #pipSidebarAvatar{width:34px;height:34px;border-radius:11px;background:#e8e7fb;flex:none;display:inline-grid;place-items:center}
+.pipSidebarNotice .mascotSvg{width:31px;height:31px}
+.pipSidebarNotice span:last-child{font-size:11px;min-width:0}
+.ppWarmupPip{width:33px;height:33px;display:inline-flex;vertical-align:middle;align-items:center;justify-content:center;background:#ecebff;border-radius:10px;margin-right:8px}
+.ppWarmupPip .mascotSvg{width:31px;height:31px}
+@media(prefers-reduced-motion:reduce){.coachMessages{scroll-behavior:auto}}
