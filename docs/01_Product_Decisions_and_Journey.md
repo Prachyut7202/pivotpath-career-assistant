@@ -56,6 +56,18 @@ A seven-day strip and current-day streak reward days with an **assessable comple
 
 **Why this matters:** The return reason is always a saved next action: an unfinished case, a missing competency, a comparable reassessment or a resume edit awaiting approval. A badge is a helpful cue, not the product's value.
 
+## Pip's conversational guidance must match the product
+
+I want Pip to sound like a thoughtful career coach, not a product manual. There is a practical requirement behind that: **Pip must not invent any part of the interface**.
+
+Our actual journey has five places: **Career Discovery**, **Readiness Map**, **Practice & Improve**, **Living Resume**, and **My profile & settings**. The Readiness Map contains *Competencies that matter* and expandable skill-evidence cards with an external **Learn this skill** link. **Practice & Improve** contains case questions, feedback, the improvement plan, warm-ups, and progress. **There is no separate learning hub, in-app video library, or built-in course catalog**.
+
+When a person asks where to learn feature prioritization, Pip should refer to the specific evidence card in **Readiness Map** or the relevant action in **Practice & Improve**. If they ask "When will I be ready?", Pip should explain what their *actual* formative evidence shows and clearly distinguish readiness for a harder practice case from employer-specific interview/job readiness. The optional two-case/eight-answer/3.5-out-of-5 checkpoint is only a **learning progression suggestion**, not a pass mark or guarantee of hiring.
+
+I will measure whether users can follow Pip's recommendation without hunting for nonexistent screens. This is more important than adding a separate API or another decorative coach message.
+
+**Acceptance checks:** (a) no invented destinations, videos, or templates; (b) no chat message just for clicking a sidebar tab; (c) each recommendation points to an existing action or correctly marked external resource; (d) self-ratings, resume evidence, and case scores remain distinct; and (e) users can choose to practise or apply before meeting a suggested checkpoint.
+
 ## 6. Key trade-offs and non-goals
 - Authored case banks and stable competency codes over unbounded generated questions, allowing more consistent A/B comparisons.
 - Six destinations over hundreds of shallow recommendations.
