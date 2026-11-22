@@ -62,3 +62,8 @@
 .ppWarmupButtons button:disabled{opacity:.45;cursor:not-allowed}
 @media(max-width:620px){.ppProgressCard{padding:14px}.ppProgressTop h3{font-size:16px}.ppScore strong{font-size:31px}.ppProgressMeta{gap:5px}.ppProgressMeta span{font-size:10px}.ppPracticeControls button{flex:1}.ppCompetencyBreakdown{padding:13px}.ppWarmupOverlay{align-items:flex-end;padding:0}.ppWarmupPanel{max-height:93dvh;border-radius:20px 20px 0 0}.ppWarmupBody{padding:17px}}
 @media print{.ppProgressCard,.ppCompetencyBreakdown,.ppWarmupOverlay{display:none!important}}
+
+.ppMilestone{border:1px dashed #cdd5ee;border-radius:10px;padding:12px 14px;background:#fbfcff;margin:0 0 14px}
+.ppMilestone strong{display:block;color:#445184;font-size:12px;margin-bottom:5px}
+.ppMilestone p{font-size:11px;line-height:1.6;color:#65728e}
+.ppMilestone b{font-weight:800;color:#47569a}
