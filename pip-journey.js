@@ -213,15 +213,15 @@
     j.lastOptions=options;
     save();return {current,options};
   }
-  function showOptions(){
-    // "What's next?" is a control, not another conversation turn. Reveal
-    // the CURRENT actions in place rather than repeatedly appending the
-    // same scripted message to the user's chat history.
+  function showOptions(origin='coach'){
+    // Keep next-step controls at the place of interaction. Clicking the
+    // in-page ribbon must not silently update a closed side panel.
     const j=state();
     const {options}=currentOptions();
-    j.optionsExpanded=!j.optionsExpanded;
+    if(origin==='ribbon')j.ribbonExpanded=!j.ribbonExpanded;
+    else j.optionsExpanded=!j.optionsExpanded;
     j.lastOptions=options;
-    save();renderCoach();
+    save();renderCoach();renderRibbon();
   }
   async function orchestratedSend(text){
     text=String(text||'').trim();if(!text)return;
@@ -323,24 +323,42 @@
     if(!button)return;
     e.preventDefault();e.stopPropagation();
     const action=button.dataset.journeyAction;
-    if(action==='options'){showOptions();return;}
+    if(action==='ribbon-options'){showOptions('ribbon');return;}
+    if(action==='options'){showOptions('coach');return;}
     state().lastOptions=stableActions(playbook().buttons);
+    state().ribbonExpanded=false;
+    save();
     navigate(action);
   });
-  // Add small in-page journey continuity banner, even with chat closed.
+  // Render an actual inline action tray. Unlike the old version, the button
+  // changes the same surface the user clicked; no repeated chat messages.
+  function renderRibbon(){
+    if(S.stage==='welcome')return;
+    const root=document.getElementById('main');
+    if(!root)return;
+    const j=state(),info=playbook(),actions=stableActions(info.buttons);
+    const isReturn=j.history.length>0,expanded=Boolean(j.ribbonExpanded&&!isReturn);
+    let ribbon=document.getElementById('pipLoopRibbon');
+    if(!ribbon){
+      ribbon=document.createElement('section');
+      ribbon.id='pipLoopRibbon';ribbon.className='pipLoopRibbon';
+      root.insertBefore(ribbon,root.firstChild);
+    }
+    ribbon.innerHTML='<div class="pipRibbonBar">'+
+      '<span class="pipRibbonIdentity"><span class="pipRibbonAvatar" aria-hidden="true">'+mascot+'</span>'+escapeHtml(goalName())+'</span>'+
+      '<small>'+escapeHtml(info.step)+'</small>'+
+      (isReturn?'<button type="button" data-journey-action="return">↶ Return to my previous step</button>':
+       '<button type="button" data-journey-action="ribbon-options" aria-expanded="'+expanded+'" aria-controls="pipRibbonTray">'+
+       (expanded?'Hide next steps −':'What should I do next? →')+'</button>')+
+      '</div>'+
+      (expanded?'<div class="pipRibbonTray" id="pipRibbonTray" role="region" aria-label="Recommended next career actions">'+
+        '<p class="pipRibbonSpeech">'+escapeHtml(info.desc)+'</p>'+
+        '<div class="pipRibbonActions">'+actionMarkup(actions)+'</div></div>':'');
+  }
   const originalRender=render;
   render=function(){
     originalRender();
-    if(S.stage==='welcome')return;
-    const root=document.getElementById('main');
-    if(!root||document.getElementById('pipLoopRibbon'))return;
-    const j=state(),info=playbook();
-    const ribbon=document.createElement('div');
-    ribbon.id='pipLoopRibbon';ribbon.className='pipLoopRibbon';
-    ribbon.innerHTML='<span>🐣 '+escapeHtml(goalName())+'</span><small>'+escapeHtml(info.step)+'</small>'+
-      (j.history.length?'<button data-journey-action="return" type="button">↶ Return to my previous step</button>':
-        '<button data-journey-action="options" type="button">Show me the next step →</button>');
-    root.insertBefore(ribbon,root.firstChild);
+    renderRibbon();
   };
   // Keep the existing real AI, cases, resume exports and assessment routes.
   state();render();
