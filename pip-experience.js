@@ -24,34 +24,41 @@
     const o=intake(),p=S.profile;
     if(o.step==='hello')return bubble('<strong>Hi, I’m Pip.</strong> Before we talk about your next job, I’d love to understand what you’ve already done. How shall we begin?')+
       '<div class="pipChoices">'+primary('↥ Upload my resume','upload')+secondary('Let’s talk instead','manual')+'</div>'+
-      '<div class="pipSampleHead">Or try a sample career story</div><div class="pipSamples">'+
-      ['JRA','AC','BA'].map(x=>'<button type="button" data-pip-action="sample" data-persona="'+x+'">'+(x==='JRA'?'Research analyst':x==='AC'?'Associate consultant':'Business analyst')+'</button>').join('')+'</div>';
+      '<div class="pipSampleHead">Or try a sample career story · based on redacted CVs</div><div class="pipSamples">'+
+      ['JRA','AC','BA'].map(x=>{
+        const entry=window.PIVOTPATH_SAMPLES?.[x];
+        const title=entry?.track||(x==='JRA'?'Research analyst':x==='AC'?'Associate consultant':'Business analyst');
+        const person=entry?.firstName?entry.firstName+' example':'sample profile';
+        return '<button type="button" data-pip-action="sample" data-persona="'+x+'" title="CV-based prototype story; not a verified skill rating"><strong>'+safe(title)+'</strong><small>'+safe(person)+'</small></button>';
+      }).join('')+'</div>';
     if(o.step==='upload')return bubble('Great. Share a PDF, DOCX or text resume. I’ll extract what I can, then <strong>you’ll confirm the facts</strong>. We won’t treat a listed skill as proven proficiency.')+
       '<p class="pipUploadNote">Testing with a different person’s resume? Pip will ask before replacing a saved profile, so career details never get mixed.</p>'+ 
       '<label class="pipDrop" for="pipIntakeFile"><span class="pipDropIcon">↥</span><strong>Choose your resume</strong><span>PDF, DOCX, TXT, MD or TEX · up to 7 MB</span><input id="pipIntakeFile" type="file" accept=".pdf,.docx,.txt,.md,.tex" /></label>'+
       '<div class="pipInline">'+secondary('I’ll describe my experience','manual')+secondary('Back','back')+'</div>';
     if(o.step==='review'){
       const rep=p.importReport&&p.resumeText?p.importReport:null;
+      const demo=rep?.status==='sample';
       let extracted='';
       if(rep){
         const displayOrder=[['experience','Work experience'],['internships','Internships'],['projects','Projects'],['education','Education'],['skills','Skills'],['leadership','Leadership']];
         const segments=displayOrder.filter(([key])=>Array.isArray(rep.sections?.[key])&&rep.sections[key].length);
         extracted='<section class="pipImportFacts" aria-label="Information extracted from this resume">'+
-        '<div class="pipImportTitle"><span>✓ Resume text extracted</span><strong>'+safe(rep.filename)+'</strong></div>'+
-        '<p class="pipImportMeta">'+Number(rep.originalTextLength||0).toLocaleString()+' characters read · Review before using</p>'+
+        '<div class="pipImportTitle"><span>'+(demo?'✓ Redacted CV-based sample':'✓ Resume text extracted')+'</span><strong>'+safe(rep.filename)+'</strong></div>'+
+        '<p class="pipImportMeta">'+(demo?'Curated excerpts from the provided CV · no file uploaded in this session':Number(rep.originalTextLength||0).toLocaleString()+' characters read · Review before using')+'</p>'+
+        (demo?'<p class="pipSampleNote">'+safe(p.sampleExperienceNote||'The career track is a demo grouping, not an asserted job title.')+'</p>':'')+
         '<div class="pipImportFields">'+
-        '<div><small>NAME FOUND IN DOCUMENT</small><strong>'+safe(rep.candidateName||'Not confidently identified')+'</strong></div>'+
-        '<div><small>EMAIL FOUND IN DOCUMENT</small><strong>'+safe(rep.candidateEmail||'Not found')+'</strong></div></div>'+
+        '<div><small>'+(demo?'SAMPLE PROFILE':'NAME FOUND IN DOCUMENT')+'</small><strong>'+safe(rep.candidateName||'Not confidently identified')+'</strong></div>'+
+        '<div><small>'+(demo?'CONTACT INFORMATION':'EMAIL FOUND IN DOCUMENT')+'</small><strong>'+safe(demo?'Removed for privacy':(rep.candidateEmail||'Not found'))+'</strong></div></div>'+
         (segments.length?segments.map(([key,title])=>
           '<details class="pipImportSection" '+(key==='experience'?'open':'')+'>'+
           '<summary>'+safe(title)+' <span>'+rep.sections[key].length+' extracted entries</span></summary>'+
           '<div class="pipImportEntries">'+rep.sections[key].slice(0,5).map(item=>
             '<p>'+safe([item.title,item.detail].filter(Boolean).join(item.title&&item.detail?' — ':''))+'</p>').join('')+
           '</div></details>').join(''):'<p class="pipImportFallback">Section headings were not confidently recognized in this file. Inspect the actual extracted text below and fill in any missing fields.</p>')+
-        '<details class="pipImportSection"><summary>View original extracted text <span>From this upload</span></summary><pre class="pipImportRaw">'+safe(rep.rawPreview||p.resumeText.slice(0,2200))+'</pre></details>'+
-        '<p class="pipImportWarning">The text above comes from the uploaded file, not from a previous profile. A job title or employer is left blank when it cannot be confidently identified.</p></section>';
+        '<details class="pipImportSection"><summary>'+(demo?'View curated CV excerpts':'View original extracted text')+' <span>'+(demo?'Redacted test data':'From this upload')+'</span></summary><pre class="pipImportRaw">'+safe(rep.rawPreview||p.resumeText.slice(0,2200))+'</pre></details>'+
+        '<p class="pipImportWarning">'+(demo?'This sample is based on actual CV excerpts with contact details removed. The selected career track does not change the job titles on the source CV. Confirm any claim before using it as evidence.':'The text above comes from the uploaded file, not from a previous profile. A job title or employer is left blank when it cannot be confidently identified.')+'</p></section>';
       }else if(p.resumeText)extracted='<div class="pipExtract"><strong>Resume text available</strong><span>'+safe(p.resumeText.slice(0,430))+'</span></div>';
-      return bubble((p.resumeText?'I’ve extracted text from the resume you selected. ':'Let’s start with the basics. ')+'<strong>Are these facts about the right person?</strong> Review the actual text and correct any missing details before we continue.')+extracted+
+      return bubble((demo?'I’ve loaded a redacted example based on a real CV. ':p.resumeText?'I’ve extracted text from the resume you selected. ':'Let’s start with the basics. ')+'<strong>Does this career story look right?</strong> Review the work examples and correct any missing details before we continue.')+extracted+
       '<form id="pipReviewForm" class="pipMiniForm"><div class="pipFormGrid"><label>Your name <input name="name" required placeholder="How should I address you?" value="'+safe(p.name)+'"/></label>'+
       '<label>Current / latest role <input name="role" required placeholder="e.g. Research Associate" value="'+safe(p.role)+'"/></label>'+
       '<label>Organization <input name="employer" placeholder="Optional" value="'+safe(p.employer)+'"/></label>'+
@@ -105,6 +112,9 @@
     syncProfileToResume();
     if(!S.chat.some(m=>m.pipWelcomeV5)){
       S.chat.push({who:'pip',text:'I’ve saved the starting story you confirmed. Let’s explore career paths without assuming your resume proves every skill. You can choose any goal, then we’ll check evidence, practice and revisit your map.',pipWelcomeV5:true});
+      if(S.profile.sampleFollowup){
+        S.chat.push({who:'pip',text:'Based on the work described in this sample: '+S.profile.sampleFollowup,pipSamplePrompt:true});
+      }
     }
     save();render();
   }
@@ -206,7 +216,44 @@
     if(a==='upload'){o.step='upload';o.method='resume';save();render();}
     else if(a==='manual'){o.step='review';o.method='manual';save();render();}
     else if(a==='back')back();
-    else if(a==='sample'){const x=personas[b.dataset.persona];if(!x)return;S.profile={...S.profile,...x,verified:false};o.method='sample';o.step='review';save();render();}
+    else if(a==='sample'){
+      const id=b.dataset.persona;
+      const story=window.PIVOTPATH_SAMPLES?.[id];
+      if(!story){notify('Sample story is unavailable. Please try a resume upload.','bad');return;}
+      const hasHistory=Boolean(S.profile?.name||S.profile?.resumeText||S.profile?.verified||S.attempts?.length);
+      if(hasHistory&&!confirm('Open a different sample career story? This replaces the currently saved career session in this browser. Export your existing data first if needed.'))return;
+      // A new sample is a completely new candidate. Never merge with the
+      // previous visitor's evidence, resume, chat or practice history.
+      S=seedState();
+      const profile=JSON.parse(JSON.stringify(story.profile));
+      const sections=JSON.parse(JSON.stringify(story.sections));
+      const excerpt=Object.entries(sections).map(([key,items])=>
+        key.toUpperCase()+'\n'+items.map(it=>[it.title,it.detail].filter(Boolean).join(' — ')).join('\n')
+      ).join('\n\n');
+      S.profile={...S.profile,...profile,verified:false,source:'redacted CV-based sample',
+        email:'',phone:'',linkedin:'',portfolio:'',resumeText:excerpt,
+        sampleTrack:story.track,sampleExperienceNote:story.experienceNote,
+        sampleFollowup:story.followup,
+        importReport:{
+          status:'sample',filename:story.firstName+' · '+story.track+' sample',
+          candidateName:profile.name,candidateEmail:'',
+          originalTextLength:excerpt.length,
+          sections:sections,rawPreview:excerpt.slice(0,2600),
+          warning:'Curated, redacted excerpts from the uploaded reference CV. Not a freshly parsed file.'
+        }
+      };
+      for(const [sectionId,items] of Object.entries(sections)){
+        const dest=getSection(sectionId);
+        if(dest)dest.items=items.map(it=>({
+          id:uid(),title:it.title||'',detail:it.detail||'',
+          kind:it.kind==='bullet'?'bullet':'entry',imported:true
+        }));
+      }
+      S.pipIntake={step:'review',method:'sample',sampleId:id,
+        filename:story.firstName+' sample CV',owned:[],note:'',done:false,recorded:false};
+      S.coachGoal='career_exploration';
+      save();render();notify('Loaded redacted '+story.track+' sample based on the provided CV.');
+    }
     else if(a==='own'){const v=b.dataset.value;const i=o.owned.indexOf(v);i<0?o.owned.push(v):o.owned.splice(i,1);save();render();}
     else if(a==='ownership-next'||a==='ownership-skip'){
       o.note=strip(document.getElementById('pipOwnershipNote')?.value,700);
