@@ -34,19 +34,21 @@
     if(r==='discovery')return {step:'Explore → choose → check',desc:'Your selected goal is '+role+'. Review the relevant expectations, then test what you already know.',buttons:[['Check '+role+' readiness','readiness'],['Explore other roles','discovery']]};
     if(r==='readiness'){
       const openCase=S.attempt&&S.attempt.role===S.career.activeRole&&S.attempt.status!=='complete';
-      return {step:'Evidence → practice',desc:'Your map distinguishes described experience, tested skills and still-unassessed areas. '+(openCase?'You have an unfinished case to resume.':'Start a short case to gather actual evidence.'),
-       buttons:[openCase?['Resume my case','practice']:['Start a role-specific case','start-case'],['Tailor my resume, then return','resume-detour'],['Explore role focus','skill-focus']]};
+      const p=window.PipProgressSummary?.(S.career.activeRole);
+      const progress=p?.count?'Your across-case practice average is '+p.avg.toFixed(1)+'/5 from '+p.count+' scored answers. '+p.title+'. ':'Your case skills have not been rated yet. ';
+      return {step:'Measure → learn → retry',desc:progress+(openCase?'Your existing case remains saved.':'Begin with a gentle, unscored warm-up or a full case.'),
+       buttons:[openCase?['Resume my case','practice']:['Try an easy warm-up','warmup'],openCase?['See my overall progress','insights']:['Start the full case','start-case'],['Explain my results','explain-progress']]};
     }
     if(r==='practice'){
       if(S.practiceView==='plan')return {step:'Plan → learn → reassess',desc:'Work through one targeted learning action, then test again on a different case.',buttons:[['Return to case','practice-case'],['Check readiness','readiness'],['Tailor resume and come back','resume-detour']]};
       const a=S.attempt;
-      if(!a)return {step:'Try → review → improve',desc:'Start the first five-question case. After each answer, review feedback and learn before reassessing.',buttons:[['Start case A','start-case'],['Review readiness','readiness']]};
+      if(!a)return {step:'Learn → try → review',desc:'Start with three ungraded examples if the case looks difficult. Or begin the full five-question exercise directly.',buttons:[['Start easy warm-up','warmup'],['Start case A','start-case'],['Review readiness','readiness']]};
       if(a.status==='complete'){
         const hasA=S.attempts.some(x=>x.role===S.career.activeRole&&x.variant==='A');
         return {step:'Case completed → close the loop',desc:'Your case evidence is saved. Check readiness, review the improvement plan, and use a distinct reassessment case.',buttons:[['See updated readiness','readiness'],['My improvement plan','plan'],[hasA?'Try different case B':'Practice again',hasA?'reassess':'start-case']]};
       }
       if(a.status==='feedback')return {step:'Review → learn → continue',desc:'You have feedback for question '+(a.index+1)+'. Learn the concept, then continue this case; your answer is saved.',buttons:[['Learn this concept','lesson'],['Continue the case','next-question'],['See my improvement plan','plan']]};
-      return {step:'Answer → get feedback',desc:'You are on question '+(a.index+1)+' of five. You can ask for a hint, or save your reasoning for feedback.',buttons:[['Focus on my answer','focus-answer'],['Hint without the answer','hint'],['Tailor resume and return','resume-detour']]};
+      return {step:'Answer → get feedback',desc:'You are on question '+(a.index+1)+' of five. Need an easier example? Warm-ups do not affect your case score.',buttons:[['Focus on my answer','focus-answer'],['Try easy examples','warmup'],['Hint without the answer','hint']]};
     }
     if(r==='resume')return {step:'Draft → review → return',desc:'Keep only accurate achievements in the one-page resume. Every AI suggestion needs your approval. Return to your '+role+' readiness when finished.',buttons:[['Improve a resume bullet','resume-edit'],['Return to readiness','readiness'],['Explore career options','discovery']]};
     if(r==='profile')return {step:'Update → confirm → continue',desc:'Your profile is the source of career facts. Confirm changes and return to the same career goal.',buttons:[['Review my career path','discovery'],['Check readiness','readiness']]};
@@ -54,7 +56,7 @@
   }
   function stableActions(actions){
     const names=new Set();
-    return actions.filter(([label,act])=>allowed.includes(act)||['return','resume-edit','resume-detour','start-case','reassess','plan','lesson','focus-answer','hint','next-question','practice-case','skill-focus'].includes(act))
+    return actions.filter(([label,act])=>allowed.includes(act)||['return','resume-edit','resume-detour','start-case','reassess','plan','lesson','focus-answer','hint','next-question','practice-case','skill-focus','warmup','insights','explain-progress'].includes(act))
       .filter(([l,a])=>{if(names.has(a))return false;names.add(a);return true}).slice(0,3);
   }
   function emit(message,opts={}){
@@ -133,6 +135,17 @@
     if(action==='plan'){S.practiceView='plan';save();go('practice');emit('Here’s the improvement plan tied to your case evidence. Choose one task, learn the concept, then reassess.');return;}
     if(action==='practice-case'){S.practiceView='case';save();go('practice');return;}
     if(action==='lesson'){if(typeof window.PipStartLesson==='function')window.PipStartLesson();else emit('Open the current feedback and practice the underlying concept.');return;}
+    if(action==='warmup'){if(typeof window.PipOpenWarmup==='function')window.PipOpenWarmup();else emit('Warm-up is temporarily unavailable. Continue with the case when ready.');return;}
+    if(action==='insights'){
+      S.practiceView='history';save();setRoute('practice');
+      emit('This view combines completed case ratings for '+goal+'. Look at the total number of questions, your average, and where the next practice should focus.');return;
+    }
+    if(action==='explain-progress'){
+      const x=window.PipProgressSummary?.(S.career.activeRole);
+      if(!x||!x.count){emit('We have no completed, assessable case answers yet for '+goal+'. An easy warm-up is a good place to start; it carries no score.',{buttons:[['Try a warm-up','warmup'],['Start a case','start-case']]});return;}
+      emit('Across '+x.completed+' completed cases for '+goal+', your '+x.count+' assessable answers average '+x.avg.toFixed(1)+'/5. '+x.title+'. '+x.step+'. This is an in-app practice milestone, not a hiring threshold.',
+        {buttons:[['Try easy examples','warmup'],['See case-by-case results','insights'],['Return to readiness','readiness']]});return;
+    }
     if(action==='next-question'){
       const a=S.attempt;
       if(a?.status!=='feedback'){emit('Please submit the current answer before continuing.');return;}
@@ -171,6 +184,8 @@
     const t=String(text).trim().toLowerCase();
     const j=state();
     if(/^(?:what should i do next\??|what next\??|next step\??|guide me\??|where should i go\??)$/.test(t))return 'options';
+    if(/(?:how am i doing|what is my average|overall (?:score|performance|progress)|am i (?:good enough|ready)|what does (?:my |this )?score mean|summari[sz]e (?:my |the )?(?:results|scores))/i.test(t))return 'explain-progress';
+    if(/(?:easy|beginner|simple|gentle|ungra(?:ded|ded)|warm[ -]?up)/.test(t))return 'warmup';
     if(/(?:return|go back|take me back|resume my earlier step|back to my goal|back to readiness|back to (?:my )?(?:product analyst|product manager|career goal|chosen role)|finished with (?:my |the )?resume)/.test(t) || (j.history.length && /^(?:done|i'm done|finished|that's done|all done)$/.test(t)))return j.history.length?'return':'readiness';
     if(/(?:start|take|open|go to|show|review|check|see).{0,22}(?:readiness|skill map)/.test(t))return 'readiness';
     if(/(?:start|begin|take|do|try|resume).{0,26}(?:case|assessment|practice|quiz)/.test(t))return 'start-case';
