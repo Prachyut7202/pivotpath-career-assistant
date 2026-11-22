@@ -8,6 +8,18 @@
 
 **Product job:** Help a user select a career destination, understand *existing work evidence vs self-belief vs observed practice*, and complete one role-relevant action that brings them closer to that goal.
 
+## Why I selected these transitions
+
+I chose **three starting backgrounds and six possible destination roles** because I wanted to test how the product handles different transferable experiences. I was not trying to list every occupation or claim these were statistically the most common career switches. This is a bounded prototype designed to test *depth of the guidance*, not market coverage.
+
+- **Research Analyst → Product Analyst:** Research and diagnostics may transfer into product data, funnels and decision-making; product metrics, instrumentation and hands-on SQL remain to be tested.
+- **Consulting-track sample → APM:** Strong problem framing and stakeholder skills may transfer, but user discovery, prioritization and delivery still require demonstrated evidence. The sample track must not overwrite the candidate's actual CV title.
+- **Business Analyst → Product Operations:** Requirements, workflow/UAT and analysis may transfer toward operational ownership, launches and post-release outcomes.
+
+The six destinations are Data Analyst, Business Analyst, Product Analyst, Product Operations Associate, Product Marketing Associate and Associate Product Manager. The shortlist surfaces three options but **the user always retains access to all six and keeps control of their aspiration**.
+
+I used an impact/effort judgment for the two-day build, rather than invented numerical scores. Keeping the chosen goal, separating self-confidence from evidence, and closing a practice loop came before job scraping, endless roles, or richer animation. The [RICE framework introduced by Intercom](https://www.intercom.com/blog/rice-simple-prioritization-for-product-managers) is useful when there are grounded reach and effort estimates; it would be false precision here.
+
 ## 2. Three prioritized MVP use cases
 | Priority | Use case | Evidence of value |
 |---|---|---|
