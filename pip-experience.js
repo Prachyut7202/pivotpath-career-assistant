@@ -27,6 +27,7 @@
       '<div class="pipSampleHead">Or try a sample career story</div><div class="pipSamples">'+
       ['JRA','AC','BA'].map(x=>'<button type="button" data-pip-action="sample" data-persona="'+x+'">'+(x==='JRA'?'Research analyst':x==='AC'?'Associate consultant':'Business analyst')+'</button>').join('')+'</div>';
     if(o.step==='upload')return bubble('Great. Share a PDF, DOCX or text resume. I’ll extract what I can, then <strong>you’ll confirm the facts</strong>. We won’t treat a listed skill as proven proficiency.')+
+      '<p class="pipUploadNote">Testing with a different person’s resume? Pip will ask before replacing a saved profile, so career details never get mixed.</p>'+ 
       '<label class="pipDrop" for="pipIntakeFile"><span class="pipDropIcon">↥</span><strong>Choose your resume</strong><span>PDF, DOCX, TXT, MD or TEX · up to 7 MB</span><input id="pipIntakeFile" type="file" accept=".pdf,.docx,.txt,.md,.tex" /></label>'+
       '<div class="pipInline">'+secondary('I’ll describe my experience','manual')+secondary('Back','back')+'</div>';
     if(o.step==='review'){
@@ -214,7 +215,7 @@
     const o=intake();o.step='upload';o.filename=f.name;save();
     // The parser reports success explicitly. Do not compare resume strings:
     // uploading the same PDF again is valid and must continue to review.
-    const ok=await handleResumeFile(f);
+    const ok=await handleResumeFile(f,{newProfile:true});
     if(ok){o.step='review';o.filename=f.name;save();render();}
     // handleResumeFile already displays a specific error when parsing fails.
   });
