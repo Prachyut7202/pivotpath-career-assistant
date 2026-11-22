@@ -296,14 +296,17 @@
     return null;
   }
   function ensureFlow(){
-    // Do not log "Pip · next step" just because somebody clicked a tab.
-    // Reserve unsolicited coaching for an actual learning milestone while
-    // chat is open. When closed, the small optional mascot hint is enough.
+    // A route is NOT a chat event. Only an action handler may queue a
+    // milestone; opening Readiness or Resume must never synthesize one.
     if(S.stage==='welcome'||!S.coachOpen)return;
+    const pending=S.pipPendingMilestone;
+    if(!pending||pending.route!==S.route||
+       pending.role!==S.career?.activeRole)return;
     const m=meaningfulMilestone();
-    if(!m)return;
+    if(!m||m.key!==pending.key)return;
     const shown=S.pipMilestoneShown||(S.pipMilestoneShown={});
-    if(shown[m.key])return;
+    S.pipPendingMilestone=null;
+    if(shown[m.key]){save();return;}
     shown[m.key]=true;
     S.chat.push({who:'pip',text:m.text,pipFlow:true,pipMilestone:true,actions:m.actions});
     if(S.chat.length>100)S.chat=S.chat.slice(-100);
