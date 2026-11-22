@@ -47,6 +47,14 @@ def pip_experience_js():
 def pip_experience_css():
     return FileResponse(ROOT / 'pip-experience.css', media_type='text/css', headers={'Cache-Control':'public, max-age=300'})
 
+@app.get('/pip-journey.js')
+def pip_journey_js():
+    return FileResponse(ROOT / 'pip-journey.js', media_type='application/javascript', headers={'Cache-Control':'public, max-age=300'})
+
+@app.get('/pip-journey.css')
+def pip_journey_css():
+    return FileResponse(ROOT / 'pip-journey.css', media_type='text/css', headers={'Cache-Control':'public, max-age=300'})
+
 @app.get('/roles.json')
 def role_file(): return FileResponse(ROOT/'roles.json',media_type='application/json')
 
@@ -210,6 +218,13 @@ async def coach(request:Request):
     'transferable work such as research, problem-solving, stakeholder collaboration, or process improvement. '
     'Never force product-requirements experience or make up projects, metrics, activation data, or skills. '
     'Do not abruptly introduce funnel metrics, practice cases, or unrelated topics. '
+    'The user has a persistent long-term target career; do not switch that goal when improving a resume. '
+    'A resume edit is a temporary detour and the user should return to their previous readiness or practice step. '
+    'If the user has already chosen an option, do not repeat the same menu or ask them to choose again. '
+    'Instead honor their selection or give a brief next action. '
+    'The website has explicit action buttons for navigation; never promise you have navigated unless the UI confirms it. '
+    'Do not suggest working on the resume unless the user asks or it is directly relevant to the current task. '
+    'Make the most recent user message and the active career objective central to your reply. '
     'Ask at most ONE simple follow-up question, tailored to the last reply and original career aim. '
     'Keep the response concise (usually 2-4 sentences) and avoid repeating prompts. '
     'Treat unassessed competency as unknown rather than a weakness. Respect the user-chosen aspiration. '
@@ -220,7 +235,7 @@ async def coach(request:Request):
                             'context':context,'recent_thread':thread},650,'coach',data.get('allow_gemini') is True)
     reply=str(out.get('reply','')).strip()[:2300]
     followup=str(out.get('follow_up_question','')).strip()[:450]
-    if followup and followup.lower() not in reply.lower():
+    if followup and '?' not in reply and followup.lower() not in reply.lower():
         reply=(reply+'\n\n'+followup).strip()
     if not reply: reply='Could you tell me a little more about the experience you want to discuss?'
     route=out.get('suggested_route','')
