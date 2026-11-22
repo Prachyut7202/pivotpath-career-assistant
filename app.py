@@ -241,6 +241,10 @@ def _ground_coach_navigation(reply:str,message:str,context:dict)->str:
     # rewrite it. This is a safety net for affirmative, unsupported claims.
     if not (_FAKE_PRODUCT_DESTINATION.search(reply) or _FAKE_BUILTIN_MATERIALS.search(reply)):
         return reply
+    # Correctly describing a missing feature is allowed.
+    negative=r"\\b(?:no|not|isn't|is not|don't have|do not have)\\b.{0,45}\\b(?:learning hub|learning center|learning centre|skills? hub|video library|course library|resource library)\\b"
+    if re.search(negative,reply,re.I) and not _FAKE_BUILTIN_MATERIALS.search(reply):
+        return reply
     role=str(context.get('active_goal_name') or 'your chosen role').strip()[:100]
     wants_readiness=bool(re.search(r'\b(?:ready|readiness|prepared|interview|apply|application)\b',message,re.I))
     checkpoint=context.get('practice_checkpoint')
@@ -248,7 +252,8 @@ def _ground_coach_navigation(reply:str,message:str,context:dict)->str:
         count=checkpoint.get('completed_cases',0) if isinstance(checkpoint,dict) else 0
         rated=checkpoint.get('rated_answers',0) if isinstance(checkpoint,dict) else 0
         return (
-          f'For {role}, you have {count} completed case(s) and {rated} assessable answer(s) recorded. '
+          f'For {role}, you have {count} completed {"case" if count==1 else "cases"} and '
+          f'{rated} assessable {"answer" if rated==1 else "answers"} recorded. '
           'Our suggested checkpoint before trying a harder mock is two different cases with at least eight rated answers, '
           'an average of 3.5/5 or higher, and no answer below 3/5 in the latest case. '
           'That is only a learning suggestion, not proof of job readiness; you can apply at any stage. '
