@@ -239,7 +239,7 @@ async function sendCoach(text){
  text=String(text||'').trim();if(!text)return;
  const requestSession=candidateSessionEpoch;
  // Capture prior dialogue before adding this turn, so the same user message is never sent twice.
- const previousThread=S.chat.filter(x=>x&&['user','pip'].includes(x.who)).slice(-20).map(x=>({who:x.who,text:String(x.text||'').slice(0,2000)}));
+ const previousThread=S.chat.filter(x=>x&&['user','pip'].includes(x.who)&&!x.pipFlow&&!x.pipJourney&&!x.pipGuide).slice(-20).map(x=>({who:x.who,text:String(x.text||'').slice(0,2000)}));
  const careerIntent=/interview me|understand my experience|transferable skills|career (?:path|change|transition|move)|transition(?:ing)? (?:into|to)|ask me questions|one question at a time/i;
  const practiceIntent=/\b(?:practice case|case question|hint for this question|hint for the question|review my case answer|evaluate my answer)\b/i;
  const resumeIntent=/\b(?:rewrite my resume|edit my resume|resume bullet|cv bullet)\b/i;
@@ -257,12 +257,28 @@ async function sendCoach(text){
   achievements:S.profile.achievements.slice(0,1200),skills:S.profile.skills.slice(0,500)},
   aspiration:S.career.aspiration,active_goal:S.career.activeRole,
   stage:S.discoveryStep,resume_summary:S.resume.sections.filter(s=>s.enabled).map(s=>({section:s.title,item_count:s.items.length}))};
- // A case question should never hijack a career interview just because the user is on the practice screen.
- if(S.coachGoal==='practice'){
-  context.active_question=currentQ()?.prompt||null;
-  context.latest_results=S.attempts.slice(-2).map(a=>({role:a.role,variant:a.variant,
-   evaluations:a.evaluations.map(e=>({competency:e.competency,rating:e.rating,source:e.source}))}));
+ // The active goal's self-ratings, case observations and unfinished work
+ // are provided as separate evidence, never merged into a mastery score.
+ const goalRole=S.career.activeRole;
+ if(ROLES[goalRole]){
+  const confidence=S.pipSkillConfidence?.[goalRole]||{};
+  context.career_skill_picture=ROLES[goalRole].competencies.map(([code,label])=>({
+    code,skill:label,self_report:confidence[code]?.level||'not provided'
+  }));
+  context.recent_practice=S.attempts.filter(a=>a.role===goalRole).slice(-2).map(a=>({
+    scenario:a.variant,
+    scoring_source:a.evaluations.some(e=>e.source==='demo')?'illustrative checklist':'formative AI',
+    observations:a.evaluations.filter(e=>e.assessable).map(e=>({
+      skill:ROLES[goalRole].competencies.find(c=>c[0]===e.competency)?.[1]||e.competency,
+      rating:e.rating,observed_strength:String(e.strengths?.[0]||'').slice(0,140),
+      practice_focus:String(e.missed?.[0]||'').slice(0,140)
+    })).slice(0,6)
+  }));
+  context.open_learning_actions=S.tasks.filter(t=>t.role===goalRole&&t.status!=='done')
+    .slice(0,2).map(t=>({title:t.title,competency:t.competency}));
  }
+ // A case question must not hijack a career interview just because the person is on the practice screen.
+ if(S.coachGoal==='practice')context.active_question=currentQ()?.prompt||null;
  try{
   if(server.ai==='live'){
    result=await api('/api/coach',{method:'POST',
