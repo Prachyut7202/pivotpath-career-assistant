@@ -216,6 +216,7 @@ function demoPipReply(message){const m=message.toLowerCase(),role=S.career.activ
 function renderCoach(){let panel=document.getElementById('coachPanel');panel.classList.toggle('hidden',!S.coachOpen);document.getElementById('coachMessages').innerHTML=(S.chat.length?S.chat:[{who:'pip',text:'Hi! I’m Pip. I’ll guide you through each step. You can ask me anything about your current page.'}]).map(m=>`<div class="bubble ${m.who==='user'?'me':''}">${esc(m.text)}${m.who==='pip'&&['discovery','readiness','practice','resume','profile'].includes(m.route)?`<div style="margin-top:9px"><button class="btn light small" data-action="nav" data-route="${esc(m.route)}">Open ${esc(m.route)} →</button></div>`:''}</div>`).join('');let quick=[['What should I do next?','Help me choose my next action.'],['Explain my career options','Which career transitions are realistic for my background?'],['Help with my resume','Can you help improve a resume bullet?']];if(S.route==='practice')quick=[['Hint for this question','Can you give me a hint about my current case question?'],...quick.slice(0,2)];document.getElementById('coachQuick').innerHTML=quick.map(([x,q])=>`<button data-action="coach-quick" data-question="${esc(q)}">${esc(x)}</button>`).join('');const cm=document.getElementById('coachMessages');cm.scrollTop=cm.scrollHeight;updateMode()}
 async function sendCoach(text){
  text=String(text||'').trim();if(!text)return;
+ const requestSession=candidateSessionEpoch;
  // Capture prior dialogue before adding this turn, so the same user message is never sent twice.
  const previousThread=S.chat.filter(x=>x&&['user','pip'].includes(x.who)).slice(-20).map(x=>({who:x.who,text:String(x.text||'').slice(0,2000)}));
  const careerIntent=/interview me|understand my experience|transferable skills|career (?:path|change|transition|move)|transition(?:ing)? (?:into|to)|ask me questions|one question at a time/i;
@@ -247,11 +248,13 @@ async function sendCoach(text){
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({message:text,context,thread:previousThread,
        conversation_goal:S.coachGoal,allow_gemini:true})});
+   if(requestSession!==candidateSessionEpoch)return;
    if(result.provider&&result.provider!=='conversation_history'){
     pipLiveReplyReceived=true;pipLiveRequestFailed=false;pipActiveProvider=result.provider;
    }
   }else result=demoPipReply(text);
  }catch(e){
+  if(requestSession!==candidateSessionEpoch)return;
   pipLiveRequestFailed=true;
   result=demoPipReply(text);
   const detail=String(e?.message||'provider unavailable').slice(0,180);
@@ -260,6 +263,7 @@ async function sendCoach(text){
   else
    result.reply='My AI service could not respond ('+detail+'). Here is scripted guidance instead: '+result.reply;
  }
+ if(requestSession!==candidateSessionEpoch)return;
  if(result.follow_up_question&&!String(result.reply||'').includes(result.follow_up_question))
   result.reply=(result.reply||'')+'\n\n'+result.follow_up_question;
  // The user decides when to enter Practice; an interview question is not a navigation request.
@@ -317,7 +321,7 @@ async function handleResumeFile(file,{newProfile=false}={}){if(!file)return fals
  if(j.draft?.skills&&(newProfile||!S.profile.skills))S.profile.skills=j.draft.skills;
  if(j.draft?.sections){for(let section of S.resume.sections)section.items=section.items.filter(it=>!it.imported);for(let [sid,items] of Object.entries(j.draft.sections)){let section=getSection(sid);if(section)for(let it of items.slice(0,40))section.items.push({id:uid(),title:it.title||'',detail:it.detail||'',kind:it.kind||'bullet',imported:true})}}
  save();render();notify('Resume extracted. Review and confirm the facts before proceeding.');if(j.warning)notify(j.warning);return true;
- }catch(e){notify('Could not read resume: '+e.message+'. Paste text or continue manually.','bad');return false}
+ }catch(e){if(uploadEpoch!==candidateSessionEpoch)return false;notify('Could not read resume: '+e.message+'. Paste text or continue manually.','bad');return false}
 }
 function handleClick(event){let el=event.target.closest('[data-action]');if(!el)return;if(el.closest('a[href]')&&el.tagName!=='BUTTON')return;let action=el.dataset.action,route=el.dataset.route,id=el.dataset.id,role=el.dataset.role;
  if(action==='nav'){setRoute(route);return}
@@ -371,18 +375,20 @@ function startSpeech(){let R=window.SpeechRecognition||window.webkitSpeechRecogn
 async function handleSubmit(event){const form=event.target;if(!['profileForm','discoveryForm','answerForm','editItemForm','newItemForm','pasteResumeForm','addTaskForm','newBulletForm','coachForm'].includes(form.id))return;event.preventDefault();let f=new FormData(form);
  if(form.id==='profileForm'){if(!captureProfile(form))return;S.route='discovery';save();render();notify('Profile saved. Pip can now explore your options.');return}
  if(form.id==='discoveryForm'){let step=S.discoveryStep;if(step===0)S.career.workPreference=String(f.get('workPreference')||'').trim();if(step===1)S.career.aspiration=String(f.get('aspiration')||'');if(step===2)S.career.motivation=String(f.get('motivation')||'').trim();S.discoveryStep=Math.min(3,step+1);save();render();return}
- if(form.id==='answerForm'){let a=S.attempt,q=currentQ();if(!a||!q)return;let answer=String(f.get('answer')||'').trim();let ev;if(server.ai==='live'){
+ if(form.id==='answerForm'){let a=S.attempt,q=currentQ();if(!a||!q)return;const responseSession=candidateSessionEpoch;let answer=String(f.get('answer')||'').trim();let ev;if(server.ai==='live'){
  const btn=form.querySelector('[type=submit]');btn.disabled=true;btn.textContent='Pip is reviewing...';try{ev=await api('/api/assess',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({answer,question:q.prompt,competency:q.competency,ideal:q.ideal,scenario:ROLES[a.role]['scenario_'+a.variant],hints_used:a.hints.some(h=>h.index===a.index),previous_answers:a.answers.slice(0,a.index),allow_gemini:true})})}catch(e){ev=buildDemoReview(q,answer);notify('AI providers are unavailable. Continuing with illustrative checklist feedback (not AI scoring).','bad')}
  }else ev=buildDemoReview(q,answer);
+ if(responseSession!==candidateSessionEpoch)return;
  if(!ev.assessable){let el=document.getElementById('answerError');if(el){el.textContent=(ev.missed||[])[0]||'This response cannot be assessed yet. Try a more specific explanation.';el.classList.remove('hidden')}a.answers[a.index]={answer,savedAt:stamp()};save();return}
  ev={...ev,competency:q.competency,questionId:q.id,asked:q.prompt,hints_used:a.hints.some(h=>h.index===a.index),id:uid()};a.answers[a.index]={answer,savedAt:stamp()};a.evaluations[a.index]=ev;a.status='feedback';save();render();return}
  if(form.id==='editItemForm'){let pair=findItem(modal?.id);if(!pair)return;copyResumeSnapshot();pair.item.title=String(f.get('title')||'').trim();pair.item.detail=String(f.get('detail')||'').trim();pair.item.manualEdited=true;save();closeModal();render();notify('Resume entry saved.');return}
  if(form.id==='newItemForm'){let section=String(f.get('section')||'projects'),title=String(f.get('title')||'').trim(),detail=String(f.get('detail')||'').trim();if(!detail&&!title){notify('Please describe the new entry.','bad');return}addItem(section,{title,detail,kind:title?'entry':'bullet'});closeModal();render();notify('Entry added to your resume.');return}
  if(form.id==='pasteResumeForm'){S.profile.resumeText=String(f.get('resumeText')||'').slice(0,40000);S.profile.source='pasted_resume';S.profile.verified=false;save();closeModal();render();notify('Resume text saved. Review your profile facts.');return}
  if(form.id==='addTaskForm'){let title=String(f.get('title')||'').trim(),url=String(f.get('url')||'').trim();if(!title)return;S.tasks.unshift({id:uid(),role:S.career.activeRole,competency:'personal',title,reason:'Added by you',url:isHtmlUrl(url)?url:'',caseId:'',status:'open',createdAt:stamp()});save();closeModal();render();notify('Custom action added.');return}
- if(form.id==='newBulletForm'){let source=String(f.get('source')||'').trim(),section=String(f.get('section')||modal?.section||'experience'),instruction=String(f.get('instruction')||'').trim();if(source.length<15){notify('Please tell me more about what you actually did.','bad');return}let current=modal?.itemId?findItem(modal.itemId):null;let original=current?rawItem(current.item):'';let draft='',reason='';
+ if(form.id==='newBulletForm'){const proposalSession=candidateSessionEpoch;let source=String(f.get('source')||'').trim(),section=String(f.get('section')||modal?.section||'experience'),instruction=String(f.get('instruction')||'').trim();if(source.length<15){notify('Please tell me more about what you actually did.','bad');return}let current=modal?.itemId?findItem(modal.itemId):null;let original=current?rawItem(current.item):'';let draft='',reason='';
  if(server.ai==='live'){try{let out=await api('/api/resume-suggest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({source,role:roleName(S.career.activeRole),instruction,allow_gemini:true})});draft=out.draft;reason=out.reason}catch(e){notify('Pip could not generate a draft: '+e.message,'bad');return}}
  else{draft=source.replace(/\s+/g,' ').trim().replace(/^[a-z]/,c=>c.toUpperCase()).replace(/\.$/,'');reason='This offline draft only formats the factual text you entered. Live AI rewriting requires the connected server.'}
+ if(proposalSession!==candidateSessionEpoch)return;
  modal={type:'proposal',itemId:modal?.itemId||null,section,before:original||source,draft,reason};renderModal();return}
  if(form.id==='coachForm'){let input=document.getElementById('coachInput');let text=input?.value?.trim();if(text)sendCoach(text);if(input)input.value='';return}
 }
