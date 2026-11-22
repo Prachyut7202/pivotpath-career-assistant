@@ -154,5 +154,21 @@ document.addEventListener('click',function(event){
  const t=S.tasks?.find(x=>x.id===b.dataset.id);
  if(t&&t.status!=='done')t.completedAt=stamp();
 },true);
+const beforeRender=render;
+render=function(){
+ beforeRender();
+ if(S.stage==='welcome')return;
+ const header=document.querySelector('.topright');if(!header)return;
+ let badge=document.getElementById('pcStreakHeader');
+ if(!badge){
+  badge=document.createElement('span');
+  badge.id='pcStreakHeader';badge.className='pcTopStreak';
+  badge.title='Days when you completed a rated case, a learning task, or approved a resume improvement';
+  const next=document.getElementById('modePill');
+  if(next)next.insertAdjacentElement('afterend',badge);else header.prepend(badge);
+ }
+ const count=activity().streak;
+ badge.textContent='✦ '+count+'-day streak';
+};
 render();
 })();
