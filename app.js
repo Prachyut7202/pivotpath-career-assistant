@@ -175,8 +175,51 @@ function demoPipReply(message){const m=message.toLowerCase(),role=S.career.activ
  else{reply=`You can ask me about your role fit, readiness, practice, or resume. In this downloaded demo my guidance is scripted and contextual, not generative AI. ${promptNudge()}`;suggested=S.route}
  return {reply:'[Demo guidance] '+reply,suggested_route:suggested,follow_up_question:''}}
 function renderCoach(){let panel=document.getElementById('coachPanel');panel.classList.toggle('hidden',!S.coachOpen);document.getElementById('coachMessages').innerHTML=(S.chat.length?S.chat:[{who:'pip',text:'Hi! I’m Pip. I’ll guide you through each step. You can ask me anything about your current page.'}]).map(m=>`<div class="bubble ${m.who==='user'?'me':''}">${esc(m.text)}${m.who==='pip'&&['discovery','readiness','practice','resume','profile'].includes(m.route)?`<div style="margin-top:9px"><button class="btn light small" data-action="nav" data-route="${esc(m.route)}">Open ${esc(m.route)} →</button></div>`:''}</div>`).join('');let quick=[['What should I do next?','Help me choose my next action.'],['Explain my career options','Which career transitions are realistic for my background?'],['Help with my resume','Can you help improve a resume bullet?']];if(S.route==='practice')quick=[['Hint for this question','Can you give me a hint about my current case question?'],...quick.slice(0,2)];document.getElementById('coachQuick').innerHTML=quick.map(([x,q])=>`<button data-action="coach-quick" data-question="${esc(q)}">${esc(x)}</button>`).join('');const cm=document.getElementById('coachMessages');cm.scrollTop=cm.scrollHeight;updateMode()}
-async function sendCoach(text){text=String(text||'').trim();if(!text)return;S.chat.push({who:'user',text:text.slice(0,2000)});save();renderCoach();let result;const context={route:S.route,profile:{role:S.profile.role,employer:S.profile.employer,years:S.profile.years,achievements:S.profile.achievements.slice(0,1200),skills:S.profile.skills.slice(0,500)},aspiration:S.career.aspiration,active_goal:S.career.activeRole,stage:S.discoveryStep,active_question:currentQ()?.prompt||null,latest_results:S.attempts.slice(-2).map(a=>({role:a.role,variant:a.variant,evaluations:a.evaluations.map(e=>({competency:e.competency,rating:e.rating,source:e.source}))})),resume_summary:S.resume.sections.filter(s=>s.enabled).map(s=>({section:s.title,item_count:s.items.length}))};
- try{if(server.ai==='live')result=await api('/api/coach',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text,context,thread:S.chat.slice(-6),allow_gemini:true})});else result=demoPipReply(text)}catch(e){result=demoPipReply(text);result.reply='My live model is temporarily unavailable, so here is guided demo advice (not an AI-generated answer): '+result.reply}S.chat.push({who:'pip',text:result.reply,route:result.suggested_route});save();renderCoach()}
+async function sendCoach(text){
+ text=String(text||'').trim();if(!text)return;
+ // Capture prior dialogue before adding this turn, so the same user message is never sent twice.
+ const previousThread=S.chat.filter(x=>x&&['user','pip'].includes(x.who)).slice(-20).map(x=>({who:x.who,text:String(x.text||'').slice(0,2000)}));
+ const careerIntent=/interview me|understand my experience|transferable skills|career (?:path|change|transition|move)|transition(?:ing)? (?:into|to)|ask me questions|one question at a time/i;
+ const practiceIntent=/\b(?:practice case|case question|hint for this question|hint for the question|review my case answer|evaluate my answer)\b/i;
+ const resumeIntent=/\b(?:rewrite my resume|edit my resume|resume bullet|cv bullet)\b/i;
+ if(careerIntent.test(text))S.coachGoal='career_exploration';
+ else if(practiceIntent.test(text))S.coachGoal='practice';
+ else if(resumeIntent.test(text))S.coachGoal='resume';
+ else if(!S.coachGoal){
+  const recentUser=previousThread.filter(x=>x.who==='user').map(x=>x.text).join(' ');
+  S.coachGoal=careerIntent.test(recentUser)?'career_exploration':'general';
+ }
+ S.chat.push({who:'user',text:text.slice(0,2000)});
+ save();renderCoach();
+ let result;
+ const context={route:S.route,profile:{role:S.profile.role,employer:S.profile.employer,years:S.profile.years,
+  achievements:S.profile.achievements.slice(0,1200),skills:S.profile.skills.slice(0,500)},
+  aspiration:S.career.aspiration,active_goal:S.career.activeRole,
+  stage:S.discoveryStep,resume_summary:S.resume.sections.filter(s=>s.enabled).map(s=>({section:s.title,item_count:s.items.length}))};
+ // A case question should never hijack a career interview just because the user is on the practice screen.
+ if(S.coachGoal==='practice'){
+  context.active_question=currentQ()?.prompt||null;
+  context.latest_results=S.attempts.slice(-2).map(a=>({role:a.role,variant:a.variant,
+   evaluations:a.evaluations.map(e=>({competency:e.competency,rating:e.rating,source:e.source}))}));
+ }
+ try{
+  if(server.ai==='live')result=await api('/api/coach',{method:'POST',
+   headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({message:text,context,thread:previousThread,
+      conversation_goal:S.coachGoal,allow_gemini:true})});
+  else result=demoPipReply(text);
+ }catch(e){
+  result=demoPipReply(text);
+  result.reply='My live model is temporarily unavailable, so here is guided demo advice (not an AI-generated answer): '+result.reply;
+ }
+ if(result.follow_up_question&&!String(result.reply||'').includes(result.follow_up_question))
+  result.reply=(result.reply||'')+'\n\n'+result.follow_up_question;
+ // The user decides when to enter Practice; an interview question is not a navigation request.
+ const explicitlyNavigating=/\b(?:open|go to|navigate to|take me to|show me|start)\s+(?:the |my )?(?:practice|readiness|resume|profile|discovery)\b/i.test(text);
+ if(S.coachGoal==='career_exploration'||!explicitlyNavigating)result.suggested_route='';
+ S.chat.push({who:'pip',text:result.reply,route:result.suggested_route});
+ save();renderCoach();
+}
 function modalFromAction(action,target){if(action==='coach-resume'){modal={type:'newBullet',section:'experience'};renderModal();return true}return false}
 function captureProfile(form){let f=new FormData(form);for(let k of ['name','email','phone','linkedin','portfolio','role','employer','years','education','skills','achievements'])S.profile[k]=String(f.get(k)||'').trim();if(!S.profile.name||!S.profile.role){const el=document.getElementById('profileError');el.textContent='Please enter your name and current or most recent role. The resume is optional.';el.classList.remove('hidden');return false}if(S.profile.years&&!Number.isFinite(Number(S.profile.years))){notify('Enter a valid experience value such as 1.7 years.','bad');return false}S.profile.verified=true;syncProfileToResume();S.stage='app';return true}
 async function handleResumeFile(file){if(!file)return;const ext=file.name.toLowerCase().split('.').pop();if(!['pdf','docx','txt','md','tex'].includes(ext)){notify('Choose PDF, DOCX, TXT, MD or TEX.','bad');return}if(file.size>7*1024*1024){notify('Files must be 7 MB or smaller.','bad');return}
