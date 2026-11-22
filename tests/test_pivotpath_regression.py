@@ -61,6 +61,17 @@ class FrontendStructureTests(unittest.TestCase):
         self.assertLess(html.index('/pip-progress.js'),html.index('/pip-insights.js'))
         self.assertIn("developing:['Developing in practice'",html)
 
+    def test_onboarding_moves_with_chat(self):
+        script=(ROOT/'pip-experience.js').read_text('utf-8')
+        css=(ROOT/'pip-experience.css').read_text('utf-8')
+        html=(ROOT/'index.html').read_text('utf-8')
+        self.assertIn('function intakeHistory()',script)
+        self.assertIn('pipCurrentTurn',script)
+        self.assertIn('body.scrollTop=body.scrollHeight',script)
+        self.assertIn('.pipConversationHistory',css)
+        self.assertIn('overflow-y:auto',css)
+        self.assertIn('/pip-experience.js?v=5.11',html)
+
     def test_explainable_insight_controls(self):
         script=(ROOT/'pip-insights.js').read_text('utf-8')
         self.assertIn("data-pc-confidence",script)
