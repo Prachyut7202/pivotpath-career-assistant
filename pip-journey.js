@@ -275,23 +275,45 @@
   function meaningfulMilestone(){
     const role=S.career?.activeRole;
     if(!role)return null;
+    const skillName=code=>ROLES[role]?.competencies?.find(x=>x[0]===code)?.[1]||'that skill';
+    const firstSentence=value=>String(value||'').trim().replace(/\s+/g,' ').slice(0,170).replace(/[.\s,;:]+$/,'');
     if(S.route==='readiness'){
       const skills=ROLES[role]?.competencies||[],selected=S.pipSkillConfidence?.[role]||{};
-      if(skills.length&&skills.every(([code])=>['new','some','independent'].includes(selected[code]?.level)))
+      if(skills.length&&skills.every(([code])=>['new','some','independent'].includes(selected[code]?.level))){
+        const confident=skills.find(([code])=>selected[code]?.level==='independent');
+        const unfamiliar=skills.find(([code])=>selected[code]?.level==='new');
+        const perspective=confident&&unfamiliar?
+          'You feel comfortable with '+skillName(confident[0])+', while '+skillName(unfamiliar[0])+' is newer to you.':
+          unfamiliar?'You flagged '+skillName(unfamiliar[0])+' as something you want to build.':
+          confident?'You already have experience with '+skillName(confident[0])+'.':
+          'You have shared how familiar these skills feel.';
         return {key:'rated:'+role,
-          text:'You’ve mapped how confident you feel in these six skills. Now we can compare that starting point with what you actually demonstrate in a case.',
-          actions:[['Start a role-specific case','start-case'],['Try a gentle warm-up','warmup']]};
+          text:perspective+' A short case will help us see where your reasoning transfers. Want to give one a try?',
+          actions:[['Try a role-specific case','start-case'],['Start with a warm-up','warmup']]};
+      }
     }
     if(S.route==='practice'&&S.attempt?.role===role){
       const a=S.attempt;
-      if(a.status==='complete')
+      if(a.status==='complete'){
+        const valid=(a.evaluations||[]).filter(e=>e.assessable&&Number.isFinite(Number(e.rating)));
+        const lowest=[...valid].sort((x,y)=>x.rating-y.rating)[0];
+        const focus=lowest?' I would focus next on '+skillName(lowest.competency).toLowerCase()+'.':'';
+        const qualifier=lowest?.source==='demo'?' This came from an illustrative checklist, not verified AI scoring.':'';
         return {key:'finished:'+a.id,
-          text:'Case complete. Your answers are saved. Review which skills you demonstrated, then choose one improvement to practise before another scenario.',
-          actions:[['Review skill evidence','readiness'],['See my improvement plan','plan'],['Try another case','reassess']]};
-      if(a.status==='feedback'&&a.index===0)
+          text:'That case is done, and your answers are saved.'+focus+qualifier+' Shall we look at the evidence and choose one practical improvement?',
+          actions:[['Review the evidence','readiness'],['See my practice plan','plan'],['Try another case','reassess']]};
+      }
+      if(a.status==='feedback'&&a.index===0){
+        const e=a.evaluations?.[a.index];
+        const observed=e?.strengths?.[0];
+        const gap=e?.missed?.[0];
+        const summary=observed?'One good point: '+firstSentence(observed)+'. ':'';
+        const need=gap?'To make the answer stronger, '+firstSentence(gap).replace(/^([A-Z])/,x=>x.toLowerCase())+'.':
+          'The feedback highlights a criterion you can use on the next question.';
         return {key:'first-feedback:'+a.id,
-          text:'Your first answer has been reviewed. I’d focus on the specific criterion you missed, use a short worked example if useful, then continue this case.',
-          actions:[['Learn this concept','lesson'],['Continue the case','next-question']]};
+          text:summary+need+' Would a quick example help, or are you ready to continue?',
+          actions:[['Show me an example','lesson'],['Continue this case','next-question']]};
+      }
     }
     return null;
   }
