@@ -72,13 +72,24 @@ class FrontendStructureTests(unittest.TestCase):
         self.assertIn('overflow-y:auto',css)
         self.assertRegex(html,r'/pip-experience[.]js[?]v=[0-9]+(?:[.][0-9]+)*')
 
-    def test_progress_card_follows_pip_chat(self):
-        script=(ROOT/'pip-progress.js').read_text('utf-8')
-        html=(ROOT/'index.html').read_text('utf-8')
-        self.assertIn('ppCoachProgress',script)
-        self.assertIn('messages.appendChild(card)',script)
-        self.assertIn('messages.scrollTop=messages.scrollHeight',script)
-        self.assertIn('/pip-progress.js?v=5.12',html)
+    def test_chronological_coach_and_unified_mascot(self):
+        app=(ROOT/'app.js').read_text('utf-8')
+        journey=(ROOT/'pip-journey.js').read_text('utf-8')
+        practice=(ROOT/'pip-progress.js').read_text('utf-8')
+        experience=(ROOT/'pip-experience.js').read_text('utf-8')
+        template=(ROOT/'template.html').read_text('utf-8')
+        self.assertIn("lastFlow=items.findLastIndex",app)
+        self.assertIn("pipFlowBubble",app)
+        self.assertIn("const actions=isGuide",app)
+        self.assertIn("function ensureFlow()",journey)
+        self.assertIn("pipFlow:true",journey)
+        self.assertIn("actions:content.actions",journey)
+        self.assertIn("if(quick)quick.innerHTML=''",journey)
+        self.assertNotIn("messages.appendChild(card)",practice)
+        self.assertNotIn("m.insertBefore(el,m.firstChild)",experience)
+        self.assertIn("pipSidebarAvatar",template)
+        for content in (app,practice,template):
+            self.assertNotIn("🐣",content)
 
     def test_explainable_insight_controls(self):
         script=(ROOT/'pip-insights.js').read_text('utf-8')
