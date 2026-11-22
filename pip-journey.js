@@ -59,7 +59,14 @@
     return actions.filter(([label,act])=>allowed.includes(act)||['return','resume-edit','resume-detour','start-case','reassess','plan','lesson','focus-answer','hint','next-question','practice-case','skill-focus','warmup','insights','explain-progress'].includes(act))
       .filter(([l,a])=>{if(names.has(a))return false;names.add(a);return true}).slice(0,3);
   }
+  let silentNavigation=false;
+  // Navigation from page chrome is not a conversation turn.
+  function quietlyNavigate(action){
+    silentNavigation=true;
+    try{navigate(action);}finally{silentNavigation=false;}
+  }
   function emit(message,opts={}){
+    if(silentNavigation)return;
     S.chat.push({who:'pip',text:String(message).slice(0,1200),pipJourney:true});
     if(S.chat.length>90)S.chat=S.chat.slice(-90);
     if(opts.buttons)state().lastOptions=stableActions(opts.buttons);
@@ -216,7 +223,6 @@
   function showOptions(origin='coach'){
     const j=state(),{current,options}=currentOptions();
     if(origin==='ribbon'){j.ribbonExpanded=!j.ribbonExpanded;save();renderRibbon();return;}
-    S.pipFlowScene=flowScene();
     S.chat.push({who:'pip',text:'Here is what I would do next: '+current.desc,
       pipFlow:true,actions:options});
     if(S.chat.length>100)S.chat=S.chat.slice(-100);
@@ -256,70 +262,50 @@
    '<button type="button" data-journey-action="'+escapeHtml(act)+'">'+escapeHtml(label)+'</button>').join('')}
   const originalRenderCoach=renderCoach;
   function cleanOldNextMessages(){
-    // Earlier versions saved an identical navigation prompt after every
-    // "What's next?" tap. Remove ONLY those generated prompt/command pairs;
-    // keep real user discussions, resume facts, and case assessments intact.
-    if(!Array.isArray(S.chat)||!S.chat.length)return;
-    const cleaned=[];
-    let changed=false;
-    for(const msg of S.chat){
-      const legacy=msg?.who==='pip'&&msg.pipJourney===true&&
-        /^Your long-term goal is .+Choose one action below;/i.test(String(msg.text||''));
-      if(legacy||msg?.pipGuide===true){
-        const prev=cleaned.at(-1);
-        if(prev?.who==='user'&&/^(?:Help me choose my next action\.|What should I do next\??|what next\??)$/i.test(String(prev.text||'').trim()))cleaned.pop();
-        changed=true;continue;
-      }
-      cleaned.push(msg);
-    }
-    if(changed){S.chat=cleaned;save();}
+    // One-time migration for existing visitors: previous builds appended a
+    // generated "next step" message on every ordinary page navigation.
+    // Keep genuine user messages, live-AI replies and confirmed background;
+    // remove only the old marked scripted navigation/guide turns.
+    if(S.pipChatCleanupV2)return;
+    if(!Array.isArray(S.chat))S.chat=[];
+    S.chat=S.chat.filter(m=>!(m?.pipFlow===true||m?.pipJourney===true||m?.pipGuide===true));
+    S.pipChatCleanupV2=true;
+    save();
   }
-  function flowScene(){
-    const role=S.career?.activeRole||'',route=S.route||'discovery';
-    if(route==='readiness'&&role){
+  function meaningfulMilestone(){
+    const role=S.career?.activeRole;
+    if(!role)return null;
+    if(S.route==='readiness'){
       const skills=ROLES[role]?.competencies||[],selected=S.pipSkillConfidence?.[role]||{};
-      return 'readiness:'+role+':'+(skills.length&&skills.every(([code])=>Boolean(selected[code]?.level))?'rated':'unrated');
-    }
-    if(route==='practice'&&S.attempt?.role===role){
-      const a=S.attempt;
-      return 'practice:'+role+':'+(a.id||'case')+':'+a.index+':'+a.status+':'+(S.practiceView||'case');
-    }
-    return route+':'+role+':'+(S.discoveryStep||0)+':'+(S.practiceView||'');
-  }
-  function flowMessage(){
-    const info=playbook(),role=S.career?.activeRole||'';
-    const options=stableActions(info.buttons);
-    if(S.route==='readiness'&&role){
-      const skills=ROLES[role]?.competencies||[],selected=S.pipSkillConfidence?.[role]||{};
-      if(skills.length&&skills.every(([code])=>Boolean(selected[code]?.level)))
-        return {text:'You’ve rated all six skills. That tells me how confident you feel—not what a case has proven. Let’s test your reasoning next.',
-          actions:[['Start my case','start-case'],['Try a warm-up','warmup']]};
+      if(skills.length&&skills.every(([code])=>['new','some','independent'].includes(selected[code]?.level)))
+        return {key:'rated:'+role,
+          text:'You’ve mapped how confident you feel in these six skills. Now we can compare that starting point with what you actually demonstrate in a case.',
+          actions:[['Start a role-specific case','start-case'],['Try a gentle warm-up','warmup']]};
     }
     if(S.route==='practice'&&S.attempt?.role===role){
       const a=S.attempt;
-      if(a.status==='complete'){
-        const progress=window.PipProgressSummary?.(role);
-        const result=progress?.count?' Across '+progress.count+' rated answers, your average is '+progress.avg.toFixed(1)+'/5. ':' ';
-        return {text:'You’ve completed this case.'+result+'Now check what you demonstrated, choose one improvement, and try another scenario when ready.',
-          actions:[['Review skill evidence','readiness'],['My improvement plan','plan'],['Try another case','reassess']]};
-      }
-      if(a.status==='feedback')return {text:'Your feedback for question '+(a.index+1)+' is ready. Review the missing criterion, learn if needed, then continue without losing your answer.',
-        actions:[['Learn this concept','lesson'],['Continue the case','next-question']]};
-      return {text:a.index?'Question '+(a.index+1)+' is ready. Your earlier answers remain saved.':'Your case is ready. Try your own reasoning first; I can give a hint without giving away the answer.',
-        actions:[['Focus on my answer','focus-answer'],['Get a hint','hint']]};
+      if(a.status==='complete')
+        return {key:'finished:'+a.id,
+          text:'Case complete. Your answers are saved. Review which skills you demonstrated, then choose one improvement to practise before another scenario.',
+          actions:[['Review skill evidence','readiness'],['See my improvement plan','plan'],['Try another case','reassess']]};
+      if(a.status==='feedback'&&a.index===0)
+        return {key:'first-feedback:'+a.id,
+          text:'Your first answer has been reviewed. I’d focus on the specific criterion you missed, use a short worked example if useful, then continue this case.',
+          actions:[['Learn this concept','lesson'],['Continue the case','next-question']]};
     }
-    return {text:info.desc,actions:options};
+    return null;
   }
   function ensureFlow(){
-    if(S.stage==='welcome')return;
-    const scene=flowScene();
-    if(S.pipFlowScene===scene)return;
-    const info=flowMessage();
-    S.pipFlowScene=scene;
-    const last=S.chat.at(-1);
-    if(last?.who==='pip'&&last.pipJourney===true&&!last.pipFlow){
-      last.pipFlow=true;last.actions=info.actions;last.text=info.text;
-    }else S.chat.push({who:'pip',text:info.text,pipFlow:true,actions:info.actions});
+    // Do not log "Pip · next step" just because somebody clicked a tab.
+    // Reserve unsolicited coaching for an actual learning milestone while
+    // chat is open. When closed, the small optional mascot hint is enough.
+    if(S.stage==='welcome'||!S.coachOpen)return;
+    const m=meaningfulMilestone();
+    if(!m)return;
+    const shown=S.pipMilestoneShown||(S.pipMilestoneShown={});
+    if(shown[m.key])return;
+    shown[m.key]=true;
+    S.chat.push({who:'pip',text:m.text,pipFlow:true,pipMilestone:true,actions:m.actions});
     if(S.chat.length>100)S.chat=S.chat.slice(-100);
     save();
   }
@@ -341,15 +327,15 @@
     if(a==='continue'){
       e.preventDefault();e.stopImmediatePropagation();
       const choice=stableActions(playbook().buttons)[0];
-      if(choice)navigate(choice[1]);else showOptions();
+      if(choice)quietlyNavigate(choice[1]);else showOptions();
       return;
     }
     if((a==='nav'&&route==='resume'||a==='build-resume')&&S.route!=='resume'&&S.career?.activeRole){
       e.preventDefault();e.stopImmediatePropagation();
-      navigate('resume-detour');return;
+      quietlyNavigate('resume-detour');return;
     }
     if(a==='nav'&&state().history.length&&S.route==='resume'&&route===state().history.at(-1)?.route){
-      e.preventDefault();e.stopImmediatePropagation();navigate('return');return;
+      e.preventDefault();e.stopImmediatePropagation();quietlyNavigate('return');return;
     }
   },true);
   document.addEventListener('click',e=>{
@@ -362,7 +348,8 @@
     state().lastOptions=stableActions(playbook().buttons);
     state().ribbonExpanded=false;
     save();
-    navigate(action);
+    if(button.closest('#coachMessages'))navigate(action);
+    else quietlyNavigate(action);
   });
   // Render an actual inline action tray. Unlike the old version, the button
   // changes the same surface the user clicked; no repeated chat messages.
