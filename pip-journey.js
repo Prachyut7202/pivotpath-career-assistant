@@ -249,6 +249,27 @@
     quick.innerHTML='<div class="pipJourneyShortcuts">'+actionMarkup(shortcuts)+'</div>';
     messages.scrollTop=messages.scrollHeight;
   };
+  // Honor the same journey even when the user clicks the global Continue
+  // control or opens Living Resume from the original left navigation.
+  // Capture first so the older generic navigation cannot break a detour.
+  document.addEventListener('click',e=>{
+    const b=e.target.closest('[data-action]');
+    if(!b||S.stage==='welcome')return;
+    const a=b.dataset.action,route=b.dataset.route;
+    if(a==='continue'){
+      e.preventDefault();e.stopImmediatePropagation();
+      const choice=stableActions(playbook().buttons)[0];
+      if(choice)navigate(choice[1]);else showOptions();
+      return;
+    }
+    if((a==='nav'&&route==='resume'||a==='build-resume')&&S.route!=='resume'&&S.career?.activeRole){
+      e.preventDefault();e.stopImmediatePropagation();
+      navigate('resume-detour');return;
+    }
+    if(a==='nav'&&state().history.length&&S.route==='resume'&&route===state().history.at(-1)?.route){
+      e.preventDefault();e.stopImmediatePropagation();navigate('return');return;
+    }
+  },true);
   document.addEventListener('click',e=>{
     const button=e.target.closest('[data-journey-action]');
     if(!button)return;
