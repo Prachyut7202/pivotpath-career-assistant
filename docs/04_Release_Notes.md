@@ -26,3 +26,7 @@
 
 ## Release QA
 Review .github/workflows/verify.yml and the three-persona checks in docs/03_QA_and_Demo_Runbook.md. Verify newest GitHub SHA matches Render live commit before showing the prototype. Run a hard-refresh to avoid stale cached JavaScript assets.
+
+## Candidate separation and consent
+
+Different people must not share one local career workspace. Sample changes, guided uploads, manual onboarding and an explicit new-person action now use a common full reset, clearing profile, Pip history, cases, skill confidence, streak data, tasks, resume drafts and guide history. The app requests confirmation before replacing saved progress. Profile uploads default to a fresh candidate; updating an existing candidate requires a **same person** checkbox. Previously queued AI responses are invalidated on switching. The app does not create user accounts or maintain cross-device sessions.
