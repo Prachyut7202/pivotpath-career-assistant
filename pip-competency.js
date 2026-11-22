@@ -156,4 +156,6 @@ document.addEventListener('click',function(event){
  if(action==='case'){beginCase(role,el.dataset.pgCase==='B'?'B':'A');return;}
  if(action==='readiness'){S.practiceView='plan';save();setRoute('practice');}
 },true);
+// Re-render restored readiness sessions after deferred enhancements load.
+if(typeof render==='function')render();
 })();
