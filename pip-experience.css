@@ -104,3 +104,27 @@
 @media(max-width:1050px){.pipWelcome{grid-template-columns:1fr}.pipHero{min-height:380px;padding-top:110px;padding-bottom:45px}.pipHero h1{font-size:44px}.pipEyebrow{margin-top:0}.pipFootnote{padding-top:40px}.pipConversation{width:min(670px,calc(100% - 32px));margin:24px auto 42px;min-height:0}.pipGuideDocked .shellBody .main{margin-right:0}.pipGuideDocked .coachPanel{position:fixed;right:14px;bottom:90px;top:auto;width:390px;max-height:78vh;height:auto}}
 @media(max-width:680px){.pipWelcome{display:block}.pipHero{min-height:280px;padding:83px 23px 32px}.pipHeroBrand{left:23px;top:22px;font-size:19px}.pipMark{height:31px;width:31px;border-radius:10px}.pipHero h1{font-size:34px;margin:12px 0 12px}.pipHeroDesc{font-size:13px;line-height:1.5}.pipStoryLoop,.pipFootnote{display:none}.pipConversation{margin:0;width:100%;border:0;border-radius:20px 20px 0 0;box-shadow:none;transform:translateY(-12px)}.pipConversationHeader{padding:17px}.pipConversationBody{padding:17px;max-height:none;overflow:visible}.pipBubble{gap:7px}.pipMiniAvatar{width:28px;height:28px;border-radius:10px}.pipBubbleText{font-size:14px;padding:14px}.pipChoices,.pipMiniForm{padding-left:0}.pipSampleHead,.pipSamples,.pipOwnership,.pipTextLabel,.pipExtract,.pipSummary,.pipConversationBody>.pipPrimary,.pipConversationBody>.pipInline{margin-left:0}.pipFormGrid{grid-template-columns:1fr}.pipConversationFooter{padding:13px 16px}.pipOnline{font-size:10px}.pipJourneyGuide{padding:13px;gap:13px;margin-bottom:19px}.pipJourneyMark>span{width:39px;height:39px}.pipJourneyMark>span .mascotSvg{width:35px;height:35px}.pipJourneyActions button{padding:9px 10px}.pipTopGuide{display:none}.pipGuideDocked .coachPanel{left:0;right:0;top:auto;bottom:65px;width:100%;max-height:79dvh;border-radius:18px 18px 0 0}.pipLessonOverlay{align-items:flex-end;padding:0}.pipLessonCard{border-radius:20px 20px 0 0;max-height:92vh}.pipLessonCard header{padding:16px}.pipLessonBody{padding:17px}.pipLessonCard footer{padding:14px}}
 @media print{.pipJourneyGuide,.pipLessonOverlay,.pipTopGuide{display:none!important}}
+/* Resume parsing provenance: show actual uploaded content before confirmation. */
+.pipImportFacts{margin:0 0 20px 45px;border:1px solid #dbe5f5;border-radius:15px;background:#fbfcff;overflow:hidden}
+.pipImportTitle{padding:13px 15px 5px;display:flex;justify-content:space-between;gap:9px;align-items:center;flex-wrap:wrap}
+.pipImportTitle span{font-size:11px;font-weight:800;color:#168465}
+.pipImportTitle strong{font-size:12px;color:#3b4778;word-break:break-word}
+.pipImportMeta{font-size:11px;color:#7786a2;padding:0 15px 12px}
+.pipImportFields{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #e8edf6;border-bottom:1px solid #e8edf6}
+.pipImportFields>div{padding:12px 15px;min-width:0}
+.pipImportFields>div+div{border-left:1px solid #e8edf6}
+.pipImportFields small{display:block;color:#7a88a1;font-size:9px;font-weight:750;letter-spacing:.6px;margin-bottom:5px}
+.pipImportFields strong{display:block;color:#28385c;font-size:12px;overflow-wrap:anywhere}
+.pipImportSection{border-bottom:1px solid #e8edf6;font-size:12px}
+.pipImportSection summary{display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;padding:12px 15px;color:#45548d;font-weight:760;list-style:none}
+.pipImportSection summary::-webkit-details-marker{display:none}
+.pipImportSection summary:before{content:'+';margin-right:7px;font-weight:800}
+.pipImportSection[open] summary:before{content:'−'}
+.pipImportSection summary span{margin-left:auto;color:#8490aa;font-size:10px;font-weight:550}
+.pipImportEntries{padding:0 15px 12px 31px;display:flex;flex-direction:column;gap:9px}
+.pipImportEntries p{line-height:1.55;color:#536080;font-size:12px;border-left:2px solid #cdd3ef;padding-left:10px;overflow-wrap:anywhere}
+.pipImportRaw{max-height:230px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:11px;line-height:1.65;background:#fff;color:#525f75;padding:13px 15px;border-top:1px solid #e8edf6}
+.pipImportWarning,.pipImportFallback{font-size:11px;color:#6f7e9a;padding:12px 15px;line-height:1.55}
+.pipImportWarning{background:#f4f7fe}
+.pipUploadNote{font-size:12px;color:#657493;background:#f2f4fd;padding:11px 13px;border-radius:9px;margin-bottom:13px;line-height:1.5}
+@media(max-width:680px){.pipImportFacts{margin-left:0}.pipImportFields{grid-template-columns:1fr}.pipImportFields>div+div{border-left:0;border-top:1px solid #e8edf6}}
