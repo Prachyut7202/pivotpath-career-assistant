@@ -71,7 +71,9 @@ def extract_sections(content: str) -> dict:
     Carries original strings forward, even when a template cannot decide priority.
     """
     headings = {
-      'education':'education','professional experience':'experience',
+      'education':'education','educational qualifications':'education',
+      'educational qualifications & achievements':'education','academic qualifications':'education',
+      'academic background':'education','professional experience':'experience',
       'work experience':'experience','employment':'experience',
       'internships':'internships','internship experience':'internships',
       'projects':'projects','projects and research':'projects',
@@ -79,7 +81,9 @@ def extract_sections(content: str) -> dict:
       'live project experience':'projects','project experience':'projects',
       'skills':'skills','technical skills':'skills',
       'certifications':'certifications','certificates':'certifications',
-      'achievements':'leadership','leadership experience':'leadership',
+      'achievements':'leadership','positions of responsibility':'leadership',
+      'position of responsibility':'leadership','responsibilities and leadership':'leadership',
+      'leadership experience':'leadership',
       'leadership & achievements':'leadership'
     }
     parts={}
@@ -157,8 +161,31 @@ async def parse_resume(request: Request):
     except Exception: raise HTTPException(status_code=422,detail='Could not extract text from this file. Try a text-based document or paste your resume.')
     if not content.strip(): raise HTTPException(status_code=422,detail='No readable text found. Scanned resumes need OCR, which is not available in this prototype.')
     match_email=re.search(r'[\w.+-]+@[\w.-]+\.\w+',content)
+    # A real CV often has NAME, phone, e-mail and LinkedIn in the same
+    # extracted header line. Don't discard the candidate's name merely
+    # because contact details appear later in that line.
     lines=[i.strip() for i in content.splitlines() if i.strip()]
-    possible_name=next((s for s in lines[:3] if len(s)<85 and not any(ch.isdigit() for ch in s) and '@' not in s), '')
+    def candidate_name(rows):
+        stop={'RESUME','CURRICULUM VITAE','PROFILE','SUMMARY','EDUCATION',
+              'EDUCATIONAL QUALIFICATIONS','INTERNSHIPS','EXPERIENCE',
+              'CONTACT','LINKEDIN','SKILLS','PROJECTS'}
+        for raw in rows[:8]:
+            # Multiple spaces frequently separate name/contact columns.
+            head=re.split(r'\s{3,}|\s*\|\s*|[\w.+-]+@[\w.-]+\.\w+|(?:\+91[- ]?)?\d{10}\b',raw,maxsplit=1)[0]
+            head=re.sub(r'^(?:name\s*:\s*)','',head.strip(),flags=re.I).strip(' -:,')
+            # Fall back to two leading title-cased name words if the header
+            # was collapsed without spacing by a PDF text extractor.
+            if len(head)>65 or len(head.split())>5:
+                m=re.match(r'^([A-Z][A-Za-z.\x27-]+(?:\s+[A-Z][A-Za-z.\x27-]+){1,3})(?=\s|$)',head)
+                if m: head=m.group(1)
+            words=head.split()
+            if not 2<=len(words)<=4 or len(head)>65: continue
+            if not all(re.fullmatch(r"[A-Za-z][A-Za-z.'-]*",w) for w in words): continue
+            if head.upper() in stop or any(w.upper() in {'@','EMAIL','PHONE'} for w in words): continue
+            if any(k in head.upper() for k in ('COLLEGE','UNIVERSITY','CONSULTANT','EDUCATION','ADDRESS')): continue
+            return head.title() if head.isupper() else head
+        return ''
+    possible_name=candidate_name(lines)
     skills=[]
     for s in lines:
         if re.match(r'^(programming|skills|technical skills|tools|data\s*&\s*bi)',s,re.I):
