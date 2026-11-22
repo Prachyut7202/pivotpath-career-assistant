@@ -50,23 +50,45 @@ def sample_case(page,sample,role,expected_name):
     page.locator(f'[data-action="select-role"][data-role="{role}"]').first.click()
     expect(page.locator('.pcAssessment')).to_be_visible()
     expect(page.locator('.pcCalibrationRow')).to_have_count(6)
+    # Simply visiting pages must never fabricate a Pip conversation.
+    nav_baseline=page.evaluate("S.chat.length")
+    for destination in ('discovery','practice','readiness'):
+        page.locator(f'.sidebar [data-action="nav"][data-route="{destination}"]').click()
+        assert page.evaluate("S.chat.length")==nav_baseline,("Auto chat on tab switch",destination)
+    page.locator('.sidebar [data-action="nav"][data-route="resume"]').click()
+    assert page.evaluate("S.chat.length")==nav_baseline,"Resume detour fabricated a chat turn"
+    page.locator('#pipLoopRibbon [data-journey-action="return"]').click()
+    assert page.evaluate("S.chat.length")==nav_baseline,"Resume return fabricated a chat turn"
+    expect(page.locator('.pcCalibrationRow')).to_have_count(6)
     # Close the panel while filling the wide readiness table; reopen afterward.
     page.locator('#coachPanel [data-action="toggle-coach"]').click()
     for i in range(6):
         page.locator('.pcCalibrationRow').nth(i).locator('[data-pc-confidence="some"]').click()
     expect(page.locator('.pcCompletion')).to_contain_text('6/6')
     page.locator('#coachFloat .coachBtn').click()
-    expect(page.locator('#coachMessages .pipFlowBubble').last).to_contain_text("rated all six skills")
+    expect(page.locator('#coachMessages .pipFlowBubble').last).to_contain_text("mapped how confident")
     expect(page.locator('#coachQuick .pipNextPanel')).to_have_count(0)
     expect(page.locator('#main #pipJourneyGuide')).to_have_count(0)
     page.locator('#coachMessages [data-journey-action="start-case"]').last.click()
+    first_feedback_turns=None
     for q in range(5):
         expect(page.locator('#answerForm')).to_be_visible()
         page.locator('#answerForm textarea[name="answer"]').fill(ANSWER)
         page.locator('#answerForm button[type="submit"]').click()
-        expect(page.locator('#coachMessages .pipFlowBubble').last).to_contain_text('feedback')
-        page.locator('#coachMessages [data-journey-action="next-question"]').last.click()
+        if q==0:
+            expect(page.locator('#coachMessages .pipFlowBubble').last).to_contain_text('first answer')
+            first_feedback_turns=page.locator('#coachMessages .pipFlowBubble').count()
+        else:
+            assert page.locator('#coachMessages .pipFlowBubble').count()==first_feedback_turns,(
+                "Should not create scripted messages after every question",q)
+        page.locator('#main [data-action="next-question"]').click()
     expect(page.locator('#main')).to_contain_text('Case completed')
+    expect(page.locator('#coachMessages .pipFlowBubble').last).to_contain_text('Case complete')
+    # After the case, routine tabs still cannot add any chat messages.
+    complete_chat_count=page.evaluate("S.chat.length")
+    for destination in ('discovery','readiness','practice'):
+        page.locator(f'.sidebar [data-action="nav"][data-route="{destination}"]').click()
+        assert page.evaluate("S.chat.length")==complete_chat_count,("Auto chat after case",destination)
     state=page.evaluate("({profile:S.profile.name,role:S.career.activeRole,cases:S.attempts.length,chat:S.chat.length,skill:S.pipSkillConfidence})")
     assert state['profile']==expected_name and state['role']==role,state
     assert state['cases']==1,state
