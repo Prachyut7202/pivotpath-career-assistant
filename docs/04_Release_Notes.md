@@ -30,3 +30,14 @@ Review .github/workflows/verify.yml and the three-persona checks in docs/03_QA_a
 ## Candidate separation and consent
 
 Different people must not share one local career workspace. Sample changes, guided uploads, manual onboarding and an explicit new-person action now use a common full reset, clearing profile, Pip history, cases, skill confidence, streak data, tasks, resume drafts and guide history. The app requests confirmation before replacing saved progress. Profile uploads default to a fresh candidate; updating an existing candidate requires a **same person** checkbox. Previously queued AI responses are invalidated on switching. The app does not create user accounts or maintain cross-device sessions.
+
+
+## Role-specific competency explanations and transparent practice achievements
+
+- Every **Why?** popup now explains how its competency is used in the *selected role*, an example work scenario, suitable role-specific metrics or decision signals, how strong reasoning looks, and a practical proof artifact.
+- Each popup separates the person's self-rating, resume/case evidence, case A/B results and external work validation. It explicitly notes when the question bank does not assess that skill.
+- The Readiness Map shows **practice skill checkpoints** only for competencies evaluated in both authored cases. A checkpoint requires at least 4/5 for all relevant questions in the most recently completed Case A and Case B, with *live formative AI* scores. Illustrative demo ratings do not award the achievement.
+- The UI uses **Practice milestone reached**, never "fully competent" or "job-ready". Real-world application and appropriate external review remain necessary.
+- The current case bank does not directly test every listed skill (e.g., analyst SQL, APM rollout, and some Product Operations skills); these are explicitly labeled as requiring separate evidence. Example metrics are not employer-specific requirements.
+
+Tests include headless checks for all 35 role/competency guides, strict milestone gating and browser-popup inspection across the three sample journeys.
