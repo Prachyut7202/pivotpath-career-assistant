@@ -1,0 +1,64 @@
+/* PivotPath practical progress — scores are formative practice evidence, never hiring probabilities */
+.ppProgressCard{border:1px solid #dfe4f3;background:linear-gradient(135deg,#f7f8ff,#ffffff 76%);border-radius:18px;padding:20px 22px;margin:0 0 22px;box-shadow:0 7px 22px rgba(35,47,91,.035)}
+.ppProgressTop{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.ppProgressTop>div{min-width:0}
+.ppEyebrow{display:block;font-size:10px;color:#6672b2;letter-spacing:1.1px;font-weight:820;margin-bottom:6px}
+.ppProgressTop h3{font-size:19px;line-height:1.3;letter-spacing:-.01em;color:#20294f;margin-bottom:5px}
+.ppProgressTop p{color:#73809a;font-size:12px;line-height:1.55;max-width:600px}
+.ppScore{display:flex;align-items:baseline;gap:1px;color:#4d56bd;white-space:nowrap}
+.ppScore strong{font-size:37px;font-weight:820;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.ppScore span{font-size:15px;font-weight:650;color:#8e9abc}
+.ppBar{height:8px;background:#e9edf8;border-radius:99px;margin:14px 0 12px;overflow:hidden}
+.ppBar i{height:100%;display:block;background:linear-gradient(90deg,#7988e7,#6564d4);border-radius:inherit}
+.ppProgressMeta{display:flex;gap:11px;flex-wrap:wrap;margin-bottom:15px}
+.ppProgressMeta span{font-size:11px;color:#7b859e;border:1px solid #e7eaf4;background:#fff;border-radius:9px;padding:7px 10px}
+.ppProgressMeta b{font-weight:780;color:#4b5881}
+.ppProgressAdvice{background:#eff2fe;border-left:3px solid #7372db;border-radius:8px;padding:12px 14px;margin-bottom:12px}
+.ppProgressAdvice strong{font-size:13px;color:#3a478b}
+.ppProgressAdvice p{font-size:12px;line-height:1.55;color:#667293;margin-top:4px}
+.ppCaseDetails{font-size:12px;color:#5e6b8a;padding:6px 0 12px}
+.ppCaseDetails summary{cursor:pointer;color:#545db3;font-weight:740}
+.ppCaseDetails>div{display:flex;flex-direction:column;gap:7px;margin-top:10px;max-width:580px}
+.ppCaseTrend{display:flex;gap:8px;justify-content:space-between;align-items:center;border-bottom:1px solid #e4e9f3;padding:5px 0}
+.ppCaseTrend strong{font-variant-numeric:tabular-nums;color:#3e4981}
+.ppPracticeControls{display:flex;flex-wrap:wrap;gap:9px;margin:4px 0 12px}
+.ppPracticeControls button{cursor:pointer;border:1px solid #d6def6;background:#fff;color:#505ab4;border-radius:10px;padding:10px 14px;font-size:12px;font-weight:740}
+.ppPracticeControls button:first-child{background:#6265d3;color:#fff;border-color:#6265d3}
+.ppPracticeControls button:hover{filter:brightness(.97)}
+.ppScoreDisclaimer{font-size:11px;color:#7c879f;line-height:1.6;max-width:830px}
+.ppCompetencyBreakdown{border:1px solid #e4e7f3;border-radius:14px;padding:17px 20px;margin:0 0 22px;background:#fff}
+.ppCompetencyBreakdown h4{color:#293459;font-size:15px;margin-bottom:4px}
+.ppCompetencyBreakdown>p{font-size:12px;line-height:1.5;color:#7b849c;margin-bottom:9px}
+.ppCompRow{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:10px 0;border-top:1px solid #eef0f6}
+.ppCompRow>div{display:flex;flex-wrap:wrap;align-items:center;gap:9px}
+.ppCompRow strong{color:#424f7e;font-size:12px}
+.ppCompRow span{color:#8995ad;font-size:11px}
+.ppCompRow>strong{font-variant-numeric:tabular-nums;white-space:nowrap}
+.ppCompetencyBreakdown .ppSkillCaution{margin:12px 0 0}
+.ppNoScores{color:#70809e;line-height:1.6;font-size:13px;padding:16px}
+.ppWarmupOverlay{position:fixed;inset:0;z-index:110;background:rgba(26,33,70,.53);padding:20px;display:flex;align-items:center;justify-content:center}
+.ppWarmupPanel{width:min(560px,100%);max-height:94vh;overflow:auto;border-radius:21px;background:#fff;box-shadow:0 30px 100px rgba(23,35,78,.25)}
+.ppWarmupPanel header{background:#f2f3ff;border-bottom:1px solid #e4e7f2;padding:18px 22px;display:flex;align-items:center;justify-content:space-between}
+.ppWarmupPanel header span{font-size:12px;letter-spacing:.8px;font-weight:830;color:#5c65b1}
+.ppWarmupPanel header button{border:1px solid #d8deef;background:white;border-radius:9px;padding:7px 11px;color:#56618d;cursor:pointer}
+.ppWarmupBody{padding:24px}
+.ppWarmupStep{letter-spacing:.8px;color:#757ab5;font-size:10px;font-weight:830;margin-bottom:10px}
+.ppWarmupBody h2{font-size:23px;letter-spacing:-.03em;color:#29315b;line-height:1.23;margin-bottom:14px}
+.ppWarmupBody h3{font-size:16px;color:#35416b;margin:16px 0}
+.ppWarmupBody p{font-size:13px;color:#66738e;line-height:1.6}
+.ppWarmupScenario{background:#f4f6fd;border-left:3px solid #7b7ddd;border-radius:8px;padding:15px;color:#465582;font-size:14px;line-height:1.5}
+.ppWarmupAnswers{display:flex;flex-direction:column;gap:9px}
+.ppWarmupAnswers button{border:1px solid #dfe3f1;border-radius:11px;background:#fff;text-align:left;color:#3e4c76;font-size:13px;cursor:pointer;padding:12px 14px;line-height:1.5}
+.ppWarmupAnswers button:hover{background:#f1f3ff}
+.ppWarmupAnswers button.ppCorrect{border-color:#7fbc9c;background:#e7f5ed;color:#27644c}
+.ppWarmupAnswers button.ppIncorrect{border-color:#d6a69a;background:#fff0ec;color:#9b4a39}
+.ppWarmupExplanation{background:#eef7f4;border:1px solid #d4ebe1;border-radius:10px;padding:12px 15px;margin-top:14px}
+.ppWarmupExplanation strong{color:#316c54;font-size:13px}
+.ppWarmupExplanation p{color:#3b715c;font-size:13px;margin-top:5px}
+.ppWarmupHint{margin-top:10px}
+.ppWarmupButtons{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+.ppWarmupButtons button{padding:11px 14px;border:1px solid #dfe4f3;background:#fff;color:#515fad;font-size:12px;border-radius:10px;font-weight:760;cursor:pointer}
+.ppWarmupButtons button:first-child{background:#6264d2;border-color:#6264d2;color:#fff}
+.ppWarmupButtons button:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:620px){.ppProgressCard{padding:14px}.ppProgressTop h3{font-size:16px}.ppScore strong{font-size:31px}.ppProgressMeta{gap:5px}.ppProgressMeta span{font-size:10px}.ppPracticeControls button{flex:1}.ppCompetencyBreakdown{padding:13px}.ppWarmupOverlay{align-items:flex-end;padding:0}.ppWarmupPanel{max-height:93dvh;border-radius:20px 20px 0 0}.ppWarmupBody{padding:17px}}
+@media print{.ppProgressCard,.ppCompetencyBreakdown,.ppWarmupOverlay{display:none!important}}
