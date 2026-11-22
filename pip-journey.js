@@ -93,13 +93,12 @@
         j.resumeBaseline=Number(S.resume?.proposals?.length||0)+Number(S.resume?.history?.length||0);
       }
       S.coachGoal='resume';save();go('resume');
-      emit('We’re refining your resume for '+goal+'. Your previous step is bookmarked. Choose an existing bullet to edit or ask me for a factual rewrite, then use “Return to previous step.”');
       return;
     }
     if(action==='return'){
       const previous=j.history.pop();
       if(!previous){
-        go('readiness');emit('You’re back on the '+goal+' Readiness Map. We can continue from here.');return;
+        go('readiness');return;
       }
       // Return to the exact workspace and saved case. Never restart an
       // assessment or discard existing answers for a temporary detour.
@@ -113,17 +112,14 @@
       S.practiceView=previous.practiceView||'case';
       S.coachGoal='career_exploration';
       save();setRoute(previous.route);
-      emit((edits>0?'Your resume changes are saved. ':'Your resume detour is finished. ')+'Welcome back to '+(human[previous.route]||'your previous step')+' for '+goal+'. Your case answers and readiness evidence are intact. Continue where you paused.');
       return;
     }
     if(action==='start-case'){
       const a=S.attempt;
       if(a&&a.role===S.career.activeRole&&a.status!=='complete'){
         S.practiceView='case';save();go('practice');
-        emit('Your existing assessment is still in progress. I’ve reopened question '+(a.index+1)+' instead of restarting it.');
       } else {
         beginCase(S.career.activeRole,'A');
-        emit('Your first case is open. Answer the current question in your own words, then submit it for evidence-based feedback.');
       }
       return;
     }
@@ -131,21 +127,20 @@
       if(!S.attempts.some(x=>x.role===S.career.activeRole&&x.variant==='A')){
         emit('Complete case A before reassessment. Your work so far is saved.',{buttons:[['Resume or start case A','start-case']]});return;
       }
-      beginCase(S.career.activeRole,'B');emit('Now you’re attempting a different scenario. We’ll compare the demonstrated reasoning with your first case rather than assuming improvement.');return;
+      beginCase(S.career.activeRole,'B');return;
     }
     if(action==='resume-edit'){
       if(S.route!=='resume'){navigate('resume-detour');return;}
       if(typeof modal!=='undefined'){modal={type:'newBullet'};renderModal();}
-      emit('Select an existing bullet or describe a project you actually worked on. I’ll suggest wording for your review, never invent outcomes. When finished, use the return button to continue your career goal.');
       return;
     }
-    if(action==='plan'){S.practiceView='plan';save();go('practice');emit('Here’s the improvement plan tied to your case evidence. Choose one task, learn the concept, then reassess.');return;}
+    if(action==='plan'){S.practiceView='plan';save();go('practice');return;}
     if(action==='practice-case'){S.practiceView='case';save();go('practice');return;}
     if(action==='lesson'){if(typeof window.PipStartLesson==='function')window.PipStartLesson();else emit('Open the current feedback and practice the underlying concept.');return;}
     if(action==='warmup'){if(typeof window.PipOpenWarmup==='function')window.PipOpenWarmup();else emit('Warm-up is temporarily unavailable. Continue with the case when ready.');return;}
     if(action==='insights'){
       S.practiceView='history';save();setRoute('practice');
-      emit('This view combines completed case ratings for '+goal+'. Look at the total number of questions, your average, and where the next practice should focus.');return;
+      return;
     }
     if(action==='explain-progress'){
       const x=window.PipProgressSummary?.(S.career.activeRole);
@@ -156,8 +151,8 @@
     if(action==='next-question'){
       const a=S.attempt;
       if(a?.status!=='feedback'){emit('Please submit the current answer before continuing.');return;}
-      if(a.index>=4){finalizeCase();emit('Case complete. Review the updated readiness evidence, then choose the improvement plan or a different reassessment scenario.');}
-      else {a.index++;a.status='question';save();go('practice');emit('Question '+(a.index+1)+' is ready. Your previous evaluation remains saved.');}
+      if(a.index>=4){finalizeCase();}
+      else {a.index++;a.status='question';save();go('practice');}
       return;
     }
     if(action==='focus-answer'){go('practice');document.getElementById('caseAnswer')?.focus();return;}
@@ -180,10 +175,6 @@
       if(action==='discovery')S.discoveryStep=3;
       if(action==='practice')S.practiceView='case';
       go(action);
-      if(action==='readiness')emit('This is your '+goal+' readiness map. The next closed loop is to test a competency, learn from its feedback and return here to see what changed.');
-      else if(action==='discovery')emit('Your career goal is still '+goal+'. Explore alternatives whenever you like; we will not silently switch it.');
-      else if(action==='resume')emit('Let’s focus on truthful, role-relevant resume evidence. You can return to '+goal+' readiness afterward.');
-      else if(action==='practice')emit('Let’s continue the current case without losing your earlier answers.');
     }
   }
   let baseSend=sendCoach;
