@@ -20,6 +20,22 @@
 | Returning after inactivity | Seven days without meaningful action and opted in | One eligible daytime email | "Your APM goal and latest progress are still here. One short practice case is ready if you're interested." | Resume journey | No guilt or fake urgency |
 | Goal switched | User explicitly chooses another role | In-app immediately | "We saved your Product Analyst work. The new goal uses different requirements. Compare the two maps before practising." | New readiness map | Never mix role scores |
 
+## Product-truth rule for every message
+
+A lifecycle message only works if the user can complete the promised action. For this prototype, I would maintain a short **destination-and-capability inventory** and validate every proposed in-app or future outbound message against it:
+
+| What the message says | Real next step | What I would not promise |
+|---|---|---|
+| "Look at your skill evidence" | **Readiness Map** → expand the relevant skill evidence card | A separate "learning hub" |
+| "Learn about this gap" | Open the **Learn this skill** external link on that card, or review a worked lesson where available | An internal course/video library |
+| "Put the feedback into practice" | **Practice & Improve** → case feedback or **My improvement plan** | An unlimited adaptive course catalog |
+| "Review your career progress" | **Practice & Improve** → full practice progress, or the Readiness Map evidence comparison | A verified employer-readiness score |
+| "Improve your CV" | **Living Resume** → review an editable bullet and approve the factual revision | Automatic applications or unapproved AI edits |
+
+**Eligibility rule:** Do not send messages because someone opened a tab. In-app proactive coaching should be triggered only when an actual learning milestone creates useful information—for example, completing self-calibration, receiving the first assessed answer, or finishing a case. Normal screen changes stay silent. For future email, check the action still exists, the task remains incomplete, the user opted in, and the send cap has not been reached.
+
+**Quality check:** Test each message by following its call to action in a fresh sample account. If the copy refers to a capability not available in the build, rewrite or suppress it before delivery. For readiness questions, explain the distinction between a suggested practice checkpoint and real-world hiring readiness.
+
 ## 3. Channels, frequency and personalization
 **Already implemented:** Contextual Pip guidance in the app, saved practice history, editable confidence, seven-day earned activity strip, resume detours, browser-local state.
 
