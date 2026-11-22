@@ -72,6 +72,14 @@ class FrontendStructureTests(unittest.TestCase):
         self.assertIn('overflow-y:auto',css)
         self.assertIn('/pip-experience.js?v=5.11',html)
 
+    def test_progress_card_follows_pip_chat(self):
+        script=(ROOT/'pip-progress.js').read_text('utf-8')
+        html=(ROOT/'index.html').read_text('utf-8')
+        self.assertIn('ppCoachProgress',script)
+        self.assertIn('messages.appendChild(card)',script)
+        self.assertIn('messages.scrollTop=messages.scrollHeight',script)
+        self.assertIn('/pip-progress.js?v=5.12',html)
+
     def test_explainable_insight_controls(self):
         script=(ROOT/'pip-insights.js').read_text('utf-8')
         self.assertIn("data-pc-confidence",script)
