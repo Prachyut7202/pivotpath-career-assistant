@@ -1,0 +1,44 @@
+/* PivotPath competency guides — role-specific Why? explanations and honest skill milestones. */
+.pgRoleSummary{display:flex;justify-content:space-between;align-items:center;gap:13px;flex-wrap:wrap;margin:7px 0 9px;padding:13px 15px;border:1px solid #e2e5fa;background:#f7f7ff;border-radius:12px}
+.pgSummaryLead{display:flex;align-items:center;gap:10px;min-width:0}
+.pgSummaryLead>div{display:flex;flex-direction:column;gap:3px}
+.pgSummaryLead strong{font-size:12px;color:#343875;font-weight:780}
+.pgSummaryLead small{font-size:10px;line-height:1.5;color:#737d9a;max-width:530px}
+.pgSummaryIcon{display:grid;place-items:center;width:32px;height:32px;flex:none;border-radius:10px;background:#e7e8ff;color:#5d56bd;font-size:19px}
+.pgSummaryNote{font-size:10px;color:#79849e;max-width:220px;line-height:1.4}
+.pgRowAchievement{display:inline-flex;align-items:center;gap:4px;border-radius:9px;padding:5px 7px;margin-left:7px;background:#e8f6ed;color:#217048;font-size:10px;font-weight:810;line-height:1.2;white-space:normal}
+.pgModalContent{color:#334068;display:flex;flex-direction:column;gap:15px;line-height:1.55}
+.pgModalEyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#7578ba;font-weight:810}
+.pgModalContent>h2{font-size:23px;letter-spacing:-.04em;line-height:1.23;color:#222d51;margin:-6px 0 -4px}
+.pgStatus{display:flex;align-items:center;gap:8px;align-self:flex-start;font-size:11px;font-weight:770;padding:8px 12px;border-radius:10px;background:#f0f1f6;color:#536179}
+.pgStatus.success{background:#e7f7ed;color:#237347}.pgStatus.warning{background:#fff2e4;color:#986019}.pgStatus.info{background:#ecf0ff;color:#5558af}.pgStatus.neutral{background:#f1f3f8;color:#5d6a84}
+.pgStatus span{font-size:18px}
+.pgExplainer{padding:13px 15px;border:1px solid #e7eaf5;background:#fff;border-radius:12px;display:flex;flex-direction:column;gap:7px}
+.pgExplainer h3{font-size:13px;color:#293c6c;font-weight:800;margin:0}
+.pgExplainer p{font-size:12px;color:#556582;line-height:1.6;margin:0}
+.pgScenario{border-radius:9px;border-left:3px solid #817ada;background:#f5f5ff;padding:11px 12px;margin-top:5px}
+.pgScenario small{display:block;color:#6766b3;font-size:10px;font-weight:750;margin-bottom:3px}
+.pgScenario p{color:#475780;font-size:12px}
+.pgExplainer .pgSoftText,.pgSoftText{font-size:10.5px;color:#8791a8;line-height:1.55;margin:0}
+.pgMetricChips{display:flex;flex-wrap:wrap;gap:7px}
+.pgMetricChips span{border:1px solid #dce2f3;background:#f8faff;border-radius:9px;padding:7px 10px;font-size:11px;line-height:1.4;font-weight:650;color:#4a5887}
+.pgCurrentEvidence{display:grid;grid-template-columns:1fr 1.7fr;gap:8px}
+.pgCurrentEvidence>div{background:#f7f8fc;padding:10px 12px;border-radius:10px;display:flex;flex-direction:column;gap:5px;min-width:0}
+.pgCurrentEvidence span{font-size:10px;color:#8c97ab}
+.pgCurrentEvidence strong{font-size:11px;line-height:1.45;color:#394876;font-weight:720;overflow-wrap:anywhere}
+.pgChecks{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:7px}
+.pgCheck{display:flex;align-items:flex-start;gap:10px;background:#f9faff;border:1px solid #eaedf6;border-radius:10px;padding:9px 11px}
+.pgCheck>span{width:22px;height:22px;border-radius:50%;background:#e9ecf5;color:#818ca5;display:grid;place-items:center;flex:none;font-weight:820;font-size:13px}
+.pgCheck.passed>span{background:#dbf5e4;color:#237a4a}
+.pgCheck div{min-width:0;display:flex;flex-direction:column;gap:2px}
+.pgCheck strong{font-size:11px;color:#3b486e}
+.pgCheck small{font-size:10px;color:#78859e;line-height:1.55}
+.pgProgressNarrative{font-size:11px;line-height:1.6;padding:10px 11px;background:#f2f4ff;border-radius:8px;color:#515f91}
+.pgAchievementText{font-size:12px;color:#227446;line-height:1.6;padding:10px 12px;background:#eaf8ef;border-radius:10px;margin:0}
+.pgModalActions{display:flex;flex-wrap:wrap;gap:9px}
+.pgModalActions button,.pgModalActions a{display:inline-flex;align-items:center;justify-content:center;flex:1 1 195px;border-radius:10px;padding:11px 12px;cursor:pointer;font-size:11px;font-weight:790;line-height:1.4;text-decoration:none;text-align:center;border:1px solid #d7dcf2;color:#555ab0;background:#fff}
+.pgModalActions button{background:#6661c8;border-color:#6661c8;color:#fff}
+.pgModalActions button:focus-visible,.pgModalActions a:focus-visible{outline:3px solid #b9b8fb;outline-offset:2px}
+.modal:has(.pgModalContent){max-width:680px;width:min(680px,100%);scrollbar-gutter:stable}
+@media(max-width:680px){.pgRoleSummary{padding:11px;gap:10px}.pgSummaryNote{max-width:none}.pgCurrentEvidence{grid-template-columns:1fr}.modal:has(.pgModalContent){padding:15px}.pgModalContent>h2{font-size:21px}.pgExplainer{padding:12px}.pgRowAchievement{margin:4px 0 0;display:table}}
+@media(prefers-reduced-motion:reduce){.pgModalContent *{scroll-behavior:auto}}
