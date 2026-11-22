@@ -1,0 +1,20 @@
+/* Pip career journey navigation — clear actions, persistent career goal and resume return checkpoints */
+.pipJourneyCard{background:linear-gradient(150deg,#f5f5ff,#eef2fe);border:1px solid #dfe4fa;border-radius:16px;padding:14px 15px;margin:13px 5px 10px;display:flex;flex-direction:column;gap:8px;color:#2b345b;box-shadow:0 4px 15px rgba(62,73,151,.035)}
+.pipJourneyCard .pipJourneyGoal{color:#5759b7;font-size:10px;letter-spacing:.8px;font-weight:820;text-transform:uppercase;line-height:1.5}
+.pipJourneyCard strong{font-size:15px;line-height:1.3;letter-spacing:-.01em}
+.pipJourneyCard p{font-size:12px;line-height:1.6;color:#566585;max-width:37ch}
+.pipJourneyCardActions{display:flex;flex-direction:column;gap:7px;margin-top:4px}
+.pipJourneyCardActions button{font-size:12px;font-weight:700;border-radius:10px;border:1px solid #dbe0f3;background:#fff;color:#4956a8;padding:10px 13px;text-align:left;cursor:pointer;transition:background .14s ease,transform .14s ease;line-height:1.4}
+.pipJourneyCardActions button:first-child{background:#5f61d3;color:#fff;border-color:#5f61d3}
+.pipJourneyCardActions button:hover{transform:translateY(-1px);background:#ebeefe}
+.pipJourneyCardActions button:first-child:hover{background:#4b4fc0}
+.pipJourneyShortcuts{display:flex;flex-wrap:wrap;gap:7px}
+.pipJourneyShortcuts button{border:1px solid #d8deed;background:#fff;color:#545db4;border-radius:20px;padding:8px 11px;font-size:11px;font-weight:700;cursor:pointer}
+.pipJourneyShortcuts button:hover{background:#f0f1ff}
+.pipLoopRibbon{display:flex;align-items:center;gap:12px;flex-wrap:wrap;border:1px solid #e3e6f5;background:#f9faff;border-radius:11px;padding:10px 14px;margin:0 0 16px;color:#4d5780;min-width:0}
+.pipLoopRibbon span{font-size:12px;font-weight:820;color:#5255b6}
+.pipLoopRibbon small{font-size:11px;color:#79829b;flex:1;min-width:140px}
+.pipLoopRibbon button{padding:7px 11px;background:#fff;border:1px solid #d6def2;border-radius:9px;font-size:11px;font-weight:760;color:#545cb2;cursor:pointer;white-space:normal;text-align:left}
+.pipLoopRibbon button:hover{background:#e9ecff}
+@media(max-width:680px){.pipJourneyCard{margin:10px 0}.pipJourneyCard p{max-width:none}.pipLoopRibbon{gap:6px}.pipLoopRibbon small{flex-basis:150px}.pipLoopRibbon button{width:100%}}
+@media print{.pipLoopRibbon,.pipJourneyCard{display:none!important}}
