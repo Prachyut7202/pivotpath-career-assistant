@@ -55,8 +55,9 @@ function show(){
  const float=document.getElementById('coachFloat');
  if(!float||S.stage==='welcome'||S.coachOpen||S.coachMuted||S.pipGuideDisabled){removeTip();return;}
  const m=nextMoment();
- if(!m||seen()[m.key]){removeTip();return;}
+ if(!m){removeTip();return;}
  if(displayedKey===m.key&&document.getElementById('pipGuideTip'))return;
+ if(seen()[m.key]){removeTip();return;}
  removeTip();
  const tip=document.createElement('section');tip.id='pipGuideTip';tip.className='pipGuideTip';
  tip.setAttribute('role','status');tip.setAttribute('aria-live','polite');
