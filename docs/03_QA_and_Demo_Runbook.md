@@ -50,3 +50,12 @@ No production analytics, external reminders, account sync, executable SQL testin
 
 ## Four-minute demo script
 Sample resume → user-confirmed profile → aspiration and role shortlist → competency self-view → readiness evidence comparison → role-specific practice/feedback → resource and next case → earned learning activity strip → factual resume edit → return to same chosen goal → measured retention hypothesis.
+
+## Candidate-switching privacy test
+
+- Complete a five-question case as Sample A. Record the visible chat, confidence choices, streak and resume changes.
+- Choose **Start a new person’s journey**. Confirm the replacement warning. The app should return to the first Pip greeting. No Sample A messages, ratings, streak history, tasks, or resume edits should remain.
+- Start Sample B or upload a different person’s file. Confirm the new candidate's name and job history; visit every workspace and the Pip coach to check for cross-person carryover.
+- In Profile, a new file starts a fresh candidate workspace by default. The explicit **same person** checkbox is the only upload route that retains existing history.
+- Cancel a reset confirmation and verify the prior profile remains unchanged.
+- Start an AI response, switch to a new person before the response returns, and verify that no late response or assessment is added to the new person's chat.
