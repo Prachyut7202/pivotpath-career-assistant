@@ -256,8 +256,9 @@ async function handleResumeFile(file,{newProfile=false}={}){if(!file)return fals
  // Do not silently mix the previous person's profile, practice evidence, or resume.
  const previousText=String(S.profile.resumeText||'');
  const hasExistingJourney=Boolean(S.profile.name||S.profile.role||S.profile.verified||previousText||S.attempts.length);
- const looksDifferent=previousText ? previousText!==incomingText : hasExistingJourney;
- if(newProfile&&hasExistingJourney&&looksDifferent){
+ // A guided upload is always a new person/profile unless the browser is empty.
+ // Ask permission before replacing an existing journey, including a repeat upload.
+ if(newProfile&&hasExistingJourney){
    const approved=confirm('This appears to be a new resume. Start a fresh career profile and replace the saved journey in this browser? Export the old career data first if you want to keep it.');
    if(!approved){notify('Your existing career profile is unchanged. Resume switch cancelled.');return false;}
    const fresh=seedState();
@@ -268,6 +269,29 @@ async function handleResumeFile(file,{newProfile=false}={}){if(!file)return fals
    if(S.pipIntake){S.pipIntake.owned=[];S.pipIntake.note='';S.pipIntake.recorded=false;}
  }
  S.profile.resumeText=incomingText;S.profile.source='imported_resume';S.profile.verified=false;
+ const sections=(j.draft&&typeof j.draft.sections==='object'&&j.draft.sections)||{};
+ const importedSections={};
+ for(const key of ['experience','internships','projects','education','skills','leadership','certifications']){
+  const records=Array.isArray(sections[key])?sections[key]:[];
+  if(records.length){
+   importedSections[key]=records.slice(0,7).map(row=>({
+    title:String(row.title||'').slice(0,280),
+    detail:String(row.detail||'').slice(0,360),
+    kind:row.kind==='bullet'?'bullet':'entry'
+   }));
+  }
+ }
+ S.profile.importReport={
+  filename:String(file.name||'Resume').slice(0,190),
+  status:'parsed',
+  originalTextLength:incomingText.length,
+  importedAt:stamp(),
+  candidateName:String(j.draft?.name||'').slice(0,150),
+  candidateEmail:String(j.draft?.email||'').slice(0,180),
+  sections:importedSections,
+  rawPreview:incomingText.split(/\n/).map(x=>x.trim()).filter(Boolean).slice(0,28).join('\n').slice(0,2200),
+  warning:String(j.warning||'Imported text and inferred fields need review.').slice(0,350)
+ };
  if(j.draft?.name&&(newProfile||!S.profile.name))S.profile.name=j.draft.name;
  if(j.draft?.email&&(newProfile||!S.profile.email))S.profile.email=j.draft.email;
  if(j.draft?.bullets?.length&&(newProfile||!S.profile.achievements))S.profile.achievements=j.draft.bullets.slice(0,3).join('\n');
