@@ -217,7 +217,7 @@ async def coach(request:Request):
     if not reply: reply='Could you tell me a little more about the experience you want to discuss?'
     route=out.get('suggested_route','')
     # No unsolicited 'Open practice' button in a career-interview conversation.
-    explicit_navigation=bool(re.search(r"\\b(?:open|go to|navigate to|take me to|show me|start)\\s+(?:the |my )?(?:practice|readiness|resume|profile|discovery)\\b", message,re.I))
+    explicit_navigation=bool(re.search(r"\b(?:open|go to|navigate to|take me to|show me|start)\s+(?:the |my )?(?:practice|readiness|resume|profile|discovery)\b", message,re.I))
     if goal=='career_exploration' or not explicit_navigation: route=''
     return {'reply':reply,'follow_up_question':'',
             'suggested_route':route if route in ('discovery','readiness','practice','resume','profile') else '',
