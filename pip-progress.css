@@ -67,3 +67,19 @@
 .ppMilestone strong{display:block;color:#445184;font-size:12px;margin-bottom:5px}
 .ppMilestone p{font-size:11px;line-height:1.6;color:#65728e}
 .ppMilestone b{font-weight:800;color:#47569a}
+
+/* V5.12: live practice summary stays in the conversational scroll. */
+.ppCoachProgress{margin:1px 0 8px;align-self:stretch;background:#f5f5ff;border:1px solid #e0e3f6;border-radius:15px 15px 15px 5px;padding:13px;box-shadow:0 2px 8px rgba(58,64,126,.035)}
+.ppChatHeader{display:flex;align-items:center;gap:9px;margin-bottom:7px}
+.ppChatAvatar{display:inline-grid;width:36px;height:36px;place-items:center;flex:none;background:#e8e9ff;border-radius:12px}
+.ppChatAvatar .mascotSvg{width:32px;height:32px}
+.ppChatHeader div{display:flex;flex-direction:column;gap:2px}
+.ppChatHeader small{font-size:9px;letter-spacing:.8px;font-weight:760;color:#7776b7}
+.ppChatHeader strong{font-size:12px;color:#3c4a83}
+.ppCoachProgress p{font-size:12px;line-height:1.55;color:#566585;margin:6px 0}
+.ppCoachProgress p strong{color:#514dc0}
+.ppChatActions{display:grid;gap:7px;margin-top:11px}
+.ppChatActions button{border-radius:9px;border:1px solid #d5dbf0;background:#fff;color:#4b58ac;font-size:11px;line-height:1.35;font-weight:750;text-align:center;padding:9px;cursor:pointer}
+.ppChatActions button:first-child{background:#6863ce;color:#fff;border-color:#6863ce}
+.ppChatActions button:hover{filter:brightness(.96)}
+.ppChatActions button:focus-visible{outline:3px solid #adabf0;outline-offset:2px}
