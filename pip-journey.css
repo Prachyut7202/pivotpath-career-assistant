@@ -18,3 +18,17 @@
 .pipLoopRibbon button:hover{background:#e9ecff}
 @media(max-width:680px){.pipJourneyCard{margin:10px 0}.pipJourneyCard p{max-width:none}.pipLoopRibbon{gap:6px}.pipLoopRibbon small{flex-basis:150px}.pipLoopRibbon button{width:100%}}
 @media print{.pipLoopRibbon,.pipJourneyCard{display:none!important}}
+
+/* Give Pip real side-by-side space: do not obscure Readiness/Practice cards.
+   The older rule moved .main using margin while it was still width:100%;
+   reserve sidebar width in the layout instead. */
+@media(min-width:1101px){
+ body.pipGuideDocked .shellBody{padding-right:370px;box-sizing:border-box;min-width:0}
+ body.pipGuideDocked .shellBody .main{width:100%;max-width:100%;margin:0 auto;box-sizing:border-box}
+ body.pipGuideDocked .shellBody .main .grid2{grid-template-columns:minmax(0,1fr)!important}
+ body.pipGuideDocked .coachPanel{position:fixed;right:12px;top:80px;bottom:12px;width:348px;max-height:calc(100vh - 92px);height:auto}
+}
+@media(max-width:1100px){
+ body.pipGuideDocked .shellBody{padding-right:0}
+ body.pipGuideDocked .shellBody .main{margin:0 auto;max-width:100%}
+}
