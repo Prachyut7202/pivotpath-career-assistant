@@ -139,7 +139,12 @@ document.addEventListener('click',function(event){
   const role=b.dataset.pcRole,code=b.dataset.pcCode,level=b.dataset.pcConfidence;
   if(!ROLES[role]||!ROLES[role].competencies.some(c=>c[0]===code)||!confidenceOptions.some(o=>o.id===level))return;
   const entry=store()[role]||(store()[role]={});
+  const codes=ROLES[role].competencies.map(([skill])=>skill);
+  const wasComplete=codes.every(skill=>Boolean(entry[skill]?.level));
   entry[code]={level,updatedAt:stamp()};
+  if(!wasComplete&&codes.every(skill=>Boolean(entry[skill]?.level))){
+    S.pipPendingMilestone={key:'rated:'+role,route:'readiness',role};
+  }
   save();render();return;
  }
  if(b.dataset.pcAction==='readiness'){setRoute('readiness');return;}
