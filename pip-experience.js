@@ -178,7 +178,7 @@
       S.pipGuideScene=scene;save();renderCoach();
     }
     const top=document.querySelector('.topbar .topright');
-    if(top&&!top.querySelector('[data-pip-action="toggle-guide"]'))top.insertAdjacentHTML('afterbegin','<button class="pipTopGuide" data-pip-action="toggle-guide" type="button">🐣 Talk with Pip</button>');
+    if(top&&!top.querySelector('[data-pip-action="toggle-guide"]'))top.insertAdjacentHTML('afterbegin','<button class="pipTopGuide" data-pip-action="toggle-guide" type="button">Talk with Pip</button>');
     const nav=document.querySelector('.sidebarFoot');
     if(nav&&!nav.querySelector('[data-pip-action="restart"]'))nav.insertAdjacentHTML('beforeend','<button class="pipRestart" data-pip-action="restart" type="button">↺ Restart guided journey</button>');
   }
