@@ -242,7 +242,7 @@ def _ground_coach_navigation(reply:str,message:str,context:dict)->str:
     if not (_FAKE_PRODUCT_DESTINATION.search(reply) or _FAKE_BUILTIN_MATERIALS.search(reply)):
         return reply
     # Correctly describing a missing feature is allowed.
-    negative=r"\\b(?:no|not|isn't|is not|don't have|do not have)\\b.{0,45}\\b(?:learning hub|learning center|learning centre|skills? hub|video library|course library|resource library)\\b"
+    negative=r"\b(?:no|not|isn't|is not|don't have|do not have)\b.{0,45}\b(?:learning hub|learning center|learning centre|skills? hub|video library|course library|resource library)\b"
     if re.search(negative,reply,re.I) and not _FAKE_BUILTIN_MATERIALS.search(reply):
         return reply
     role=str(context.get('active_goal_name') or 'your chosen role').strip()[:100]
