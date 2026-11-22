@@ -152,6 +152,11 @@
       return;
     }
     if(allowed.includes(action)){
+      // The route shown on the return chip acts like Return, not a new
+      // unrelated navigation, so temporary loops are properly completed.
+      if(j.history.length&&S.route==='resume'&&j.history.at(-1)?.route===action){
+        navigate('return');return;
+      }
       if(action==='discovery')S.discoveryStep=3;
       if(action==='practice')S.practiceView='case';
       go(action);
