@@ -13,7 +13,7 @@
 @media(max-width:900px){.sidebar{width:72px;padding:20px 7px}.sidebar .logo,.sidebar .navtext,.sidebar .navlabel,.sidebarFoot,.sidebar .brand span{display:none}.sidebar .brand{justify-content:center;padding:0}.sidebar .navitem{justify-content:center}.topbar{padding:0 20px}.welcomeLayout{grid-template-columns:1fr;gap:25px;max-width:650px}.welcomeCopy h1{font-size:42px}.welcomeCopy .benefits{display:none}}
 @media(max-width:680px){body{font-size:13px}.shell{display:none}.sidebar{display:none}.topbar{height:61px;padding:0 15px}.topbar .stage{display:none}.topbar .logo{font-size:18px}.topright .mutedlabel{display:none}.main{padding:23px 14px 125px}.grid2,.grid3,.roleRow,.swotGrid{grid-template-columns:1fr}.card{padding:17px;border-radius:15px}.card.selected{padding:16px}.welcome{padding:15px 12px}.welcomeLayout{grid-template-columns:1fr}.welcomeCopy h1{font-size:34px;margin:15px 0}.welcomeCopy p{font-size:14px}.welcomeCard{padding:20px;border-radius:20px}.welcomeCard .mascotCircle{width:74px;height:74px}.welcomeCopy .benefits{display:none}.skillRow{grid-template-columns:1fr;gap:8px}.skillRow .skbtn{text-align:left}.bottomNav{display:flex;z-index:12;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);justify-content:space-around;padding:8px 4px 10px;gap:1px}.bottomNav .navitem{display:flex;flex-direction:column;gap:2px;font-size:10px;border-radius:8px;padding:5px 2px;color:#6b7690;max-width:90px;justify-content:center;align-items:center}.bottomNav .navitem.active{color:#4c58c4}.bottomNav .navitem .ni{font-size:19px}.coachFloat{right:13px;bottom:73px}.coachNudge{display:none}.coachBtn{width:55px;height:55px;border-radius:19px}.coachPanel{right:0;left:0;bottom:65px;width:100%;max-height:79dvh;border-radius:20px 20px 0 0}.resumeArea{display:block}.resumeSheet{width:595px;max-width:595px;transform-origin:top left;transform:scale(.58);margin-bottom:-123mm;box-shadow:none}.sheetWrap{overflow:hidden}.notice{font-size:11px}.modalbg{align-items:end;padding:0}.modal{border-radius:20px 20px 0 0;max-height:90vh}.topcallout{flex-direction:column;align-items:flex-start}.btn.blockMobile{width:100%}}
 @media print{body{background:white!important}.sidebar,.topbar,.bottomNav,.coachFloat,.coachPanel,.noPrint,.resumeEditor,.topcallout,.toast{display:none!important}.shellBody,.main,.resumeArea,.resumePanel,.sheetWrap{display:block!important;margin:0!important;padding:0!important;border:0!important;background:white!important;width:100%!important;box-shadow:none!important}.main>*:not(.resumeArea){display:none!important}.resumePrintView,.resumePrintView .sheetWrap,.resumePrintView .resumeSheet{display:block!important}.resumeSheet{transform:none!important;margin:0!important;max-width:none!important;width:210mm!important;height:297mm!important;min-height:297mm!important;box-shadow:none!important;padding:12mm!important;font-size:9px}.resumeSheet .resumeitem:hover{background:none!important}@page{size:A4;margin:0}}
-</style><link rel="stylesheet" href="/pip-experience.css?v=5.1"/></head><body>
+</style><link rel="stylesheet" href="/pip-experience.css?v=5.4"/></head><body>
 <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
 <div id="welcome" class="welcome"></div>
 <div id="shell" class="shell">
@@ -1151,16 +1151,57 @@ async function sendCoach(text){
 }
 function modalFromAction(action,target){if(action==='coach-resume'){modal={type:'newBullet',section:'experience'};renderModal();return true}return false}
 function captureProfile(form){let f=new FormData(form);for(let k of ['name','email','phone','linkedin','portfolio','role','employer','years','education','skills','achievements'])S.profile[k]=String(f.get(k)||'').trim();if(!S.profile.name||!S.profile.role){const el=document.getElementById('profileError');el.textContent='Please enter your name and current or most recent role. The resume is optional.';el.classList.remove('hidden');return false}if(S.profile.years&&!Number.isFinite(Number(S.profile.years))){notify('Enter a valid experience value such as 1.7 years.','bad');return false}S.profile.verified=true;syncProfileToResume();S.stage='app';return true}
-async function handleResumeFile(file){if(!file)return;const ext=file.name.toLowerCase().split('.').pop();if(!['pdf','docx','txt','md','tex'].includes(ext)){notify('Choose PDF, DOCX, TXT, MD or TEX.','bad');return}if(file.size>7*1024*1024){notify('Files must be 7 MB or smaller.','bad');return}
+async function handleResumeFile(file,{newProfile=false}={}){if(!file)return false;const ext=file.name.toLowerCase().split('.').pop();if(!['pdf','docx','txt','md','tex'].includes(ext)){notify('Choose PDF, DOCX, TXT, MD or TEX.','bad');return}if(file.size>7*1024*1024){notify('Files must be 7 MB or smaller.','bad');return}
  if(['pdf','docx'].includes(ext)&&server.resume_parser==='unavailable'){notify('PDF/DOCX parsing needs the server-enabled version. Paste resume text or continue manually.','bad');return}
  notify('Reading your resume...');try{let j;
  if(['txt','md','tex'].includes(ext)){let text=await file.text();const lines=text.split('\n').map(s=>s.trim()).filter(Boolean);j={text,draft:{name:lines[0]||'',email:(text.match(/[\w.+-]+@[\w.-]+\.\w+/)||[])[0]||'',bullets:lines.filter(x=>/^[•*\-]/.test(x)).map(x=>x.replace(/^[•*\-]\s*/,''))},warning:'Check imported details before confirming.'}}
  else{let res=await fetch('/api/parse-resume',{method:'POST',headers:{'x-filename':file.name},body:file});j=await res.json();if(!res.ok)throw Error(j.detail||'Parse failed')}
- S.profile.resumeText=String(j.text||'').slice(0,40000);S.profile.source='imported_resume';S.profile.verified=false;
- if(j.draft?.name&&!S.profile.name)S.profile.name=j.draft.name;
- if(j.draft?.email&&!S.profile.email)S.profile.email=j.draft.email;
- if(j.draft?.bullets?.length&&!S.profile.achievements)S.profile.achievements=j.draft.bullets.slice(0,3).join('\n');
- if(j.draft?.skills&&!S.profile.skills)S.profile.skills=j.draft.skills;
+ const incomingText=String(j.text||'').slice(0,40000);
+ if(!incomingText.trim())throw Error('The document contained no readable resume text');
+ // Guided intake can be tried with different people's resumes in the same browser.
+ // Do not silently mix the previous person's profile, practice evidence, or resume.
+ const previousText=String(S.profile.resumeText||'');
+ const hasExistingJourney=Boolean(S.profile.name||S.profile.role||S.profile.verified||previousText||S.attempts.length);
+ // A guided upload is always a new person/profile unless the browser is empty.
+ // Ask permission before replacing an existing journey, including a repeat upload.
+ if(newProfile&&hasExistingJourney){
+   const approved=confirm('This appears to be a new resume. Start a fresh career profile and replace the saved journey in this browser? Export the old career data first if you want to keep it.');
+   if(!approved){notify('Your existing career profile is unchanged. Resume switch cancelled.');return false;}
+   const fresh=seedState();
+   S.profile=fresh.profile;S.career=fresh.career;S.resume=fresh.resume;
+   S.attempt=null;S.attempts=[];S.tasks=[];S.practiceView='case';
+   S.discoveryStep=0;S.showAllRoles=false;S.chat=[];
+   S.coachGoal='career_exploration';S.pipGuideScene=null;
+   if(S.pipIntake){S.pipIntake.owned=[];S.pipIntake.note='';S.pipIntake.recorded=false;}
+ }
+ S.profile.resumeText=incomingText;S.profile.source='imported_resume';S.profile.verified=false;
+ const sections=(j.draft&&typeof j.draft.sections==='object'&&j.draft.sections)||{};
+ const importedSections={};
+ for(const key of ['experience','internships','projects','education','skills','leadership','certifications']){
+  const records=Array.isArray(sections[key])?sections[key]:[];
+  if(records.length){
+   importedSections[key]=records.slice(0,7).map(row=>({
+    title:String(row.title||'').slice(0,280),
+    detail:String(row.detail||'').slice(0,360),
+    kind:row.kind==='bullet'?'bullet':'entry'
+   }));
+  }
+ }
+ S.profile.importReport={
+  filename:String(file.name||'Resume').slice(0,190),
+  status:'parsed',
+  originalTextLength:incomingText.length,
+  importedAt:stamp(),
+  candidateName:String(j.draft?.name||'').slice(0,150),
+  candidateEmail:String(j.draft?.email||'').slice(0,180),
+  sections:importedSections,
+  rawPreview:incomingText.split(/\n/).map(x=>x.trim()).filter(Boolean).slice(0,28).join('\n').slice(0,2200),
+  warning:String(j.warning||'Imported text and inferred fields need review.').slice(0,350)
+ };
+ if(j.draft?.name&&(newProfile||!S.profile.name))S.profile.name=j.draft.name;
+ if(j.draft?.email&&(newProfile||!S.profile.email))S.profile.email=j.draft.email;
+ if(j.draft?.bullets?.length&&(newProfile||!S.profile.achievements))S.profile.achievements=j.draft.bullets.slice(0,3).join('\n');
+ if(j.draft?.skills&&(newProfile||!S.profile.skills))S.profile.skills=j.draft.skills;
  if(j.draft?.sections){for(let section of S.resume.sections)section.items=section.items.filter(it=>!it.imported);for(let [sid,items] of Object.entries(j.draft.sections)){let section=getSection(sid);if(section)for(let it of items.slice(0,40))section.items.push({id:uid(),title:it.title||'',detail:it.detail||'',kind:it.kind||'bullet',imported:true})}}
  save();render();notify('Resume extracted. Review and confirm the facts before proceeding.');if(j.warning)notify(j.warning);return true;
  }catch(e){notify('Could not read resume: '+e.message+'. Paste text or continue manually.','bad');return false}
@@ -1241,5 +1282,5 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal){closeModal()
 document.addEventListener('click',e=>{if(e.target.id==='modalBackdrop')closeModal()});
 checkServer();render();
 </script>
-<script defer src="/pip-experience.js?v=5.3"></script>
+<script defer src="/pip-experience.js?v=5.4"></script>
 </body></html>
