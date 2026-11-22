@@ -268,7 +268,7 @@
         /^Your long-term goal is .+Choose one action below;/i.test(String(msg.text||''));
       if(legacy){
         const prev=cleaned.at(-1);
-        if(prev?.who==='user'&&/^(?:Help me choose my next action\\.|What should I do next\\??|what next\\??)$/i.test(String(prev.text||'').trim()))cleaned.pop();
+        if(prev?.who==='user'&&/^(?:Help me choose my next action\.|What should I do next\??|what next\??)$/i.test(String(prev.text||'').trim()))cleaned.pop();
         changed=true;continue;
       }
       cleaned.push(msg);
