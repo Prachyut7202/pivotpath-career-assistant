@@ -178,6 +178,27 @@ document.addEventListener('click',function(e){
  }
  if(action==='insights'){S.practiceView='history';save();setRoute('practice');return;}
 });
+// Pip's current progress travels with the chat, not only a static page card.
+const progressCoach=renderCoach;
+renderCoach=function(){
+  progressCoach();
+  const messages=document.getElementById('coachMessages'),role=S.career?.activeRole;
+  if(!messages||!role||!['practice','readiness'].includes(S.route))return;
+  const view=summary(role);
+  if(!view.count)return;
+  const avatar='<span class="ppChatAvatar" aria-hidden="true">'+mascot+'</span>';
+  const headline='Your '+roleName(role)+' practice';
+  const rating=nice(view.avg)+'/5 from '+view.count+' rated answer'+(view.count===1?'':'s');
+  const card=document.createElement('div');card.className='ppCoachProgress';
+  card.setAttribute('aria-label','Pip progress update');
+  card.innerHTML='<div class="ppChatHeader">'+avatar+'<div><small>PIP · PROGRESS UPDATE</small><strong>'+esc(headline)+'</strong></div></div>'+
+    '<p><strong>'+esc(rating)+'</strong>. '+esc(view.title)+'.</p>'+
+    '<p>'+esc(view.step)+'.</p>'+
+    '<div class="ppChatActions"><button type="button" data-action="nav" data-route="readiness">Review my skill evidence →</button>'+
+    '<button type="button" data-pp-action="insights">See complete progress</button></div>';
+  messages.appendChild(card);
+  messages.scrollTop=messages.scrollHeight;
+};
 const baseRender=render;
 render=function(){baseRender();};
 render();
