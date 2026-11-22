@@ -166,17 +166,17 @@
     const t=String(text).trim().toLowerCase();
     const j=state();
     if(/^(?:what should i do next\??|what next\??|next step\??|guide me\??|where should i go\??)$/.test(t))return 'options';
-    if(/(?:return|go back|take me back|resume my earlier step|back to my goal|back to readiness|finished with (?:my |the )?resume)/.test(t))return j.history.length?'return':'readiness';
+    if(/(?:return|go back|take me back|resume my earlier step|back to my goal|back to readiness|back to (?:my )?(?:product analyst|product manager|career goal|chosen role)|finished with (?:my |the )?resume)/.test(t) || (j.history.length && /^(?:done|i'm done|finished|that's done|all done)$/.test(t)))return j.history.length?'return':'readiness';
     if(/(?:start|take|open|go to|show|review|check|see).{0,22}(?:readiness|skill map)/.test(t))return 'readiness';
     if(/(?:start|begin|take|do|try|resume).{0,26}(?:case|assessment|practice|quiz)/.test(t))return 'start-case';
     if(/(?:another|different|second|new).{0,18}(?:case|assessment|scenario)|reassess/.test(t))return 'reassess';
     if(/(?:open|go to|start|view|explore).{0,25}(?:career paths|career discovery|other roles)/.test(t))return 'discovery';
-    if(/(?:improve|rewrite|tailor|polish|edit|sharpen|work on).{0,42}(?:resume|cv|bullet)/.test(t)
+    if(/(?:improve|rewrite|tailor|polish|edit|sharpen|work on|help (?:me )?with).{0,42}(?:resume|cv|bullet)/.test(t)
        ||/(?:resume|cv).{0,24}(?:first|now)/.test(t))return 'resume-detour';
     if(/(?:profile|career history).{0,18}(?:edit|update)|(?:edit|update).{0,22}(?:profile|career history)/.test(t))return 'profile';
     if(/(?:learning plan|improvement plan|action plan)/.test(t))return 'plan';
     if(/(?:learn this|explain the concept|teach me this)/.test(t)&&S.route==='practice')return 'lesson';
-    if(/^(?:continue|let's continue|go ahead|next)$/.test(t))return j.lastOptions.length===1?j.lastOptions[0][1]:'options';
+    if(/^(?:continue|let's continue|go ahead|next)$/.test(t))return j.history.length&&S.route==='resume'?'return':(j.lastOptions.length===1?j.lastOptions[0][1]:'options');
     // Resolve "first one" against the exact options shown by Pip, not a new AI
     // guess. If old unstructured dialogue is ambiguous, request a clear click.
     let index = /^(?:first one|first option|option one|1|1st|the first)$/.test(t)?0:
