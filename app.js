@@ -31,7 +31,8 @@ function hasCandidateSession(){
  return Boolean(S.profile?.name||S.profile?.resumeText||S.profile?.verified||
    S.career?.activeRole||S.career?.aspiration||S.chat?.length||
    S.attempt||S.attempts?.length||S.tasks?.length||
-   Object.keys(S.pipSkillConfidence||{}).length||
+   Object.keys(S.pipSkillConfidence||{}).length||S.pipIntake?.note||S.pipIntake?.owned?.length||
+   S.resume?.sections?.some(section=>section.items?.length)||
    S.resume?.proposals?.length||S.resume?.history?.length);
 }
 function confirmNewCandidate(){
