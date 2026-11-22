@@ -60,3 +60,33 @@ Don't count page views, chat turns or push opens in the North Star. Actual user 
 **Email body:** "Your APM plan has an unfinished prioritization exercise. Start from your last step or change your goal. [Resume plan] [Unsubscribe]"
 
 All messages above are proposed copy; only the in-product experience is currently implemented.
+
+## 7. What frameworks informed my decisions?
+
+I used five sources to structure the plan, not to assert growth that hasn't happened:
+
+| Source | What it contributes | My product decision |
+|---|---|---|
+| [Amplitude: North Star](https://www.amplitude.com/books/north-star/about-north-star-framework) | Choose a metric representing user value and actionable inputs. | Weekly meaningful actions with inputs for activation, assessment and follow-up. |
+| [Mixpanel: Retention](https://mixpanel.com/blog/what-is-retention-analysis/) | Use a meaningful return event and cohort comparisons. | Count return to another role-specific action, not simply returning to the site. |
+| [Braze: Frequency Capping](https://www.braze.com/docs/user_guide/messaging/messaging_fundamentals/frequency_capping) | Manage volume and fatigue per user/channel. | Optional email, once per rolling seven days, with completion and opt-out suppression. |
+| [Nielsen Norman Group: Chat UX](https://www.nngroup.com/articles/chat-ux/) | Preserve conversation context and user control. | Put suggestions in the chat stream, with one contextual next action. |
+| [Reforge: Experiment Management](https://www.reforge.com/blog/growth-experiment-management-system) | Define hypothesis, metric, and impact/confidence/ease before testing. | Prioritize measurable experiments instead of presenting hypothetical uplift. |
+
+### Proposed analytics events (not yet instrumented)
+
+| Event | Minimal non-sensitive fields | Use |
+|---|---|---|
+| `profile_confirmed` | pseudonymous session, source | Starting cohort |
+| `goal_selected` | role, source of selection | Discovery conversion |
+| `confidence_submitted` | role, number of skills | Optional calibration adoption |
+| `case_completed` | role, variant, assessable count, rating source | Activation and honest evaluation |
+| `learning_action_completed` | role, competency, action type | Meaningful progress |
+| `resume_proposal_approved` | role, approved flag | Valuable career output |
+| `meaningful_return` | role, elapsed time | D7 / W2 / D30 retention |
+| `reminder_preference_changed` | channel, opt-in state | Permission and suppression |
+
+The proposed W2 retention denominator is people who completed at least one qualifying action in their first week. The numerator is those who complete another qualifying action in week two. One action per user per week enters the North Star; the streak separately counts one learning day per calendar day.
+
+Before experiments, I would define eligibility, a randomization unit, measurement window, sample-size calculations and stop rules. This document contains hypotheses and example copy, **not measured retention or conversion results**.
+
