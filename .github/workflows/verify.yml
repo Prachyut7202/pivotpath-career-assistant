@@ -19,3 +19,36 @@ jobs:
         run: |
           for js in app.js pip-experience.js pip-journey.js pip-progress.js pip-insights.js pip-guide.js; do node --check "$js"; done
           node tests/test_candidate_isolation.js
+
+  browser_smoke:
+    name: Three-persona Chromium journey and resume upload
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install app and browser test requirements
+        run: |
+          python -m pip install -r requirements.txt
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Launch local demo-mode web app
+        run: |
+          uvicorn app:app --host 127.0.0.1 --port 8000 > /tmp/pivot_app.log 2>&1 &
+          for n in $(seq 1 30); do
+            if curl --fail -s http://127.0.0.1:8000/api/status > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/pivot_app.log
+          exit 1
+      - name: Real browser end-to-end checks
+        run: python tests/test_browser_e2e.py
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: pivotpath-browser-failure-screenshots
+          path: /tmp/pivotpath-browser-screenshots/
+          if-no-files-found: ignore
