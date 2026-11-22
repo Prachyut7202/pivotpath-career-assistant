@@ -85,6 +85,22 @@
       primary('Explore my career paths →','finish')+'<div class="pipInline">'+secondary('Edit my answers','back')+'</div>';
     return bubble('Let’s start with your career story.');
   }
+  // Previous steps stay visible as concise chat turns. Only the current
+  // question is actionable and the conversation scrolls to it.
+  function intakeHistory(){
+    const o=intake(),p=S.profile,at=stages.indexOf(o.step);
+    if(at<=0)return '';
+    const turns=[];
+    const source=o.method==='sample'?'a redacted sample career story':o.method==='resume'?'a resume upload':'a conversation';
+    turns.push({pip:'Let’s begin with your experience.',user:'I chose '+source+'.'});
+    if(at>=2&&o.method==='resume')turns.push({pip:'I’ll extract your resume details for review.',user:'I shared my resume.'});
+    if(at>=3)turns.push({pip:'We reviewed your career story.',user:'My role is '+(p.role||'not specified')+(p.employer?' at '+p.employer:'')+'.'});
+    if(at>=4)turns.push({pip:'Which parts of the work did you personally own?',user:o.owned?.length?o.owned.join(' · '):'I’m still figuring out which work I owned.'});
+    if(at>=5)turns.push({pip:'What career would you like to explore?',user:S.career.aspiration?roleName(S.career.aspiration):'I’d like to explore possible roles.'});
+    return '<div class="pipConversationHistory" aria-label="Previous conversation">'+turns.map(t=>
+      '<div class="pipHistoryTurn"><div class="pipHistoryPip"><span class="pipMiniAvatar">'+mascot+'</span><p>'+safe(t.pip)+'</p></div>'+
+      '<p class="pipHistoryUser">'+safe(t.user)+'</p></div>').join('')+'</div>';
+  }
   function renderWelcomeV5(){
     intake();
     document.getElementById('welcome').innerHTML='<div class="pipWelcome">'+
@@ -95,8 +111,10 @@
       '<div class="pipStoryLoop"><div><b>01</b> Understand your story</div><div><b>02</b> Explore your paths</div><div><b>03</b> Practice & learn</div><div><b>04</b> Revisit & grow ↺</div></div>'+
       '<p class="pipFootnote">Guided by Pip · AI-supported when available · You stay in control</p></div>'+
       '<section class="pipConversation" aria-label="Start your journey with Pip"><header class="pipConversationHeader"><span class="pipLargeAvatar">'+mascot+'</span><div><strong>Pip</strong><span>Your personal career guide</span></div><span class="pipOnline">● Here with you</span></header>'+
-      '<div class="pipConversationBody">'+progress(intake().step)+content()+'</div>'+
+      '<div class="pipConversationBody">'+progress(intake().step)+intakeHistory()+'<div class="pipCurrentTurn" id="pipCurrentTurn">'+content()+'</div></div>'+
       '<footer class="pipConversationFooter">'+consent()+'</footer></section></div>';
+    const body=document.querySelector('#welcome .pipConversationBody');
+    if(body){body.scrollTop=body.scrollHeight;}
   }
   function back(){
     const o=intake(),i=stages.indexOf(o.step);
