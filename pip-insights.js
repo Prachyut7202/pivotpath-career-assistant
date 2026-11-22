@@ -86,7 +86,7 @@ function insightsPanel(role){
   '<div class="pcEvidenceList">'+evidence.map((e,i)=>{
     const level=selection(role,e.code),p=confidenceOptions.find(x=>x.id===level),score=latestScore(role,e.code);
     const signal=calibrationSignal(level,score);
-    const source=e.state==='work'?'Experience described':e.work?.length?'Work keyword found':e.state==='resume'?'Resume claim':e.state==='self'?'Listed skill':'No work evidence yet';
+    const source=e.work?.length?'Work described':e.raw?.length?'Resume claim':e.claimed?.length?'Listed skill':'No work evidence yet';
     const q=(ROLES[role].questions_A||[]).find(x=>x.competency===e.code);
     const technical=/SQL|external practice/i.test(e.label);
     return '<details class="pcSkillDetail" '+(i===0?'open':'')+'><summary><div class="pcSkillTitle">'+esc(e.label)+'</div><div class="pcSkillFacts">'+
