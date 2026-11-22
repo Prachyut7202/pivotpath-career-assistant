@@ -53,3 +53,8 @@
 @media(max-width:980px){.pcCalibrationRow{grid-template-columns:1fr;gap:9px}.pcSkillDetail summary{grid-template-columns:1fr auto}.pcSkillFacts{grid-column:1/-1;grid-row:2}.pcSignal{grid-column:2;grid-row:1}}
 @media(max-width:580px){.pcAssessment,.pcEvidencePanel,.pcStreak{padding:17px 15px}.pcSectionHead{flex-wrap:wrap}.pcSectionHead h3,.pcStreak h3{font-size:18px}.pcCalibrationRow{padding:12px 10px}.pcConfidenceChoices button{padding:8px 3px;font-size:10px}.pcSkillDetail summary{padding:11px}.pcSkillFacts{grid-template-columns:1fr 1fr;gap:6px}.pcSkillFacts b{grid-column:1/-1}.pcStreakNumber strong{font-size:32px}.pcStreakTop{gap:8px}.pcWeeklyDots{gap:4px}.pcWeeklyDots b{width:27px;height:27px}}
 @media print{.pcAssessment,.pcEvidencePanel,.pcStreak,.pcPracticeNudge{display:none!important}}
+
+/* Persistent, non-intrusive progress badge in the product header. */
+.pcTopStreak{display:inline-flex;align-items:center;border:1px solid #e0e0fa;background:#f2f1ff;color:#5659b0;font-size:10px;font-weight:780;border-radius:18px;padding:7px 10px;white-space:nowrap}
+@media(max-width:850px){.pcTopStreak{font-size:9px;padding:6px 7px}}
+@media(max-width:600px){.pcTopStreak{display:none}}
