@@ -6,6 +6,7 @@ import os
 import re
 import json
 import httpx
+import logging
 from fastapi import HTTPException
 
 GROQ_KEY = os.getenv("GROQ_API_KEY", "").strip()
@@ -14,6 +15,7 @@ GEMINI_KEY = os.getenv("GEMINI_API_KEY", "").strip()
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash-lite")
 OPENAI_KEY = os.getenv("OPENAI_API_KEY", "").strip()
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4.1-mini")
+logger = logging.getLogger("pivotpath.providers")
 
 
 def configured_providers():
@@ -45,11 +47,20 @@ async def provider_request(client, provider, system, payload, max_tokens):
             json={"model": GROQ_MODEL,
                   "messages": [{"role": "system", "content": system},
                                {"role": "user", "content": prompt}],
-                  "temperature": 0.25, "response_format": {"type": "json_object"},
-                  "max_tokens": max_tokens})
+                  "temperature": 0.45,
+                  "response_format": {"type": "json_object"},
+                  # GPT-OSS uses reasoning tokens. A 650-token budget can run
+                  # out before the JSON reply starts; low effort + more room.
+                  "reasoning_effort": "low",
+                  "include_reasoning": False,
+                  "max_completion_tokens": max(1800, min(3800, max_tokens * 3))})
         if r.status_code >= 400:
-            raise RuntimeError("Groq returned HTTP " + str(r.status_code))
-        return parse_json_object(r.json()["choices"][0]["message"]["content"] or "")
+            raise RuntimeError("Groq HTTP " + str(r.status_code))
+        completion = r.json()["choices"][0]
+        content = completion.get("message", {}).get("content") or ""
+        if not content.strip():
+            raise ValueError("Groq returned empty output; finish_reason=" + str(completion.get("finish_reason","unknown")))
+        return parse_json_object(content)
     if provider == "gemini":
         r = await client.post(
             "https://generativelanguage.googleapis.com/v1beta/models/" + GEMINI_MODEL + ":generateContent",
@@ -88,14 +99,21 @@ async def route_json(system, payload, max_output_tokens=800, task="coach", allow
     if not eligible:
         raise HTTPException(503, "No eligible live AI provider. Configure GROQ_API_KEY or opt in to configured Gemini.")
     errors = []
-    async with httpx.AsyncClient(timeout=12) as client:
+    async with httpx.AsyncClient(timeout=20) as client:
         for provider in eligible:
             try:
                 out = await provider_request(client, provider, system, payload, max_output_tokens)
                 out["_provider"] = provider
                 return out
             except (httpx.HTTPError, RuntimeError, ValueError, KeyError, IndexError, TypeError) as err:
-                # A different configured provider may recover from 429, timeout,
-                # unsupported model or invalid structured output. Never expose keys.
-                errors.append(provider + " unavailable")
-    raise HTTPException(502, "AI providers unavailable. Your work is saved; please retry.")
+                # Diagnostics expose only provider, exception class and HTTP
+                # status, never prompts, responses, credentials, or raw bodies.
+                message = str(err)
+                status = re.search(r"HTTP\\s+(\\d{3})", message)
+                code = ("HTTP " + status.group(1)) if status else (
+                    "timeout" if isinstance(err, httpx.TimeoutException) else
+                    "invalid response" if isinstance(err, (ValueError, KeyError, IndexError, TypeError)) else
+                    "network error")
+                errors.append(provider + ": " + code)
+                logger.warning("PivotPath AI request failed: provider=%s, reason=%s", provider, code)
+    raise HTTPException(502, "AI service unavailable (" + "; ".join(errors) + "). Your work is saved; try again.")
