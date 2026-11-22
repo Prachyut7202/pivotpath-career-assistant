@@ -141,3 +141,22 @@
 .pipHero,.pipConversation{min-width:0}
 @media(min-width:1051px){.pipHero{padding-left:clamp(38px,7vw,118px);padding-right:clamp(30px,6vw,100px)}.pipConversation{width:min(700px,calc(100% - 72px));margin-left:auto;margin-right:auto;box-sizing:border-box}}
 @media(max-width:1050px){.pipWelcome{width:100%;max-width:none}}
+
+/* V5.11 — Pip onboarding is a conversation timeline, never a pinned form. */
+@media(min-width:1051px){
+  .pipConversation{height:min(790px,calc(100dvh - 70px));min-height:480px;max-height:calc(100dvh - 42px)}
+}
+.pipConversation{min-height:0}
+.pipConversationBody{min-height:0;max-height:none!important;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+.pipConversationHeader,.pipConversationFooter{flex-shrink:0}
+.pipConversationHistory{display:flex;flex-direction:column;gap:18px;margin:0 0 24px}
+.pipHistoryTurn{display:flex;flex-direction:column;gap:8px}
+.pipHistoryPip{display:flex;align-items:flex-start;gap:10px;max-width:88%}
+.pipHistoryPip .pipMiniAvatar{height:28px;width:28px;border-radius:10px;background:#eeecff;flex:none}
+.pipHistoryPip p{font-size:12px;line-height:1.55;background:#f0f1fc;color:#526083;border-radius:5px 13px 13px 13px;padding:11px 14px;margin:0}
+.pipHistoryUser{font-size:12px;line-height:1.55;align-self:flex-end;max-width:85%;padding:10px 13px;background:#6562ca;color:white;border-radius:13px 5px 13px 13px;margin:0}
+.pipCurrentTurn{scroll-margin-top:12px;animation:pipCurrentEnter .18s ease-out;min-width:0}
+@keyframes pipCurrentEnter{from{opacity:.55;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:1050px){.pipConversation{height:min(760px,calc(100dvh - 55px));min-height:460px;max-height:85dvh}}
+@media(max-width:680px){.pipConversation{height:min(710px,calc(100dvh - 130px));max-height:none;min-height:390px}.pipConversationBody{overflow-y:auto;max-height:none!important;min-height:0}.pipHistoryPip{max-width:97%}.pipHistoryUser{max-width:92%}}
+@media(prefers-reduced-motion:reduce){.pipCurrentTurn{animation:none}}
