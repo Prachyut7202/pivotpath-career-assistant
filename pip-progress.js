@@ -65,6 +65,7 @@ function overallMarkup(s){
   '<div class="ppBar" role="img" aria-label="'+(has?'Average '+avg+' out of 5':'No assessment rating yet')+'"><i style="width:'+width+'%"></i></div>'+
   '<div class="ppProgressMeta"><span><b>'+s.count+'</b> rated question'+(s.count===1?'':'s')+'</span><span><b>'+s.completed+'</b> completed case'+(s.completed===1?'':'s')+'</span><span><b>'+esc(arrow(s.delta))+'</b> trend</span></div>'+
   '<div class="ppProgressAdvice"><strong>'+esc(s.title)+'</strong><p>'+esc(s.step)+'.</p></div>'+
+  '<div class="ppMilestone"><strong>When should I try a harder mock interview?</strong><p>Suggested progression checkpoint: complete <b>two different cases</b> with at least <b>8 rated answers</b>, an overall practice average of <b>3.5/5 or higher</b>, and no answer below <b>3/5 in the latest case</b>. This is a learning suggestion, not a job-readiness verdict; you can try harder practice or apply whenever you choose.</p></div>'+
   (blocks?'<details class="ppCaseDetails"><summary>See scores for each completed case</summary><div>'+blocks+'</div></details>':'')+
   '<div class="ppPracticeControls"><button type="button" data-pp-action="warmup">Try a 3-minute warm-up</button>'+
   '<button type="button" data-pp-action="insights">See my full progress</button></div>'+
