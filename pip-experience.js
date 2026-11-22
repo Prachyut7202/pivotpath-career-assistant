@@ -198,7 +198,7 @@
     const top=document.querySelector('.topbar .topright');
     if(top&&!top.querySelector('[data-pip-action="toggle-guide"]'))top.insertAdjacentHTML('afterbegin','<button class="pipTopGuide" data-pip-action="toggle-guide" type="button">Talk with Pip</button>');
     const nav=document.querySelector('.sidebarFoot');
-    if(nav&&!nav.querySelector('[data-pip-action="restart"]'))nav.insertAdjacentHTML('beforeend','<button class="pipRestart" data-pip-action="restart" type="button">↺ Restart guided journey</button>');
+    if(nav&&!nav.querySelector('[data-pip-action="restart"]'))nav.insertAdjacentHTML('beforeend','<button class="pipRestart" data-pip-action="restart" type="button">↺ Start a new person’s journey</button>');
   }
   let lessonOpen=false;
   function openLesson(){
@@ -218,7 +218,7 @@
   window.PipStartLesson=()=>openLesson();
     function action(target){
     if(target==='toggle-guide'||target==='talk'){S.coachOpen=!S.coachOpen;save();renderCoach();dock();if(!S.coachOpen&&target==='talk'){S.coachOpen=true;renderCoach();dock();}return;}
-    if(target==='restart'){S.pipIntake={step:'hello',method:null,filename:'',owned:[],note:'',done:false};S.stage='welcome';S.coachOpen=false;save();render();return;}
+    if(target==='restart'){if(!confirmNewCandidate())return;freshCandidateSession();render();notify('New person, new journey. Previous chat and evidence are cleared.');return;}
     if(target==='lesson'){openLesson();return;}
     if(target==='focus-answer'){document.getElementById('caseAnswer')?.focus();return;}
     if(target==='hint'){sendCoach('Please give me a hint for the current case question, without answering it.');S.coachOpen=true;renderCoach();dock();return;}
@@ -233,18 +233,16 @@
   document.addEventListener('click',function(e){
     const b=e.target.closest('[data-pip-action]');if(!b)return;
     const a=b.dataset.pipAction,o=intake();e.preventDefault();
-    if(a==='upload'){o.step='upload';o.method='resume';save();render();}
-    else if(a==='manual'){o.step='review';o.method='manual';save();render();}
+    if(a==='upload'){if(!confirmNewCandidate())return;freshCandidateSession();const fresh=intake();fresh.step='upload';fresh.method='resume';save();render();}
+    else if(a==='manual'){if(!confirmNewCandidate())return;freshCandidateSession();const fresh=intake();fresh.step='review';fresh.method='manual';save();render();}
     else if(a==='back')back();
     else if(a==='sample'){
       const id=b.dataset.persona;
       const story=window.PIVOTPATH_SAMPLES?.[id];
       if(!story){notify('Sample story is unavailable. Please try a resume upload.','bad');return;}
-      const hasHistory=Boolean(S.profile?.name||S.profile?.resumeText||S.profile?.verified||S.attempts?.length);
-      if(hasHistory&&!confirm('Open a different sample career story? This replaces the currently saved career session in this browser. Export your existing data first if needed.'))return;
-      // A new sample is a completely new candidate. Never merge with the
-      // previous visitor's evidence, resume, chat or practice history.
-      S=seedState();
+      if(!confirmNewCandidate())return;
+      // New sample, new candidate: no chats, cases, skills, resume or guide history.
+      freshCandidateSession();
       const profile=JSON.parse(JSON.stringify(story.profile));
       const sections=JSON.parse(JSON.stringify(story.sections));
       const excerpt=Object.entries(sections).map(([key,items])=>
@@ -302,7 +300,7 @@
     // The parser reports success explicitly. Do not compare resume strings:
     // uploading the same PDF again is valid and must continue to review.
     const ok=await handleResumeFile(f,{newProfile:true});
-    if(ok){o.step='review';o.filename=f.name;save();render();}
+    if(ok){const current=intake();current.step='review';current.filename=f.name;save();render();}
     // handleResumeFile already displays a specific error when parsing fails.
   });
   document.addEventListener('submit',function(e){
