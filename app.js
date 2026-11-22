@@ -20,6 +20,8 @@ const seedState=()=>({version:4.1,stage:'welcome',route:'discovery',profile:{nam
 let S;
 try{S=JSON.parse(localStorage.getItem('pivotpath_v4_state')||'null');if(!S||S.version!==4.1)S=seedState()}catch(e){S=seedState()}
 let server={ai:'demo',resume_parser:'unavailable',pdf_export:'unavailable'};
+// An API key being present does not prove the upstream provider can answer.
+let pipLiveReplyReceived=false, pipLiveRequestFailed=false, pipActiveProvider='';
 let modal=null, toastTimer=null, busy=false, warnedStorage=false, draftSaveTimer=null;
 const save=()=>{try{localStorage.setItem('pivotpath_v4_state',JSON.stringify(S))}catch(e){if(!warnedStorage){warnedStorage=true;notify('Browser storage is restricted here. Export career data in Profile to keep a backup.','bad')}}};
 const notify=(message,type='')=>{const t=document.getElementById('toast');t.textContent=message;t.className='toast';if(type)t.classList.add(type);clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.add('hidden'),4200)};
@@ -28,7 +30,19 @@ const roleName=id=>(ROLES[id]||{}).name||'Not selected';
 const actionBtn=(name,text,extra='',style='btn soft small')=>`<button class="${style}" data-action="${esc(name)}" ${extra}>${text}</button>`;
 function api(path,opts={}){return fetch(path,opts).then(async r=>{let obj=await r.json().catch(()=>({}));if(!r.ok)throw Error(obj.detail||'Request failed ('+r.status+')');return obj})}
 async function checkServer(){try{let j=await api('/api/status');if(j.ai)server=j}catch(e){}updateMode()}
-function updateMode(){const p=document.getElementById('modePill');if(p){p.textContent=server.ai==='live'?'✦ Live AI connected':'◇ Guided demo · AI not connected';p.className='pill '+(server.ai==='live'?'green':'amber')}const el=document.getElementById('coachModeLabel');if(el)el.textContent=server.ai==='live'?'Live AI coach':'Contextual demo guide · not live AI'}
+function updateMode(){
+ const active=server.ai==='live';
+ const status=!active?'◇ Guided demo · AI not connected':
+   pipLiveRequestFailed?'◇ AI temporarily unavailable · guided mode':
+   pipLiveReplyReceived?'✦ Live AI responding':'◇ AI key configured · checking';
+ const p=document.getElementById('modePill');
+ if(p){p.textContent=status;p.className='pill '+(active&&pipLiveReplyReceived&&!pipLiveRequestFailed?'green':'amber')}
+ const el=document.getElementById('coachModeLabel');
+ if(el)el.textContent=!active?'Contextual demo guide · not live AI':
+   pipLiveRequestFailed?'Guided fallback · live AI unavailable':
+   pipLiveReplyReceived?'Live AI coach'+(pipActiveProvider?' · '+pipActiveProvider:''):
+   'AI configured · response not yet verified';
+}
 function screenTitle(){return ({discovery:'Career discovery',readiness:'Readiness map',practice:'Practice & improve',resume:'Living resume',profile:'Career profile & settings'})[S.route]||'Your career journey'}
 function setRoute(route){if(!['discovery','readiness','practice','resume','profile'].includes(route))return;if(S.stage==='welcome'){S.stage='profile'}S.route=route;save();render();window.scrollTo({top:0,behavior:'instant'})}
 function roleSources(id){return (ROLES[id]?.sources||[]).filter(x=>x.url)}
@@ -203,14 +217,23 @@ async function sendCoach(text){
    evaluations:a.evaluations.map(e=>({competency:e.competency,rating:e.rating,source:e.source}))}));
  }
  try{
-  if(server.ai==='live')result=await api('/api/coach',{method:'POST',
-   headers:{'Content-Type':'application/json'},
-   body:JSON.stringify({message:text,context,thread:previousThread,
-      conversation_goal:S.coachGoal,allow_gemini:true})});
-  else result=demoPipReply(text);
+  if(server.ai==='live'){
+   result=await api('/api/coach',{method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({message:text,context,thread:previousThread,
+       conversation_goal:S.coachGoal,allow_gemini:true})});
+   if(result.provider&&result.provider!=='conversation_history'){
+    pipLiveReplyReceived=true;pipLiveRequestFailed=false;pipActiveProvider=result.provider;
+   }
+  }else result=demoPipReply(text);
  }catch(e){
+  pipLiveRequestFailed=true;
   result=demoPipReply(text);
-  result.reply='My live model is temporarily unavailable, so here is guided demo advice (not an AI-generated answer): '+result.reply;
+  const detail=String(e?.message||'provider unavailable').slice(0,180);
+  if(S.coachGoal==='career_exploration')
+   result.reply='My AI service could not respond ('+detail+'). Your last message is saved. In this guided fallback: which part of that project did you personally own, and how did you measure the result? [Scripted question, not live AI]';
+  else
+   result.reply='My AI service could not respond ('+detail+'). Here is scripted guidance instead: '+result.reply;
  }
  if(result.follow_up_question&&!String(result.reply||'').includes(result.follow_up_question))
   result.reply=(result.reply||'')+'\n\n'+result.follow_up_question;
