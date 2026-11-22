@@ -83,7 +83,7 @@ class FrontendStructureTests(unittest.TestCase):
         self.assertIn("const actions=isGuide",app)
         self.assertIn("function ensureFlow()",journey)
         self.assertIn("pipFlow:true",journey)
-        self.assertIn("actions:content.actions",journey)
+        self.assertIn("actions:info.actions",journey)
         self.assertIn("if(quick)quick.innerHTML=''",journey)
         self.assertNotIn("messages.appendChild(card)",practice)
         self.assertNotIn("m.insertBefore(el,m.firstChild)",experience)
