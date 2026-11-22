@@ -170,6 +170,13 @@ async def parse_resume(request: Request):
               'EDUCATIONAL QUALIFICATIONS','INTERNSHIPS','EXPERIENCE',
               'CONTACT','LINKEDIN','SKILLS','PROJECTS'}
         for raw in rows[:8]:
+            # Once a real resume section begins, any following two-word phrase
+            # is more likely a skill or position than the candidate's name.
+            section_head=raw.strip().upper().rstrip(':')
+            if section_head in {'RESUME','CURRICULUM VITAE','PROFILE'}: continue
+            if section_head in {'SKILLS','TECHNICAL SKILLS','EXPERIENCE','WORK EXPERIENCE',
+                                'EDUCATION','EDUCATIONAL QUALIFICATIONS & ACHIEVEMENTS',
+                                'INTERNSHIPS','PROJECTS','POSITIONS OF RESPONSIBILITY'}: break
             # Multiple spaces frequently separate name/contact columns.
             head=re.split(r'\s{3,}|\s*\|\s*|[\w.+-]+@[\w.-]+\.\w+|(?:\+91[- ]?)?\d{10}\b',raw,maxsplit=1)[0]
             head=re.sub(r'^(?:name\s*:\s*)','',head.strip(),flags=re.I).strip(' -:,')
