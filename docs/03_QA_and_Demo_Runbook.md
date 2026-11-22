@@ -59,3 +59,10 @@ Sample resume → user-confirmed profile → aspiration and role shortlist → c
 - In Profile, a new file starts a fresh candidate workspace by default. The explicit **same person** checkbox is the only upload route that retains existing history.
 - Cancel a reset confirmation and verify the prior profile remains unchanged.
 - Start an AI response, switch to a new person before the response returns, and verify that no late response or assessment is added to the new person's chat.
+
+## Executed automated Chromium validation
+
+The GitHub Actions browser job completed **four independent local-server tests in demo assessment mode**: (1) Research Analyst → Product Analyst, (2) Siya consulting-track → APM, (3) Business Analyst → Product Operations, and (4) a synthetic PDF resume with name/contact on one header line. The three personas each completed onboarding, six confidence selections, all five case questions, contextual Pip guidance and clean new-candidate restart. Python parser tests, JavaScript syntax tests and candidate-isolation tests passed.
+
+**Boundaries of this evidence:** The automated job does not validate live AI grader consistency, unusual scanned or multi-column resumes, measured D7/D30 retention, outbound messaging, all browser engines, or human usability. A passing demo test is not a guarantee of production readiness; these remain explicit next validation tasks.
+
