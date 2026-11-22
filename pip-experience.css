@@ -1,0 +1,106 @@
+/* PivotPath V5 — Pip-led onboarding and continuous guidance */
+.welcome{min-height:100vh;padding:0!important;background:#f8f9ff}
+.pipWelcome{min-height:100vh;display:grid;grid-template-columns:minmax(350px,.92fr) minmax(500px,1.08fr);max-width:1500px;margin:auto}
+.pipHero{position:relative;overflow:hidden;background:linear-gradient(152deg,#202c67 4%,#343e91 58%,#6753b6 100%);padding:46px clamp(26px,5vw,75px);color:#fff;display:flex;flex-direction:column;justify-content:center}
+.pipHero::before{content:"";position:absolute;width:430px;height:430px;border:1px solid rgba(255,255,255,.11);border-radius:50%;right:-200px;top:-160px;box-shadow:0 0 0 70px rgba(255,255,255,.025),0 0 0 140px rgba(255,255,255,.028);pointer-events:none}
+.pipHeroBrand{position:absolute;top:43px;left:clamp(26px,5vw,75px);font-weight:800;font-size:23px;letter-spacing:-1px}
+.pipHeroBrand span:last-child{color:#bab7ff}.pipMark{display:inline-grid;place-items:center;width:39px;height:39px;background:#8173eb;border-radius:13px;margin-right:8px;color:#fff}
+.pipEyebrow{font-size:12px;letter-spacing:2.2px;font-weight:800;color:#c7c7ff;margin-top:100px}
+.pipHero h1{font-size:clamp(38px,4.6vw,66px);line-height:1.08;letter-spacing:-.045em;font-weight:790;margin:19px 0 20px}
+.pipHero h1 em{font-style:normal;color:#c3c4ff}
+.pipHeroDesc{font-size:17px;line-height:1.7;max-width:480px;color:#e2e5fa}
+.pipStoryLoop{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:42px;max-width:490px}
+.pipStoryLoop>div{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.075);backdrop-filter:blur(5px);border-radius:13px;padding:16px;color:#f4f5ff;font-size:13px;font-weight:640}
+.pipStoryLoop b{display:block;margin-bottom:6px;font-size:11px;letter-spacing:1.2px;color:#bfc5ff}
+.pipFootnote{margin-top:auto;padding-top:80px;font-size:12px;color:#c7cdee}
+.pipConversation{display:flex;flex-direction:column;align-self:center;min-height:min(700px,90vh);margin:48px clamp(22px,4vw,64px);background:#fff;border:1px solid #e3e7f3;border-radius:26px;box-shadow:0 25px 85px rgba(33,45,91,.11);overflow:hidden}
+.pipConversationHeader{display:flex;align-items:center;gap:13px;padding:21px 25px;border-bottom:1px solid #eef0f6;background:#fbfcff}
+.pipLargeAvatar{display:inline-grid;place-items:center;width:54px;height:54px;border-radius:18px;background:#ebebff;flex:none}
+.pipLargeAvatar .mascotSvg{width:48px;height:48px}
+.pipConversationHeader>div{display:flex;flex-direction:column;gap:2px}
+.pipConversationHeader>div strong{font-size:19px}
+.pipConversationHeader>div span{color:#74819b;font-size:12px}
+.pipOnline{margin-left:auto;border-radius:20px;background:#eaf8f3;color:#16876a;font-size:11px;font-weight:750;padding:6px 9px;white-space:nowrap}
+.pipConversationBody{flex:1;padding:24px clamp(20px,3vw,33px);overflow-y:auto;max-height:70vh}
+.pipProgress{display:flex;justify-content:space-between;color:#7b88a0;letter-spacing:1.2px;font-weight:800;font-size:10px}
+.pipProgressBar{display:flex;gap:6px;margin:10px 0 25px}
+.pipProgressBar i{flex:1;height:4px;border-radius:8px;background:#ecedf5}
+.pipProgressBar i.on{background:#806de3}
+.pipBubble{display:flex;gap:11px;align-items:flex-start;margin-bottom:22px}
+.pipMiniAvatar{width:36px;height:36px;border-radius:13px;background:#eeeaff;flex:none;padding:2px}
+.pipMiniAvatar .mascotSvg{width:100%;height:100%}
+.pipBubbleText{border-radius:5px 19px 19px 19px;background:#f1f3fc;padding:18px 19px;color:#26345b;font-size:15px;line-height:1.66;max-width:520px}
+.pipBubbleText strong{font-weight:790}
+.pipChoices{display:grid;gap:11px;padding-left:45px}
+.pipPrimary,.pipSecondary{border:1px solid #6572d8;padding:13px 17px;border-radius:12px;font-weight:750;cursor:pointer;line-height:1.35;font-size:13px;transition:background .16s,transform .16s,border-color .16s}
+.pipPrimary{background:#5e62d1;color:#fff;box-shadow:0 8px 18px rgba(90,99,206,.15)}
+.pipPrimary:hover{background:#4d55be;transform:translateY(-1px)}
+.pipSecondary{background:#fff;color:#4f5eab;border-color:#dde2f1}
+.pipSecondary:hover{background:#f4f6ff;border-color:#b6c0e7}
+.pipSampleHead{color:#8591a7;font-size:11px;letter-spacing:.6px;text-transform:uppercase;font-weight:720;margin:27px 0 11px 45px}
+.pipSamples{display:flex;flex-wrap:wrap;gap:8px;margin-left:45px}
+.pipSamples button,.pipOwnership button{cursor:pointer;border:1px solid #dfe4f1;border-radius:20px;background:#fbfcff;padding:9px 13px;color:#57647e;font-size:12px;font-weight:650}
+.pipSamples button:hover,.pipOwnership button:hover{background:#f0f2ff;border-color:#9ea9e2}
+.pipConversationFooter{background:#fbfcff;border-top:1px solid #edf0f7;padding:15px 25px}
+.pipConsent{font-size:11px;color:#818da2;line-height:1.55}
+.pipDrop{display:flex;flex-direction:column;align-items:center;gap:7px;padding:27px;border:2px dashed #bdc3ed;border-radius:17px;background:#fafaff;color:#4653a6;cursor:pointer;margin:4px 0 22px;text-align:center}
+.pipDrop:hover{border-color:#737be2;background:#f3f5ff}
+.pipDropIcon{font-size:32px;background:#e8ebff;border-radius:13px;height:55px;width:55px;display:grid;place-items:center}
+.pipDrop span:not(.pipDropIcon){font-size:12px;color:#8994af}
+.pipDrop input{margin-top:9px;width:100%;max-width:300px;font-size:12px;color:#55627b}
+.pipInline{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:16px}
+.pipInline .pipPrimary,.pipInline .pipSecondary{padding:10px 15px}
+.pipMiniForm{display:flex;flex-direction:column;gap:17px;padding-left:45px}
+.pipMiniForm label,.pipTextLabel{display:flex;flex-direction:column;gap:7px;font-size:12px;font-weight:730;color:#5c6a89}
+.pipMiniForm input,.pipMiniForm select,.pipMiniForm textarea,.pipTextLabel textarea{padding:12px 13px;background:#fff;border:1px solid #dce2f0;border-radius:11px;min-width:0;color:#1e294a;font-size:13px;outline:none}
+.pipMiniForm input:focus,.pipMiniForm select:focus,.pipMiniForm textarea:focus,.pipTextLabel textarea:focus{border-color:#797adf;box-shadow:0 0 0 3px #eeeefe}
+.pipMiniForm textarea,.pipTextLabel textarea{resize:vertical}
+.pipFormGrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.pipExtract{border:1px solid #e0e5f2;border-radius:13px;padding:13px 15px;background:#fafbff;margin:0 0 19px 45px;display:flex;flex-direction:column;gap:6px}
+.pipExtract strong{font-size:11px;color:#485bc0}
+.pipExtract span{font-size:12px;color:#68768c;line-height:1.5}
+.pipOwnership{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 19px 45px}
+.pipOwnership button.selected{background:#e6e8ff;color:#4550b3;border-color:#8f98ed}
+.pipTextLabel{margin-left:45px}
+.pipSummary{border:1px solid #e3e6f4;border-radius:15px;margin:0 0 20px 45px;overflow:hidden}
+.pipSummary>div{display:flex;flex-direction:column;gap:5px;padding:12px 15px;border-bottom:1px solid #eceef5}
+.pipSummary>div:last-child{border:0}
+.pipSummary span{font-size:10px;color:#7d8ba5;font-weight:780;letter-spacing:.7px}
+.pipSummary strong{font-size:13px;color:#243352}
+.pipConversationBody>.pipPrimary{margin-left:45px}
+.pipConversationBody>.pipInline{margin-left:45px}
+.pipJourneyGuide{display:flex;align-items:center;justify-content:space-between;gap:20px;border:1px solid #e0e3f3;background:linear-gradient(115deg,#f0f1ff,#fafbff 72%);padding:16px 19px;border-radius:17px;margin-bottom:25px}
+.pipJourneyMark{display:flex;align-items:center;gap:13px;min-width:0}
+.pipJourneyMark>span{display:grid;place-items:center;width:50px;height:50px;background:#e2e4ff;border-radius:15px;flex:none}
+.pipJourneyMark>span .mascotSvg{width:44px;height:44px}
+.pipJourneyMark>div>span{display:block;color:#6b67bc;font-size:10px;letter-spacing:1.15px;font-weight:810;margin-bottom:4px}
+.pipJourneyGuide h3{font-size:14px;line-height:1.35;letter-spacing:-.01em;margin-bottom:4px}
+.pipJourneyGuide p{color:#697590;font-size:12px;line-height:1.5;max-width:540px}
+.pipJourneyActions{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;flex:none;max-width:270px}
+.pipJourneyActions button{padding:10px 12px;font-size:11px}
+.pipTopGuide{cursor:pointer;border:1px solid #dde2fb;background:#f3f4ff;color:#5357b7;border-radius:12px;padding:10px;font-size:12px;font-weight:760;white-space:nowrap}
+.pipRestart{background:none;border:0;color:#64718d;font-size:12px;cursor:pointer;text-align:left;padding:8px 12px}
+.pipRestart:hover{text-decoration:underline}
+.pipGuideDocked .coachPanel{position:fixed;top:82px;right:12px;bottom:16px;max-height:calc(100vh - 100px);height:auto;width:355px;border-radius:20px}
+.pipGuideDocked .shellBody .main{margin-right:367px;transition:margin-right .2s ease}
+.pipGuideDocked .coachFloat{display:none}
+.pipLessonOverlay{position:fixed;inset:0;z-index:100;background:rgba(20,25,62,.48);display:flex;align-items:center;justify-content:center;padding:20px}
+.pipLessonCard{background:#fff;width:100%;max-width:660px;max-height:92vh;overflow:auto;border-radius:23px;box-shadow:0 32px 100px rgba(14,20,50,.3)}
+.pipLessonCard header{padding:23px 24px;display:flex;align-items:center;gap:13px;background:#f4f3ff;border-bottom:1px solid #e6e8f6}
+.pipLessonCard header small{font-size:10px;letter-spacing:1.3px;color:#6762b2;font-weight:820}
+.pipLessonCard header h2{font-size:21px;margin-top:5px}
+.pipLessonAvatar{width:46px;height:46px;flex:none}
+.pipLessonAvatar .mascotSvg{width:100%;height:100%}
+.pipLessonCard header button{margin-left:auto;cursor:pointer;border:1px solid #dfe3ee;border-radius:10px;width:33px;height:33px;background:#fff}
+.pipLessonBody{padding:24px;display:flex;flex-direction:column;gap:9px}
+.pipLessonBody h3{font-size:13px;margin-top:12px;color:#353f85}
+.pipLessonBody p{font-size:14px;color:#53607a;line-height:1.7}
+.pipLessonOptions{display:flex;flex-direction:column;gap:7px;margin-top:5px}
+.pipLessonOptions button{cursor:pointer;background:#f7f8fc;border:1px solid #dce1ee;padding:12px;text-align:left;border-radius:11px;color:#35405e}
+.pipLessonOptions button.pipAnswerCorrect{background:#e7f6f0;border-color:#75c2a1;color:#176e51}
+#pipLessonFeedback{min-height:22px;color:#4554ac;font-size:13px;font-weight:690}
+.pipLessonCard footer{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:8px;padding:17px 24px;background:#fafbff;border-top:1px solid #e6e9f4}
+@media(max-width:1360px){.pipGuideDocked .shellBody .main{margin-right:330px}.pipGuideDocked .coachPanel{width:320px}.pipJourneyGuide{flex-direction:column;align-items:stretch}.pipJourneyActions{justify-content:flex-start;max-width:none}}
+@media(max-width:1050px){.pipWelcome{grid-template-columns:1fr}.pipHero{min-height:380px;padding-top:110px;padding-bottom:45px}.pipHero h1{font-size:44px}.pipEyebrow{margin-top:0}.pipFootnote{padding-top:40px}.pipConversation{width:min(670px,calc(100% - 32px));margin:24px auto 42px;min-height:0}.pipGuideDocked .shellBody .main{margin-right:0}.pipGuideDocked .coachPanel{position:fixed;right:14px;bottom:90px;top:auto;width:390px;max-height:78vh;height:auto}}
+@media(max-width:680px){.pipWelcome{display:block}.pipHero{min-height:280px;padding:83px 23px 32px}.pipHeroBrand{left:23px;top:22px;font-size:19px}.pipMark{height:31px;width:31px;border-radius:10px}.pipHero h1{font-size:34px;margin:12px 0 12px}.pipHeroDesc{font-size:13px;line-height:1.5}.pipStoryLoop,.pipFootnote{display:none}.pipConversation{margin:0;width:100%;border:0;border-radius:20px 20px 0 0;box-shadow:none;transform:translateY(-12px)}.pipConversationHeader{padding:17px}.pipConversationBody{padding:17px;max-height:none;overflow:visible}.pipBubble{gap:7px}.pipMiniAvatar{width:28px;height:28px;border-radius:10px}.pipBubbleText{font-size:14px;padding:14px}.pipChoices,.pipMiniForm{padding-left:0}.pipSampleHead,.pipSamples,.pipOwnership,.pipTextLabel,.pipExtract,.pipSummary,.pipConversationBody>.pipPrimary,.pipConversationBody>.pipInline{margin-left:0}.pipFormGrid{grid-template-columns:1fr}.pipConversationFooter{padding:13px 16px}.pipOnline{font-size:10px}.pipJourneyGuide{padding:13px;gap:13px;margin-bottom:19px}.pipJourneyMark>span{width:39px;height:39px}.pipJourneyMark>span .mascotSvg{width:35px;height:35px}.pipJourneyActions button{padding:9px 10px}.pipTopGuide{display:none}.pipGuideDocked .coachPanel{left:0;right:0;top:auto;bottom:65px;width:100%;max-height:79dvh;border-radius:18px 18px 0 0}.pipLessonOverlay{align-items:flex-end;padding:0}.pipLessonCard{border-radius:20px 20px 0 0;max-height:92vh}.pipLessonCard header{padding:16px}.pipLessonBody{padding:17px}.pipLessonCard footer{padding:14px}}
+@media print{.pipJourneyGuide,.pipLessonOverlay,.pipTopGuide{display:none!important}}
