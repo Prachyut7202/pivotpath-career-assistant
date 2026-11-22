@@ -6,7 +6,12 @@
 const score=(v)=>Number.isFinite(Number(v))&&Number(v)>=1&&Number(v)<=5?Number(v):null;
 const nice=n=>Number(n).toFixed(1);
 function summary(role){
- const cases=(S.attempts||[]).filter(a=>a&&a.role===role&&a.completedAt&&Array.isArray(a.evaluations));
+ const unique=new Map();
+ for(const a of S.attempts||[]){
+   if(!a||a.role!==role||!a.completedAt||!Array.isArray(a.evaluations))continue;
+   unique.set(a.id||a.caseId+'-'+a.completedAt,a);
+ }
+ const cases=[...unique.values()];
  let total=0,count=0,all=[],per={},last=[],demo=false,live=false;
  for(const a of cases){
   let csum=0,cn=0,cv=[];
@@ -124,7 +129,10 @@ window.PipOpenWarmup=openWarmup;
 window.PipProgressSummary=summary;
 const baseReadiness=renderReadiness;
 renderReadiness=function(){
- const html=baseReadiness();if(!S.career.activeRole)return html;
+ let html=baseReadiness();if(!S.career.activeRole)return html;
+ html=html.replace(/case gaps observed/g,'practice areas to develop')
+   .replace(/<b>Weaknesses<\/b>/g,'<b>Practice focus</b>')
+   .replace(/Practice gap/g,'Practice focus');
  const s=summary(S.career.activeRole),section=overallMarkup(s)+progressDetails(s);
  return html.replace('<div class="grid2" style="grid-template-columns:',section+'<div class="grid2" style="grid-template-columns:');
 };
