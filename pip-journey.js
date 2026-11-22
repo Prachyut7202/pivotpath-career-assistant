@@ -214,20 +214,19 @@
     save();return {current,options};
   }
   function showOptions(origin='coach'){
-    // Keep next-step controls at the place of interaction. Clicking the
-    // in-page ribbon must not silently update a closed side panel.
-    const j=state();
-    const {options}=currentOptions();
-    if(origin==='ribbon')j.ribbonExpanded=!j.ribbonExpanded;
-    else j.optionsExpanded=!j.optionsExpanded;
-    j.lastOptions=options;
-    save();renderCoach();renderRibbon();
+    const j=state(),{current,options}=currentOptions();
+    if(origin==='ribbon'){j.ribbonExpanded=!j.ribbonExpanded;save();renderRibbon();return;}
+    S.pipFlowScene=flowScene();
+    S.chat.push({who:'pip',text:'Here is what I would do next: '+current.desc,
+      pipFlow:true,actions:options});
+    if(S.chat.length>100)S.chat=S.chat.slice(-100);
+    save();renderCoach();
   }
   async function orchestratedSend(text){
     text=String(text||'').trim();if(!text)return;
     const intent=infer(text);
     if(intent!==null){
-      if(intent==='options'){showOptions();return;}
+      if(intent==='options'){S.chat.push({who:'user',text:text.slice(0,600)});showOptions();return;}
       S.chat.push({who:'user',text:text.slice(0,600)});
       if(S.chat.length>90)S.chat=S.chat.slice(-90);
       save();
@@ -266,7 +265,7 @@
     for(const msg of S.chat){
       const legacy=msg?.who==='pip'&&msg.pipJourney===true&&
         /^Your long-term goal is .+Choose one action below;/i.test(String(msg.text||''));
-      if(legacy){
+      if(legacy||msg?.pipGuide===true){
         const prev=cleaned.at(-1);
         if(prev?.who==='user'&&/^(?:Help me choose my next action\.|What should I do next\??|what next\??)$/i.test(String(prev.text||'').trim()))cleaned.pop();
         changed=true;continue;
@@ -275,27 +274,62 @@
     }
     if(changed){S.chat=cleaned;save();}
   }
+  function flowScene(){
+    const role=S.career?.activeRole||'',route=S.route||'discovery';
+    if(route==='readiness'&&role){
+      const skills=ROLES[role]?.competencies||[],selected=S.pipSkillConfidence?.[role]||{};
+      return 'readiness:'+role+':'+(skills.length&&skills.every(([code])=>Boolean(selected[code]?.level))?'rated':'unrated');
+    }
+    if(route==='practice'&&S.attempt?.role===role){
+      const a=S.attempt;
+      return 'practice:'+role+':'+(a.id||'case')+':'+a.index+':'+a.status+':'+(S.practiceView||'case');
+    }
+    return route+':'+role+':'+(S.discoveryStep||0)+':'+(S.practiceView||'');
+  }
+  function flowMessage(){
+    const info=playbook(),role=S.career?.activeRole||'';
+    const options=stableActions(info.buttons);
+    if(S.route==='readiness'&&role){
+      const skills=ROLES[role]?.competencies||[],selected=S.pipSkillConfidence?.[role]||{};
+      if(skills.length&&skills.every(([code])=>Boolean(selected[code]?.level)))
+        return {text:'You’ve rated all six skills. That tells me how confident you feel—not what a case has proven. Let’s test your reasoning next.',
+          actions:[['Start my case','start-case'],['Try a warm-up','warmup']]};
+    }
+    if(S.route==='practice'&&S.attempt?.role===role){
+      const a=S.attempt;
+      if(a.status==='complete'){
+        const progress=window.PipProgressSummary?.(role);
+        const result=progress?.count?' Across '+progress.count+' rated answers, your average is '+progress.avg.toFixed(1)+'/5. ':' ';
+        return {text:'You’ve completed this case.'+result+'Now check what you demonstrated, choose one improvement, and try another scenario when ready.',
+          actions:[['Review skill evidence','readiness'],['My improvement plan','plan'],['Try another case','reassess']]};
+      }
+      if(a.status==='feedback')return {text:'Your feedback for question '+(a.index+1)+' is ready. Review the missing criterion, learn if needed, then continue without losing your answer.',
+        actions:[['Learn this concept','lesson'],['Continue the case','next-question']]};
+      return {text:a.index?'Question '+(a.index+1)+' is ready. Your earlier answers remain saved.':'Your case is ready. Try your own reasoning first; I can give a hint without giving away the answer.',
+        actions:[['Focus on my answer','focus-answer'],['Get a hint','hint']]};
+    }
+    return {text:info.desc,actions:options};
+  }
+  function ensureFlow(){
+    if(S.stage==='welcome')return;
+    const scene=flowScene();
+    if(S.pipFlowScene===scene)return;
+    const info=flowMessage();
+    S.pipFlowScene=scene;
+    const last=S.chat.at(-1);
+    if(last?.who==='pip'&&last.pipJourney===true&&!last.pipFlow){
+      last.pipFlow=true;last.actions=info.actions;last.text=info.text;
+    }else S.chat.push({who:'pip',text:info.text,pipFlow:true,actions:info.actions});
+    if(S.chat.length>100)S.chat=S.chat.slice(-100);
+    save();
+  }
   renderCoach=function(){
     cleanOldNextMessages();
+    ensureFlow();
     originalRenderCoach();
-    if(S.stage==='welcome')return;
+    // Conversation actions travel with the transcript instead of a pinned box.
     const quick=document.getElementById('coachQuick');
-    if(!quick)return;
-    const j=state(),info=playbook(),opts=stableActions(info.buttons);
-    j.lastOptions=opts;
-    const expanded=Boolean(j.optionsExpanded);
-    const first=opts.slice(0,2),extra=opts.slice(2);
-    // The only navigation UI lives in this pinned, compact control below
-    // conversation history. Re-rendering or tapping Next NEVER adds a bubble.
-    quick.innerHTML='<section class="pipNextPanel" aria-label="Your next career steps">'+
-      '<div class="pipNextHeader"><span>🎯 '+escapeHtml(goalName())+'</span>'+
-      '<button type="button" data-journey-action="options" aria-expanded="'+expanded+'">'+
-      (expanded?'Less detail −':'More options +')+'</button></div>'+
-      '<strong class="pipNextStage">'+escapeHtml(info.step)+'</strong>'+
-      '<div class="pipNextActions">'+actionMarkup(first)+'</div>'+
-      (expanded?'<p class="pipNextDescription">'+escapeHtml(info.desc)+'</p>'+
-       (extra.length?'<div class="pipNextExtra">'+actionMarkup(extra)+'</div>':''):'')+
-      '</section>';
+    if(quick)quick.innerHTML='';
   };
   // Honor the same journey even when the user clicks the global Continue
   // control or opens Living Resume from the original left navigation.
