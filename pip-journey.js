@@ -214,18 +214,24 @@
     save();return {current,options};
   }
   function showOptions(){
-    const {current,options}=currentOptions();
-    emit('Your long-term goal is '+goalName()+'. '+current.desc+' Choose one action below; I’ll take you there and keep your progress.',{buttons:options});
+    // "What's next?" is a control, not another conversation turn. Reveal
+    // the CURRENT actions in place rather than repeatedly appending the
+    // same scripted message to the user's chat history.
+    const j=state();
+    const {options}=currentOptions();
+    j.optionsExpanded=!j.optionsExpanded;
+    j.lastOptions=options;
+    save();renderCoach();
   }
   async function orchestratedSend(text){
     text=String(text||'').trim();if(!text)return;
     const intent=infer(text);
     if(intent!==null){
+      if(intent==='options'){showOptions();return;}
       S.chat.push({who:'user',text:text.slice(0,600)});
       if(S.chat.length>90)S.chat=S.chat.slice(-90);
       save();
-      if(intent==='options')showOptions();
-      else navigate(intent);
+      navigate(intent);
       return;
     }
     // Preserve conversation intelligence for open-ended questions. The
@@ -250,24 +256,46 @@
   function actionMarkup(arr){return arr.map(([label,act])=>
    '<button type="button" data-journey-action="'+escapeHtml(act)+'">'+escapeHtml(label)+'</button>').join('')}
   const originalRenderCoach=renderCoach;
+  function cleanOldNextMessages(){
+    // Earlier versions saved an identical navigation prompt after every
+    // "What's next?" tap. Remove ONLY those generated prompt/command pairs;
+    // keep real user discussions, resume facts, and case assessments intact.
+    if(!Array.isArray(S.chat)||!S.chat.length)return;
+    const cleaned=[];
+    let changed=false;
+    for(const msg of S.chat){
+      const legacy=msg?.who==='pip'&&msg.pipJourney===true&&
+        /^Your long-term goal is .+Choose one action below;/i.test(String(msg.text||''));
+      if(legacy){
+        const prev=cleaned.at(-1);
+        if(prev?.who==='user'&&/^(?:Help me choose my next action\\.|What should I do next\\??|what next\\??)$/i.test(String(prev.text||'').trim()))cleaned.pop();
+        changed=true;continue;
+      }
+      cleaned.push(msg);
+    }
+    if(changed){S.chat=cleaned;save();}
+  }
   renderCoach=function(){
+    cleanOldNextMessages();
     originalRenderCoach();
     if(S.stage==='welcome')return;
-    const messages=document.getElementById('coachMessages'),quick=document.getElementById('coachQuick');
-    if(!messages||!quick)return;
+    const quick=document.getElementById('coachQuick');
+    if(!quick)return;
     const j=state(),info=playbook(),opts=stableActions(info.buttons);
-    // Show the current goal and next steps below messages, not another question
-    // from Groq. Action buttons are real navigation, not decorative prompts.
-    messages.insertAdjacentHTML('beforeend',
-      '<section class="pipJourneyCard" aria-label="Your career journey">'+
-      '<span class="pipJourneyGoal">YOUR ACTIVE GOAL · '+escapeHtml(goalName())+'</span>'+
-      '<strong>'+escapeHtml(info.step)+'</strong><p>'+escapeHtml(info.desc)+'</p>'+
-      '<div class="pipJourneyCardActions">'+actionMarkup(opts)+'</div>'+
-      '</section>');
-    const persistent=j.history.length?[['↶ Return to saved step','return']]:[];
-    const shortcuts=persistent.length?persistent.concat([['What’s next?','options']]):[['What’s next?','options']];
-    quick.innerHTML='<div class="pipJourneyShortcuts">'+actionMarkup(shortcuts)+'</div>';
-    messages.scrollTop=messages.scrollHeight;
+    j.lastOptions=opts;
+    const expanded=Boolean(j.optionsExpanded);
+    const first=opts.slice(0,2),extra=opts.slice(2);
+    // The only navigation UI lives in this pinned, compact control below
+    // conversation history. Re-rendering or tapping Next NEVER adds a bubble.
+    quick.innerHTML='<section class="pipNextPanel" aria-label="Your next career steps">'+
+      '<div class="pipNextHeader"><span>🎯 '+escapeHtml(goalName())+'</span>'+
+      '<button type="button" data-journey-action="options" aria-expanded="'+expanded+'">'+
+      (expanded?'Less detail −':'More options +')+'</button></div>'+
+      '<strong class="pipNextStage">'+escapeHtml(info.step)+'</strong>'+
+      '<div class="pipNextActions">'+actionMarkup(first)+'</div>'+
+      (expanded?'<p class="pipNextDescription">'+escapeHtml(info.desc)+'</p>'+
+       (extra.length?'<div class="pipNextExtra">'+actionMarkup(extra)+'</div>':''):'')+
+      '</section>';
   };
   // Honor the same journey even when the user clicks the global Continue
   // control or opens Living Resume from the original left navigation.
