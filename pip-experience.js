@@ -108,6 +108,25 @@
   function dock(){
     document.body.classList.toggle('pipGuideDocked',S.stage!=='welcome'&&S.coachOpen&&!S.coachMuted);
   }
+  function proactiveScene(){
+    let suffix='';
+    if(S.route==='practice'&&S.attempt){
+      suffix=':'+S.attempt.id+':'+S.attempt.index+':'+S.attempt.status;
+    }
+    return S.route+':'+(S.career.activeRole||'explore')+suffix;
+  }
+  function proactiveCopy(){
+    const goal=S.career.activeRole?roleName(S.career.activeRole):'your next role';
+    if(S.route==='discovery')return 'Welcome to discovery. I’ll show possible paths from the work you described. You can choose the role you really want, even when we still have questions about readiness.';
+    if(S.route==='readiness')return 'Here is the evidence map for '+goal+'. Your resume describes some experience, but anything untested stays unassessed. Shall we use a case to check one area?';
+    if(S.route==='practice'){
+      if(S.attempt?.status==='feedback')return 'You have feedback on this question. Want a short worked lesson, then a fresh attempt? We can turn each gap into a learning loop.';
+      if(S.attempt?.status==='complete')return 'Nice work completing the case. Let’s review what changed, revisit readiness, and try a different scenario when you’re ready.';
+      return 'In this practice step, try your own reasoning first. I can offer a hint without giving away the answer, then we’ll review what you actually demonstrated.';
+    }
+    if(S.route==='resume')return 'Now we can translate your experience into a role-focused one-pager. I’ll suggest improvements, but you approve each change and we keep the original history.';
+    return 'Your career profile is the foundation. Review the facts, then we can explore roles again.';
+  }
   function enhance(){
     dock();
     if(S.stage==='welcome')return;
@@ -120,6 +139,14 @@
       '<div class="pipJourneyActions">'+primary(safe(g.primary)+' →','guide', 'data-target="'+safe(g.action)+'"')+
       secondary(safe(g.secondary),'guide','data-target="'+safe(g.other)+'"')+'</div>';
     m.insertBefore(el,m.firstChild);
+    // Pip proactively narrates the loop once per meaningful screen or case state.
+    // These are transparent guided prompts, not fabricated model assessments.
+    const scene=proactiveScene();
+    if(S.coachOpen&&S.pipGuideScene!==scene){
+      S.chat.push({who:'pip',text:proactiveCopy(),pipGuide:true});
+      if(S.chat.length>80)S.chat=S.chat.slice(-80);
+      S.pipGuideScene=scene;save();renderCoach();
+    }
     const top=document.querySelector('.topbar .topright');
     if(top&&!top.querySelector('[data-pip-action="toggle-guide"]'))top.insertAdjacentHTML('afterbegin','<button class="pipTopGuide" data-pip-action="toggle-guide" type="button">🐣 Talk with Pip</button>');
     const nav=document.querySelector('.sidebarFoot');
@@ -209,7 +236,12 @@
   const originalRender=render;
   render=function(){originalRender();enhance();};
   const originalCoach=renderCoach;
-  renderCoach=function(){originalCoach();dock();};
+  renderCoach=function(){
+    originalCoach();dock();
+    const quick=document.getElementById('coachQuick');
+    if(quick&&S.route==='practice'&&S.attempt?.status==='feedback'&&!quick.querySelector('[data-pip-action="lesson"]'))
+      quick.insertAdjacentHTML('beforeend','<button type="button" data-pip-action="lesson">📖 Learn this concept</button>');
+  };
   renderWelcome=renderWelcomeV5;
   render();
 })();
