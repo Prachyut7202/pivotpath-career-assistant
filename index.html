@@ -1162,8 +1162,8 @@ async function handleResumeFile(file){if(!file)return;const ext=file.name.toLowe
  if(j.draft?.bullets?.length&&!S.profile.achievements)S.profile.achievements=j.draft.bullets.slice(0,3).join('\n');
  if(j.draft?.skills&&!S.profile.skills)S.profile.skills=j.draft.skills;
  if(j.draft?.sections){for(let section of S.resume.sections)section.items=section.items.filter(it=>!it.imported);for(let [sid,items] of Object.entries(j.draft.sections)){let section=getSection(sid);if(section)for(let it of items.slice(0,40))section.items.push({id:uid(),title:it.title||'',detail:it.detail||'',kind:it.kind||'bullet',imported:true})}}
- save();render();notify('Resume extracted. Review and confirm the facts before proceeding.');if(j.warning)notify(j.warning);
- }catch(e){notify('Could not read resume: '+e.message+'. Paste text or continue manually.','bad')}
+ save();render();notify('Resume extracted. Review and confirm the facts before proceeding.');if(j.warning)notify(j.warning);return true;
+ }catch(e){notify('Could not read resume: '+e.message+'. Paste text or continue manually.','bad');return false}
 }
 function handleClick(event){let el=event.target.closest('[data-action]');if(!el)return;if(el.closest('a[href]')&&el.tagName!=='BUTTON')return;let action=el.dataset.action,route=el.dataset.route,id=el.dataset.id,role=el.dataset.role;
  if(action==='nav'){setRoute(route);return}
@@ -1241,5 +1241,5 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal){closeModal()
 document.addEventListener('click',e=>{if(e.target.id==='modalBackdrop')closeModal()});
 checkServer();render();
 </script>
-<script defer src="/pip-experience.js?v=5.2"></script>
+<script defer src="/pip-experience.js?v=5.3"></script>
 </body></html>
