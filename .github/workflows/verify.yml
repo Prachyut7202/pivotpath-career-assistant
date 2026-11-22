@@ -15,3 +15,7 @@ jobs:
         run: python -m pip install -r requirements.txt
       - name: Verify PDF parser, integration and bundle structure
         run: python -m unittest discover -s tests -p "test_*.py" -v
+      - name: Check all browser scripts and candidate isolation
+        run: |
+          for js in app.js pip-experience.js pip-journey.js pip-progress.js pip-insights.js pip-guide.js; do node --check "$js"; done
+          node tests/test_candidate_isolation.js
