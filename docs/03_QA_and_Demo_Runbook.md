@@ -66,3 +66,17 @@ The GitHub Actions browser job completed **four independent local-server tests i
 
 **Boundaries of this evidence:** The automated job does not validate live AI grader consistency, unusual scanned or multi-column resumes, measured D7/D30 retention, outbound messaging, all browser engines, or human usability. A passing demo test is not a guarantee of production readiness; these remain explicit next validation tasks.
 
+
+
+## Competency guide QA
+
+Each competency's Why? popup should:
+- Match the active role and competency, with a realistic use case rather than a generic definition.
+- Show 2–3 example decision metrics, not an invented employer benchmark.
+- Explain what good reasoning looks like and what actual-world proof is still needed.
+- Distinguish A and B practice observations from the candidate's own skill rating and resume keywords.
+- Withhold the practice achievement for demo/checklist scores, a single strong answer, or a low latest parallel-case score.
+- Explicitly disclose when the authored cases cannot directly test the competency.
+- Offer a real practice/learning path and correctly close/reopen without changing chat history.
+
+The automated Chromium suite opens all relevant competency popups for each of the three sample tracks. An independent JavaScript test covers all 35 role-skill combinations and simulated milestone progression; this does not validate the consistency of live LLM grading or externally assessed workplace competence.
