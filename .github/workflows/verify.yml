@@ -2,7 +2,15 @@ name: PivotPath regression checks
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'docs/**'
+      - 'README.md'
   workflow_dispatch:
+# When several edits land quickly, test only the newest main branch commit.
+# This keeps protection while avoiding obsolete runs and redundant failure mail.
+concurrency:
+  group: pivotpath-regression-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   verify:
     runs-on: ubuntu-latest
