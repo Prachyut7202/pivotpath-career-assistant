@@ -50,6 +50,18 @@ def sample_case(page,sample,role,expected_name):
     page.locator(f'[data-action="select-role"][data-role="{role}"]').first.click()
     expect(page.locator('.pcAssessment')).to_be_visible()
     expect(page.locator('.pcCalibrationRow')).to_have_count(6)
+    expect(page.locator('.pgRoleSummary')).to_be_visible()
+    assert "practice skill checkpoints" in page.locator('.pgRoleSummary').inner_text()
+    # Each role's Why? popup must explain real work, metrics, evidence and a next action.
+    for row in page.locator('.skillRow').all():
+        row.locator('[data-action="inspect-skill"]').click()
+        popup=page.locator('#modalRoot .pgModalContent')
+        expect(popup).to_be_visible()
+        expect(popup.locator('.pgExplainer')).to_have_count(4)
+        assert popup.locator('.pgMetricChips span').count()>=2
+        expect(popup.locator('.pgCheck')).to_have_count(3)
+        assert "Apply it to actual work" in popup.inner_text()
+        page.locator('#modalRoot [data-action="close-modal"]').click()
     # Simply visiting pages must never fabricate a Pip conversation.
     nav_baseline=page.evaluate("S.chat.length")
     for destination in ('discovery','practice','readiness'):
