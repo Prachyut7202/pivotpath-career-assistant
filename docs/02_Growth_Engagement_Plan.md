@@ -43,6 +43,16 @@ A lifecycle message only works if the user can complete the promised action. For
 
 Use role aspiration, stage, latest evidenced skill, existing task status, source of assessment (demo/live) and return point. Do not embed confidential resume projects in a notification preview. Suppress messages after completion, dismissal, change of goal or unsubscribe. Cap at **one triggered email every seven days**, plus a distinct optional monthly digest. Quiet hours: 9 PM–8 AM local time; eligible emails 10 AM–6 PM.
 
+## Meaningful skill achievements without false mastery claims
+
+Users should return because they can see *what changed and why*. I would treat a real milestone as an earned result, rather than counting a click or a lesson page view.
+
+- **In-product trigger:** The latest assessable *live-AI* result for a competency meets 4/5 or higher in both distinct authored cases. Show a brief positive indicator and propose real-world application or a harder scenario. Do not send an additional chat message merely because the user navigated to the Readiness Map.
+- **Suggested message:** "You've demonstrated strong feature-prioritization reasoning in two different case scenarios. That is a useful practice milestone. The next step is to put it into a real product decision and get feedback."
+- **Do not claim:** "You have mastered product management" or "You are now interview-ready."
+- **Potential future event:** `practice_skill_milestone_reached` with pseudonymous candidate/session ID, role, competency, cases A/B and source; deduplicate by the role and competency. This event is proposed for analytics and is **not instrumented in production**.
+- **Guardrails:** No credit for written SQL claims, unassessed competencies, or illustrative demo scoring. Strong practice is not a substitute for reviewed workplace execution.
+
 ## 4. Metrics and event plan
 | Stage | Event / metric | Breakdown | Quality guardrail |
 |---|---|---|---|
