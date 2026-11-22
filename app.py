@@ -55,6 +55,14 @@ def pip_journey_js():
 def pip_journey_css():
     return FileResponse(ROOT / 'pip-journey.css', media_type='text/css', headers={'Cache-Control':'public, max-age=300'})
 
+@app.get('/pip-progress.js')
+def pip_progress_js():
+    return FileResponse(ROOT / 'pip-progress.js', media_type='application/javascript', headers={'Cache-Control':'public, max-age=300'})
+
+@app.get('/pip-progress.css')
+def pip_progress_css():
+    return FileResponse(ROOT / 'pip-progress.css', media_type='text/css', headers={'Cache-Control':'public, max-age=300'})
+
 @app.get('/roles.json')
 def role_file(): return FileResponse(ROOT/'roles.json',media_type='application/json')
 
