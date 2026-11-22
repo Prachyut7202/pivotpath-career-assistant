@@ -212,10 +212,11 @@
     if(e.target.id!=='pipIntakeFile')return;
     const f=e.target.files&&e.target.files[0];if(!f)return;
     const o=intake();o.step='upload';o.filename=f.name;save();
-    const oldText=S.profile.resumeText;
-    await handleResumeFile(f);
-    if(S.profile.resumeText&&S.profile.resumeText!==oldText){o.step='review';save();render();}
-    else notify('I could not extract the resume. Try a text-based file or tell me manually.','bad');
+    // The parser reports success explicitly. Do not compare resume strings:
+    // uploading the same PDF again is valid and must continue to review.
+    const ok=await handleResumeFile(f);
+    if(ok){o.step='review';o.filename=f.name;save();render();}
+    // handleResumeFile already displays a specific error when parsing fails.
   });
   document.addEventListener('submit',function(e){
     if(e.target.id==='pipReviewForm'){
