@@ -103,5 +103,63 @@ class FrontendStructureTests(unittest.TestCase):
         self.assertIn("completedAt",script)
         self.assertNotIn("hiring probability",script)
 
+class CoachProductTruthTests(unittest.TestCase):
+    def test_good_response_does_not_get_overwritten(self):
+        from app import _ground_coach_navigation
+        answer=("On Readiness Map, expand the feature-prioritization skill to see "
+                "why it was flagged, then use the external Learn this skill link.")
+        self.assertEqual(
+            _ground_coach_navigation(answer,"Where do I learn prioritization?",{}),answer)
+
+    def test_correctly_denied_learning_hub_is_preserved(self):
+        from app import _ground_coach_navigation
+        answer=("There is no learning hub. Open the Readiness Map and expand a skill "
+                "evidence card for an external resource.")
+        self.assertEqual(
+            _ground_coach_navigation(answer,"Where is the learning hub?",{}),answer)
+
+    def test_model_hallucination_is_replaced_by_real_navigation(self):
+        from app import _ground_coach_navigation
+        answer="Go to our learning hub for curated video lessons and resume templates."
+        corrected=_ground_coach_navigation(
+            answer,"What is the best way to improve?",{"active_goal_name":"Product Analyst"})
+        self.assertIn("Readiness Map",corrected)
+        self.assertIn("Practice & Improve",corrected)
+        self.assertIn("external",corrected)
+        self.assertNotIn("curated video",corrected.lower())
+
+    def test_readiness_reply_is_grounded_in_real_results(self):
+        from app import _ground_coach_navigation
+        bad="Visit the learning hub to see whether you are ready for an APM interview."
+        reply=_ground_coach_navigation(
+            bad,"When can I say I am ready?",
+            {"active_goal_name":"Associate Product Manager",
+             "practice_checkpoint":{"completed_cases":1,"rated_answers":5}})
+        self.assertIn("1 completed case",reply)
+        self.assertIn("5 assessable answers",reply)
+        self.assertIn("not proof of job readiness",reply)
+        self.assertIn("Readiness Map",reply)
+        self.assertNotIn("Visit the learning hub",reply)
+
+    def test_live_coach_endpoint_sanitizes_unsupported_destination(self):
+        from unittest.mock import AsyncMock, patch
+        mocked=AsyncMock(return_value={
+            "reply":"The learning hub has short videos and templates.",
+            "follow_up_question":"","suggested_route":"","_provider":"groq"})
+        with patch('app.pip_json',mocked):
+            response=client.post('/api/coach',json={
+                "message":"How do I improve feature prioritization?",
+                "conversation_goal":"career_exploration",
+                "context":{"active_goal_name":"Associate Product Manager",
+                           "available_ui":{"readiness":"Readiness Map",
+                                           "practice":"Practice & Improve"}},
+                "thread":[]})
+        self.assertEqual(response.status_code,200,response.text)
+        text=response.json()['reply']
+        self.assertIn("Readiness Map",text)
+        self.assertIn("Practice & Improve",text)
+        self.assertNotIn("short videos",text)
+        self.assertTrue(mocked.await_count==1)
+
 if __name__=='__main__':
     unittest.main()
