@@ -325,7 +325,7 @@ async function handleResumeFile(file,{newProfile=false}={}){if(!file)return fals
 }
 function handleClick(event){let el=event.target.closest('[data-action]');if(!el)return;if(el.closest('a[href]')&&el.tagName!=='BUTTON')return;let action=el.dataset.action,route=el.dataset.route,id=el.dataset.id,role=el.dataset.role;
  if(action==='nav'){setRoute(route);return}
- if(action==='intake-upload'||action==='intake-manual'){S.stage='profile';S.route='profile';save();render();if(action==='intake-upload'){setTimeout(()=>{document.getElementById('resumeFile')?.focus();notify('Choose a resume, or simply fill in your experience to continue.')},30)}return}
+ if(action==='intake-upload'||action==='intake-manual'){if(!confirmNewCandidate())return;freshCandidateSession();S.stage='profile';S.route='profile';save();render();if(action==='intake-upload'){setTimeout(()=>{document.getElementById('resumeFile')?.focus();notify('Choose a resume, or simply fill in your experience to continue.')},30)}return}
  if(action==='demo-persona'){loadPersona(el.dataset.persona);return}
  if(action==='toggle-coach'){S.coachOpen=!S.coachOpen;save();renderCoach();return}
  if(action==='coach-quick'){sendCoach(el.dataset.question);return}
