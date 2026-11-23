@@ -174,6 +174,37 @@ def pdf_upload(page):
     assert page.evaluate("S.attempts.length")==0
     assert page.evaluate("Object.keys(S.pipSkillConfidence||{}).length")==0
 
+def mobile_theme_and_ranking(page):
+    # A 390px-wide mobile journey must keep the toggle, profile and rank cards usable.
+    errors=setup(page)
+    page.locator('#pipWelcomeTheme').click()
+    assert page.evaluate("document.documentElement.dataset.theme")=="dark"
+    page.locator('[data-pip-action="sample"][data-persona="AC"]').click()
+    page.locator('#pipReviewForm button[type="submit"]').click()
+    page.locator('[data-pip-action="ownership-skip"]').click()
+    page.locator('#pipGoalForm select[name="goal"]').select_option('APM')
+    page.locator('#pipGoalForm button[type="submit"]').click()
+    page.locator('[data-pip-action="finish"]').click()
+    coach=page.locator('#coachPanel')
+    if coach.is_visible():
+        coach.locator('[data-action="toggle-coach"]').click()
+    expect(page.locator('#pipHeaderTheme')).to_be_visible()
+    expect(page.locator('.roleCard')).to_have_count(3)
+    assert page.locator('.roleCard').first.get_attribute('data-role-id')=='APM'
+    assert page.evaluate("getComputedStyle(document.querySelector('.bottomNav')).backgroundColor")=="rgb(23, 36, 60)"
+    width=page.evaluate("({scroll:document.documentElement.scrollWidth,viewport:innerWidth})")
+    assert width['scroll']<=width['viewport']+2,("Unexpected horizontal overflow on mobile",width)
+    page.locator('#main [data-action="all-roles"]').click()
+    expect(page.locator('.roleCard')).to_have_count(6)
+    width=page.evaluate("({scroll:document.documentElement.scrollWidth,viewport:innerWidth})")
+    assert width['scroll']<=width['viewport']+2,("Role ranking overflows mobile",width)
+    page.locator('#pipHeaderTheme').click()
+    assert page.evaluate("document.documentElement.dataset.theme")=="light"
+    expect(page.locator('.topbar [data-route="profile"]')).to_be_visible()
+    assert not errors,errors
+    print("PASS mobile 390px: toggle, dark bottom navigation, goal rank, six roles, no horizontal overflow")
+
+
 def main():
     global expect
     from playwright.sync_api import sync_playwright, expect
@@ -210,6 +241,16 @@ def main():
             total+=1
         except Exception:
             page.screenshot(path=str(SCREENSHOTS/"failure_pdf.png"),full_page=True)
+            raise
+        finally:
+            context.close()
+        context=browser.new_context(viewport={"width":390,"height":844},is_mobile=True,has_touch=True)
+        page=context.new_page()
+        try:
+            mobile_theme_and_ranking(page)
+            total+=1
+        except Exception:
+            page.screenshot(path=str(SCREENSHOTS/"failure_mobile.png"),full_page=True)
             raise
         finally:
             context.close()
