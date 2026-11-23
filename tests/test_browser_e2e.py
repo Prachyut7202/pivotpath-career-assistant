@@ -39,6 +39,14 @@ def setup(page):
     return errors
 
 def sample_case(page,sample,role,expected_name):
+    # Theme is available before onboarding; a device preference survives refresh.
+    expect(page.locator('#pipWelcomeTheme')).to_be_visible()
+    page.locator('#pipWelcomeTheme').click()
+    assert page.evaluate("document.documentElement.dataset.theme")=="dark"
+    assert page.evaluate("getComputedStyle(document.body).backgroundColor")=="rgb(14, 22, 41)"
+    page.reload(wait_until="domcontentloaded")
+    expect(page.locator('[data-pip-action="sample"]')).to_have_count(3)
+    assert page.evaluate("document.documentElement.dataset.theme")=="dark"
     page.locator(f'[data-pip-action="sample"][data-persona="{sample}"]').click()
     expect(page.locator('#pipReviewForm input[name="name"]')).to_have_value(expected_name)
     page.locator('#pipReviewForm button[type="submit"]').click()
@@ -47,6 +55,29 @@ def sample_case(page,sample,role,expected_name):
     page.locator('#pipGoalForm button[type="submit"]').click()
     page.locator('[data-pip-action="finish"]').click()
     expect(page.locator('#main')).to_be_visible()
+    # Chosen aspiration first; every other role sorted by profile overlap.
+    assert page.evaluate("rankedRoles()[0].id")==role
+    assert page.evaluate("rankedRoles().length")==6
+    assert page.evaluate("rankedRoles().slice(1).every((r,i,a)=>i===0||a[i-1].value>=r.value)")
+    cards=page.locator('.roleCard')
+    expect(cards).to_have_count(3)
+    assert cards.first.get_attribute("data-role-id")==role
+    assert [int(el.get_attribute("data-role-rank")) for el in cards.all()]==[1,2,3]
+    expect(cards.first.locator('.roleFitMeta')).to_contain_text("Profile overlap rank")
+    page.locator('#main [data-action="all-roles"]').click()
+    cards=page.locator('.roleCard')
+    expect(cards).to_have_count(6)
+    assert [int(el.get_attribute("data-role-rank")) for el in cards.all()]==[1,2,3,4,5,6]
+    assert [el.get_attribute("data-role-id") for el in cards.all()]==page.evaluate("rankedRoles().map(r=>r.id)")
+    page.locator('#main [data-action="all-roles"]').click()
+    expect(page.locator('.roleCard')).to_have_count(3)
+    # Toggle works in app as well, not just on the welcome screen.
+    expect(page.locator('#pipHeaderTheme')).to_be_visible()
+    assert page.locator('#pipHeaderTheme').get_attribute('aria-pressed')=="true"
+    page.locator('#pipHeaderTheme').click()
+    assert page.evaluate("document.documentElement.dataset.theme")=="light"
+    page.locator('#pipHeaderTheme').click()
+    assert page.evaluate("document.documentElement.dataset.theme")=="dark"
     page.locator(f'[data-action="select-role"][data-role="{role}"]').first.click()
     expect(page.locator('.pcAssessment')).to_be_visible()
     expect(page.locator('.pcCalibrationRow')).to_have_count(6)
@@ -69,6 +100,8 @@ def sample_case(page,sample,role,expected_name):
         assert page.evaluate("S.chat.length")==nav_baseline,("Auto chat on tab switch",destination)
     page.locator('.sidebar [data-action="nav"][data-route="resume"]').click()
     assert page.evaluate("S.chat.length")==nav_baseline,"Resume detour fabricated a chat turn"
+    # The editable A4 sheet stays white regardless of UI theme.
+    assert page.evaluate("getComputedStyle(document.querySelector('.resumeSheet')).backgroundColor")=="rgb(255, 255, 255)"
     page.locator('#pipLoopRibbon [data-journey-action="return"]').click()
     assert page.evaluate("S.chat.length")==nav_baseline,"Resume return fabricated a chat turn"
     expect(page.locator('.pcCalibrationRow')).to_have_count(6)
@@ -113,6 +146,7 @@ def sample_case(page,sample,role,expected_name):
 def test_new_candidate_isolation(page):
     page.locator('[data-pip-action="restart"]').first.click()
     expect(page.locator('[data-pip-action="sample"]')).to_have_count(3)
+    assert page.evaluate("document.documentElement.dataset.theme")=="dark", "New candidate should not erase the device theme"
     old=page.evaluate("({name:S.profile.name,cases:S.attempts.length,chat:S.chat.length,skills:Object.keys(S.pipSkillConfidence||{}).length})")
     assert old=={'name':'','cases':0,'chat':0,'skills':0},old
 
