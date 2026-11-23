@@ -1,8 +1,10 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#f8f9fc"/><title>PivotPath — Your career, forward.</title><meta name="description" content="Meet Pip, your guided AI career coach for discovering career paths, assessing readiness, practicing case skills, and refining your resume."/>
-<style>/*__CSS__*/</style><link rel="stylesheet" href="/pip-experience.css?v=5.11"/><link rel="stylesheet" href="/pip-journey.css?v=5.14"/><link rel="stylesheet" href="/pip-progress.css?v=5.12"/><link rel="stylesheet" href="/pip-insights.css?v=5.10"/><link rel="stylesheet" href="/pip-guide.css?v=1.1"/><link rel="stylesheet" href="/pip-competency.css?v=1.0"/></head><body>
+<script>(function(){try{document.documentElement.dataset.theme=localStorage.getItem('pivotpath_display_theme_v1')==='dark'?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}})();</script>
+<style>/*__CSS__*/</style><link rel="stylesheet" href="/pip-experience.css?v=5.11"/><link rel="stylesheet" href="/pip-journey.css?v=5.14"/><link rel="stylesheet" href="/pip-progress.css?v=5.12"/><link rel="stylesheet" href="/pip-insights.css?v=5.10"/><link rel="stylesheet" href="/pip-guide.css?v=1.1"/><link rel="stylesheet" href="/pip-competency.css?v=1.0"/><link rel="stylesheet" href="/pip-theme.css?v=1.0"/></head><body>
 <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
 <div id="welcome" class="welcome"></div>
+<button id="pipWelcomeTheme" class="pipWelcomeTheme" type="button" data-pp-theme-toggle aria-pressed="false" aria-label="Switch to dark mode" hidden><span class="pipThemeIcon" aria-hidden="true">☾</span><span class="pipThemeWord">Dark</span></button>
 <div id="shell" class="shell">
  <aside class="sidebar"><div class="brand"><div class="brandicon">✦</div><span class="logo">Pivot<i>Path</i></span></div>
   <nav class="navgroup"><div class="navlabel">Your journey</div>
@@ -12,7 +14,7 @@
    <button class="navitem" data-action="nav" data-route="resume"><span class="ni">▤</span><span class="navtext">Living resume</span></button>
   </nav><div class="sidebarFoot stack gap8"><div class="notice pipSidebarNotice"><span id="pipSidebarAvatar" aria-hidden="true"></span><span><strong>Pip is here if you need a hand.</strong> Ask a question any time.</span></div><button class="navitem" data-action="nav" data-route="profile"><span class="ni">♙</span><span class="navtext">My profile & settings</span></button></div>
  </aside>
- <div class="shellBody"><header class="topbar"><div class="frow gap8"><div class="logo">Pivot<i>Path</i></div><span class="stage" id="stageName">Your career journey</span></div><div class="topright"><span id="modePill" class="pill amber">Demo guide</span><button class="btn small soft" data-action="continue">Continue →</button><button class="btn small light" data-action="nav" data-route="profile" aria-label="My profile">◯ <span class="mutedlabel">Profile</span></button></div></header>
+ <div class="shellBody"><header class="topbar"><div class="frow gap8"><div class="logo">Pivot<i>Path</i></div><span class="stage" id="stageName">Your career journey</span></div><div class="topright"><button type="button" id="pipHeaderTheme" class="pipThemeButton" data-pp-theme-toggle aria-pressed="false" aria-label="Switch to dark mode"><span class="pipThemeIcon" aria-hidden="true">☾</span><span class="pipThemeWord">Dark</span></button><span id="modePill" class="pill amber">Demo guide</span><button class="btn small soft" data-action="continue">Continue →</button><button class="btn small light" data-action="nav" data-route="profile" aria-label="My profile">◯ <span class="mutedlabel">Profile</span></button></div></header>
  <main class="main" id="main" tabindex="-1"></main></div>
 </div>
 <nav id="bottomNav" class="bottomNav"><button class="navitem" data-action="nav" data-route="discovery"><span class="ni">⌁</span>Discover</button><button class="navitem" data-action="nav" data-route="readiness"><span class="ni">◫</span>Readiness</button><button class="navitem" data-action="nav" data-route="practice"><span class="ni">✎</span>Practice</button><button class="navitem" data-action="nav" data-route="resume"><span class="ni">▤</span>Resume</button></nav>
@@ -27,4 +29,5 @@
 <script defer src="/pip-insights.js?v=5.15"></script>
 <script defer src="/pip-guide.js?v=1.0"></script>
 <script defer src="/pip-competency.js?v=1.0"></script>
+<script defer src="/pip-theme.js?v=1.0"></script>
 </body></html>
