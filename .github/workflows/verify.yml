@@ -25,9 +25,10 @@ jobs:
         run: python -m unittest discover -s tests -p "test_*.py" -v
       - name: Check all browser scripts and candidate isolation
         run: |
-          for js in app.js pip-experience.js pip-journey.js pip-progress.js pip-insights.js pip-guide.js; do node --check "$js"; done
+          for js in app.js pip-experience.js pip-journey.js pip-progress.js pip-insights.js pip-guide.js pip-theme.js; do node --check "$js"; done
           node tests/test_candidate_isolation.js
           node tests/test_competency_guides.js
+          node tests/test_role_ranking_and_theme.js
 
   browser_smoke:
     name: Three-persona Chromium journey and resume upload
