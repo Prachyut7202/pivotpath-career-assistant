@@ -1,0 +1,229 @@
+/* PivotPath's manually switchable dark palette.
+   Screen UI follows the theme; the A4 resume sheet remains paper-white for printing. */
+html[data-theme="dark"]{
+  color-scheme:dark;
+  --ink:#eef2ff;--muted:#acbbd4;--blue:#776df1;--blue2:#aaa2ff;
+  --deep:#c4c5ff;--pale:#29294f;--line:#34435f;--bg:#0e1629;
+  --white:#18243c;--green:#62d5ac;--amber:#f5c77b;--red:#ffa6ac;
+  --shadow:0 20px 64px rgba(0,0,0,.36);
+  --pp-surface:#17243c;--pp-surface2:#202e4b;--pp-surface3:#293654;
+  --pp-border:#354461;--pp-copy:#eef2ff;--pp-soft:#b1bfd9;--pp-link:#b6b6ff;
+}
+html[data-theme="dark"] body{background:var(--bg);color:var(--ink)}
+html[data-theme="dark"] a{color:var(--pp-link)}
+html[data-theme="dark"] a:hover{color:#ded9ff}
+html[data-theme="dark"] .sidebar,html[data-theme="dark"] .card,
+html[data-theme="dark"] .roleCard,html[data-theme="dark"] .resourcecard,
+html[data-theme="dark"] .modal,html[data-theme="dark"] .coachPanel,
+html[data-theme="dark"] .welcomeCard,html[data-theme="dark"] .resumesectiontoggle,
+html[data-theme="dark"] .ppCompetencyBreakdown{
+  background:var(--pp-surface);color:var(--ink);border-color:var(--pp-border);
+}
+html[data-theme="dark"] .topbar{background:rgba(19,29,50,.92);border-color:var(--pp-border)}
+html[data-theme="dark"] .logo{color:#f3f2ff}
+html[data-theme="dark"] .logo i{color:#aaa1ff}
+html[data-theme="dark"] .stage,html[data-theme="dark"] .navitem,html[data-theme="dark"] .navlabel,
+html[data-theme="dark"] .kicker,html[data-theme="dark"] .pagelead,
+html[data-theme="dark"] .subtle,html[data-theme="dark"] .muted,
+html[data-theme="dark"] .textxs.muted,html[data-theme="dark"] .textsm.muted,
+html[data-theme="dark"] .field label,html[data-theme="dark"] .field .hint{color:var(--pp-soft)}
+html[data-theme="dark"] .navitem:hover{background:#253455;color:#dedbff}
+html[data-theme="dark"] .navitem.active{background:#323466;color:#d8d3ff}
+html[data-theme="dark"] .btn.light,html[data-theme="dark"] .btn.ghost,
+html[data-theme="dark"] .btn.soft,html[data-theme="dark"] .sampleLinks button,
+html[data-theme="dark"] .pipSecondary,html[data-theme="dark"] .coachQuick button{
+ background:var(--pp-surface2);color:#dedcff;border-color:#45557a;
+}
+html[data-theme="dark"] .btn.light:hover,html[data-theme="dark"] .btn.ghost:hover,
+html[data-theme="dark"] .btn.soft:hover,html[data-theme="dark"] .sampleLinks button:hover,
+html[data-theme="dark"] .pipSecondary:hover{background:#303d61;color:#fff}
+html[data-theme="dark"] .btn:not(.light):not(.soft):not(.ghost):not(.warn):hover{background:#6359d4}
+html[data-theme="dark"] .card.pale,html[data-theme="dark"] .notice,
+html[data-theme="dark"] .notice.white,html[data-theme="dark"] .tag,
+html[data-theme="dark"] .pill,html[data-theme="dark"] .pageicon,
+html[data-theme="dark"] .mini-num,html[data-theme="dark"] .swot,
+html[data-theme="dark"] .roleRankExplanation,
+html[data-theme="dark"] .chatbubble,html[data-theme="dark"] .chatbubble.user,
+html[data-theme="dark"] .profileExtract,html[data-theme="dark"] .welcome .benefit .check,
+html[data-theme="dark"] .paperalert{
+ background:var(--pp-surface2);color:var(--pp-soft);border-color:var(--pp-border);
+}
+html[data-theme="dark"] .pill.blue,html[data-theme="dark"] .pill.purple,
+html[data-theme="dark"] .pill.green,html[data-theme="dark"] .pill.amber,
+html[data-theme="dark"] .pcCompletion,html[data-theme="dark"] .pcTopStreak,
+html[data-theme="dark"] .roleRankNumber{
+ background:#323467;color:#dbd8ff;border-color:#55578a;
+}
+html[data-theme="dark"] .pill.red{background:#512e42;color:#ffb6bc}
+html[data-theme="dark"] .notice.good,html[data-theme="dark"] .pgAchievementText{background:#193e39;color:#adf0ca;border-color:#36795e}
+html[data-theme="dark"] .notice.warn{background:#443420;color:#ffe0a4;border-color:#6e5634}
+html[data-theme="dark"] .notice.bad{background:#492d37;color:#ffb7bf;border-color:#78454e}
+html[data-theme="dark"] .topcallout{background:linear-gradient(116deg,#252c50,#262548);border-color:#4a4978}
+html[data-theme="dark"] .roleCard.active{background:#222a4a;border-color:#9288ff}
+html[data-theme="dark"] .roleCard h3,html[data-theme="dark"] h2:not(.rsname),html[data-theme="dark"] .card h3{color:var(--ink)}
+html[data-theme="dark"] .roleFitMeta{color:var(--pp-soft)}
+html[data-theme="dark"] .roleRankExplanation strong{color:#d8d5ff}
+html[data-theme="dark"] .field input,html[data-theme="dark"] .field select,
+html[data-theme="dark"] .field textarea,html[data-theme="dark"] .textentry,
+html[data-theme="dark"] .coachComposer input,html[data-theme="dark"] .pipMiniForm input,
+html[data-theme="dark"] .pipMiniForm select,html[data-theme="dark"] .pipMiniForm textarea,
+html[data-theme="dark"] .pipTextLabel textarea,html[data-theme="dark"] .pipDrop input{
+ background:#101d35;color:var(--ink);border-color:#4b5875;
+}
+html[data-theme="dark"] input::placeholder,html[data-theme="dark"] textarea::placeholder{color:#8e9ebb}
+html[data-theme="dark"] select option{background:#17243c;color:#eef2ff}
+html[data-theme="dark"] .field input:focus,html[data-theme="dark"] .field textarea:focus,
+html[data-theme="dark"] .pipMiniForm input:focus,html[data-theme="dark"] .pipMiniForm textarea:focus{
+ box-shadow:0 0 0 3px rgba(144,133,241,.22);border-color:#a8a2ff;
+}
+html[data-theme="dark"] .skillRow{border-bottom-color:#33435f}
+html[data-theme="dark"] .swotGrid .swot:nth-child(1){background:#183c38;border-color:#347b66}
+html[data-theme="dark"] .swotGrid .swot:nth-child(2){background:#403420;border-color:#8f6b32}
+html[data-theme="dark"] .swotGrid .swot:nth-child(3){background:#1d3358;border-color:#4a6aa6}
+html[data-theme="dark"] .swotGrid .swot:nth-child(4){background:#432c41;border-color:#915b72}
+html[data-theme="dark"] .swotGrid .swot:nth-child(1) b{color:#a9eed3}
+html[data-theme="dark"] .swotGrid .swot:nth-child(2) b{color:#ffe0a0}
+html[data-theme="dark"] .swotGrid .swot:nth-child(3) b{color:#bfd5ff}
+html[data-theme="dark"] .swotGrid .swot:nth-child(4) b{color:#ffc0d1}
+/* Welcome remains branded; its conversational form follows the dark palette. */
+html[data-theme="dark"] .welcome{background:#0e1629!important}
+html[data-theme="dark"] .pipHero{background:linear-gradient(152deg,#202750,#302b6a 60%,#493f87)}
+html[data-theme="dark"] .pipHeroDesc{color:#e0e5ff}
+html[data-theme="dark"] .pipConversation,html[data-theme="dark"] .pipConversationHeader,
+html[data-theme="dark"] .pipConversationFooter,html[data-theme="dark"] .pipLessonCard,
+html[data-theme="dark"] .pipImportFacts{background:var(--pp-surface);color:var(--ink);border-color:var(--pp-border)}
+html[data-theme="dark"] .pipConversationHeader>div span,html[data-theme="dark"] .pipProgress,
+html[data-theme="dark"] .pipSampleHead,html[data-theme="dark"] .pipConsent,
+html[data-theme="dark"] .pipDrop span,html[data-theme="dark"] .pipSummary span,
+html[data-theme="dark"] .pipImportMeta,html[data-theme="dark"] .pipImportFields small,
+html[data-theme="dark"] .pipMiniForm label,html[data-theme="dark"] .pipTextLabel,
+html[data-theme="dark"] .pipMiniForm .hint,html[data-theme="dark"] .pipSampleNote{
+ color:var(--pp-soft)
+}
+html[data-theme="dark"] .pipConversationHeader strong,html[data-theme="dark"] .pipSummary strong,
+html[data-theme="dark"] .pipImportFields strong,html[data-theme="dark"] .pipBubbleText,
+html[data-theme="dark"] .pipImportTitle strong{color:var(--ink)}
+html[data-theme="dark"] .pipBubbleText,html[data-theme="dark"] .pipHistoryPip p,
+html[data-theme="dark"] .pipExtract,html[data-theme="dark"] .pipDrop,
+html[data-theme="dark"] .pipSummary,html[data-theme="dark"] .pipImportWarning,
+html[data-theme="dark"] .pipImportFallback,html[data-theme="dark"] .pipImportRaw,
+html[data-theme="dark"] .pipUploadNote,html[data-theme="dark"] .pipSampleNote,
+html[data-theme="dark"] .pipSamples button,html[data-theme="dark"] .pipOwnership button,
+html[data-theme="dark"] .pipSummary>div,html[data-theme="dark"] .pipImportEntries,
+html[data-theme="dark"] .pipImportSection summary{
+ background:var(--pp-surface2);color:var(--ink);border-color:var(--pp-border)
+}
+html[data-theme="dark"] .pipExtract span,html[data-theme="dark"] .pipImportEntries p,
+html[data-theme="dark"] .pipHistoryPip p{color:var(--pp-soft)}
+html[data-theme="dark"] .pipOwnership button.selected{background:#464579;color:#f7f6ff;border-color:#8f88f7}
+html[data-theme="dark"] .pipPrimary{background:#7468e8;color:#fff}
+html[data-theme="dark"] .pipProgressBar i{background:#394562}
+html[data-theme="dark"] .pipProgressBar i.on{background:#9a8dff}
+html[data-theme="dark"] .pipLessonCard header,html[data-theme="dark"] .pipLessonCard footer,
+html[data-theme="dark"] .ppWarmupPanel header{background:var(--pp-surface2);border-color:var(--pp-border)}
+html[data-theme="dark"] .pipLessonBody p,html[data-theme="dark"] .ppWarmupBody p{color:var(--pp-soft)}
+html[data-theme="dark"] .pipLessonBody h3,html[data-theme="dark"] .ppWarmupBody h3{color:var(--ink)}
+html[data-theme="dark"] .pipLessonOptions button,html[data-theme="dark"] .ppWarmupAnswers button{background:var(--pp-surface2);color:var(--ink);border-color:var(--pp-border)}
+html[data-theme="dark"] .pipLessonOptions button.pipAnswerCorrect,html[data-theme="dark"] .ppWarmupAnswers button.ppCorrect{background:#173c35;color:#a6eccb}
+/* Chat and overlays */
+html[data-theme="dark"] .coachHeader,html[data-theme="dark"] .coachComposer{background:var(--pp-surface);border-color:var(--pp-border)}
+html[data-theme="dark"] .coachMessages .bubble,
+html[data-theme="dark"] .coachMessages .bubble.pipFlowBubble,
+html[data-theme="dark"] .pipGuideTip{background:var(--pp-surface2);color:var(--ink);border-color:var(--pp-border)}
+html[data-theme="dark"] .coachMessages .bubble.me{background:#34335d;color:#f7f7ff}
+html[data-theme="dark"] .pipFlowIdentity,html[data-theme="dark"] .pipGuideEyebrow{color:#bab6ff}
+html[data-theme="dark"] .pipGuideTip:after{background:var(--pp-surface2);border-color:var(--pp-border)}
+html[data-theme="dark"] .pipGuideTipTop>button,html[data-theme="dark"] .pipGuidePreference button,
+html[data-theme="dark"] .pipFlowActions button,html[data-theme="dark"] .pipRibbonActions button,
+html[data-theme="dark"] .coachQuick button{background:#273657;color:#e2e0ff;border-color:#475a7a}
+html[data-theme="dark"] .pipFlowActions button:first-child,html[data-theme="dark"] .pipRibbonActions button:first-child{background:#6e65d7;color:white}
+html[data-theme="dark"] .pipGuideTitle{color:var(--ink)}
+html[data-theme="dark"] .pipGuideTip p{color:var(--pp-soft)}
+html[data-theme="dark"] .pipGuidePreference,html[data-theme="dark"] .pipLoopRibbon,
+html[data-theme="dark"] .pipRibbonSpeech{background:var(--pp-surface2);border-color:var(--pp-border)}
+html[data-theme="dark"] .pipGuidePreference strong,html[data-theme="dark"] .pipRibbonIdentity{color:var(--ink)}
+html[data-theme="dark"] .pipGuidePreference small,html[data-theme="dark"] .pipLoopRibbon small{color:var(--pp-soft)}
+/* Skill map, progress and competency details */
+html[data-theme="dark"] .pcAssessment,html[data-theme="dark"] .pcEvidencePanel,
+html[data-theme="dark"] .pcStreak,html[data-theme="dark"] .pcCalibrationGrid,
+html[data-theme="dark"] .pcSkillDetail,html[data-theme="dark"] .pcSkillDetail[open],
+html[data-theme="dark"] .ppProgressCard,html[data-theme="dark"] .ppCompetencyBreakdown,
+html[data-theme="dark"] .ppWarmupPanel,html[data-theme="dark"] .pgExplainer,
+html[data-theme="dark"] .pgRoleSummary{background:var(--pp-surface);border-color:var(--pp-border);color:var(--ink)}
+html[data-theme="dark"] .pcSectionHead h3,html[data-theme="dark"] .pcStreak h3,
+html[data-theme="dark"] .pcCalibrationRow strong,html[data-theme="dark"] .pcSkillTitle,
+html[data-theme="dark"] .pcSkillFacts b,html[data-theme="dark"] .pcSkillExplain strong,
+html[data-theme="dark"] .ppProgressTop h3,html[data-theme="dark"] .ppCompetencyBreakdown h4,
+html[data-theme="dark"] .ppCompRow strong,html[data-theme="dark"] .ppWarmupBody h2,
+html[data-theme="dark"] .pgModalContent>h2,html[data-theme="dark"] .pgExplainer h3,
+html[data-theme="dark"] .pgCheck strong,html[data-theme="dark"] .pgSummaryLead strong{color:var(--ink)}
+html[data-theme="dark"] .pcConfidenceChoices button,html[data-theme="dark"] .pcSkillActions a,
+html[data-theme="dark"] .pcPracticeNudge button,html[data-theme="dark"] .ppPracticeControls button,
+html[data-theme="dark"] .ppWarmupButtons button,html[data-theme="dark"] .pgModalActions a{
+ background:var(--pp-surface2);color:#e0ddff;border-color:#455779
+}
+html[data-theme="dark"] .pcConfidenceChoices button.selected,
+html[data-theme="dark"] .pcSkillActions button,
+html[data-theme="dark"] .ppPracticeControls button:first-child,
+html[data-theme="dark"] .ppWarmupButtons button:first-child{background:#7165d9;color:white;border-color:#7165d9}
+html[data-theme="dark"] .pcSkillExplain,html[data-theme="dark"] .pcSkillFacts,
+html[data-theme="dark"] .pcLegend,html[data-theme="dark"] .pcHint,
+html[data-theme="dark"] .ppProgressTop p,html[data-theme="dark"] .ppScoreDisclaimer,
+html[data-theme="dark"] .ppCompetencyBreakdown>p,html[data-theme="dark"] .ppCompRow span,
+html[data-theme="dark"] .ppProgressAdvice p,html[data-theme="dark"] .ppMilestone p,
+html[data-theme="dark"] .pgExplainer p,html[data-theme="dark"] .pgCheck small,
+html[data-theme="dark"] .pgSoftText,html[data-theme="dark"] .pgSummaryLead small,
+html[data-theme="dark"] .pgCurrentEvidence span{color:var(--pp-soft)!important}
+html[data-theme="dark"] .pcSignal,html[data-theme="dark"] .pcSkillTrend,
+html[data-theme="dark"] .pcPracticeNudge,html[data-theme="dark"] .pcWeeklyDots b,
+html[data-theme="dark"] .ppProgressAdvice,html[data-theme="dark"] .ppProgressMeta span,
+html[data-theme="dark"] .ppMilestone,html[data-theme="dark"] .ppWarmupScenario,
+html[data-theme="dark"] .ppWarmupExplanation,html[data-theme="dark"] .ppProgressCard .ppBar,
+html[data-theme="dark"] .pgScenario,html[data-theme="dark"] .pgMetricChips span,
+html[data-theme="dark"] .pgCurrentEvidence>div,html[data-theme="dark"] .pgCheck,
+html[data-theme="dark"] .pgProgressNarrative,html[data-theme="dark"] .pgStatus.neutral{
+ background:var(--pp-surface2);border-color:var(--pp-border);color:var(--pp-soft)
+}
+html[data-theme="dark"] .pgModalContent{color:var(--ink)}
+html[data-theme="dark"] .pgScenario small,html[data-theme="dark"] .pgModalEyebrow,
+html[data-theme="dark"] .ppEyebrow,html[data-theme="dark"] .pcSkillTrend{color:#b6b2ff}
+html[data-theme="dark"] .pgStatus.warning,html[data-theme="dark"] .pcSignal.amber{background:#493a24;color:#ffdda4}
+html[data-theme="dark"] .pgStatus.success,html[data-theme="dark"] .pcSignal.green{background:#21493e;color:#aeedcd}
+html[data-theme="dark"] .pgStatus.info,html[data-theme="dark"] .pcSignal.blue{background:#32366a;color:#d2d1ff}
+html[data-theme="dark"] .pgMetricChips span{color:#d2daff}
+html[data-theme="dark"] .ppScore,html[data-theme="dark"] .ppCaseTrend strong,
+html[data-theme="dark"] .pcStreakNumber{color:#c2bdff}
+html[data-theme="dark"] .ppProgressMeta b,html[data-theme="dark"] .ppProgressAdvice strong,
+html[data-theme="dark"] .pgCurrentEvidence strong,html[data-theme="dark"] .pgProgressNarrative{color:#e4e8ff}
+html[data-theme="dark"] .ppWarmupExplanation p,html[data-theme="dark"] .ppWarmupExplanation strong{color:#b4eccc}
+html[data-theme="dark"] .pipThemeButton,html[data-theme="dark"] .pipWelcomeTheme{background:#2b3457;color:#e8e7ff;border-color:#556288}
+html[data-theme="dark"] .pipThemeButton:hover,html[data-theme="dark"] .pipWelcomeTheme:hover{background:#3a4770}
+/* Preserve the A4 editor as a true white paper artifact in both UI themes. */
+html[data-theme="dark"] .sheetWrap{background:#26334b}
+html[data-theme="dark"] .resumeSheet,html[data-theme="dark"] .resumeSheet *{color:#21233a}
+html[data-theme="dark"] .resumeSheet{background:#fff}
+html[data-theme="dark"] .resumeSheet .rsection{color:#34317f}
+html[data-theme="dark"] .resumeSheet .rscontact{color:#4e5370}
+html[data-theme="dark"] .resumeSheet .rslink{color:#28378a}
+html[data-theme="dark"] .resumeSheet .resumeitem:hover{background:#f1f4ff}
+html[data-theme="dark"] .resumeSheet .paperalert{color:#a23d4b;background:transparent}
+/* Toggle itself */
+.pipThemeButton,.pipWelcomeTheme{display:inline-flex;align-items:center;justify-content:center;gap:6px;flex:none;min-width:78px;padding:8px 10px;border-radius:10px;border:1px solid #dce2f3;background:#fff;color:#4b5793;font-size:11px;font-weight:760;white-space:nowrap;cursor:pointer}
+.pipThemeButton:hover,.pipWelcomeTheme:hover{background:#f1f2ff}
+.pipThemeButton:focus-visible,.pipWelcomeTheme:focus-visible{outline:3px solid #9890ff;outline-offset:2px}
+.pipWelcomeTheme{position:fixed;z-index:60;top:16px;right:18px}
+.pipThemeButton[hidden],.pipWelcomeTheme[hidden]{display:none!important}
+.roleRankExplanation{display:flex;align-items:flex-start;flex-wrap:wrap;gap:8px 12px;margin:0 0 15px;border:1px solid #e2e7f5;border-radius:11px;padding:11px 14px;background:#f3f5fe;color:#64718e;font-size:11px;line-height:1.55}
+.roleRankExplanation strong{color:#4556ab;white-space:nowrap}
+.roleRankHeader{gap:8px}
+.roleRankNumber{width:36px;height:36px;flex:none;border-radius:12px;background:#e9eaff;color:#555bc1;display:grid;place-items:center;font-size:15px;font-weight:870}
+.roleFitMeta{display:flex;flex-wrap:wrap;gap:5px 11px;font-size:10px;color:#76839a;line-height:1.4}
+.roleFitMeta span:first-child{font-weight:750}
+@media(max-width:820px){.pipThemeButton{min-width:auto;padding:8px}.pipThemeButton .pipThemeWord{display:none}}
+@media(max-width:680px){.pipWelcomeTheme{top:12px;right:12px}.pipThemeButton{padding:7px}.roleRankExplanation{font-size:10px}.roleRankNumber{width:32px;height:32px;font-size:13px}}
+@media print{
+ html[data-theme="dark"]{color-scheme:light}
+ html[data-theme="dark"] body,html[data-theme="dark"] .resumeSheet,html[data-theme="dark"] .resumeSheet *{background:white!important;color:#21233a!important}
+ html[data-theme="dark"] .resumeSheet .rsection{color:#34317f!important}
+ .pipThemeButton,.pipWelcomeTheme{display:none!important}
+}
